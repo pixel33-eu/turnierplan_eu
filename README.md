@@ -84,31 +84,40 @@ Die vollständigen Datenverträge, Sicherheitsregeln, UI-Abläufe und Akzeptanzk
 ## Geplante Systemanforderungen
 
 - WordPress 6.5 oder neuer
-- PHP 8.1 oder neuer
+- PHP-Mindestversion noch festzulegen; Planungsvorschlag PHP 8.3 oder neuer
 - HTTPS
 - Block-Theme oder klassisches Theme
 - Classic Editor und viele Page Builder über den Shortcode
 
-Die endgültigen Mindestversionen werden vor dem ersten Release gegen die tatsächlich getestete Kompatibilitätsmatrix geprüft.
+Die endgültigen Mindestversionen werden in Block 1 festgelegt und vor dem ersten Release gegen die tatsächlich getestete Kompatibilitätsmatrix geprüft. Die ursprüngliche PHP-8.1-Vorgabe wird dabei überprüft; die [Roadmap](./WORDPRESS-ROADMAP.md) empfiehlt für die Neuentwicklung PHP 8.3 oder neuer.
 
 ## Installation
 
-Derzeit steht noch kein installierbares Plugin-Paket zur Verfügung. Sobald ein erstes Release veröffentlicht ist, wird es als geprüftes ZIP-Paket über **GitHub Releases** bereitgestellt. Die Installations- und Aktualisierungsschritte werden dann hier dokumentiert.
+Derzeit steht noch kein installierbares Plugin-Paket zur Verfügung. Die Veröffentlichung eines geprüften ZIP-Pakets ist über **GitHub Releases** und nach Zulassung über **WordPress.org** vorgesehen. Die WordPress.org-Ausgabe verwendet deren Updateweg. Die Installations- und Aktualisierungsschritte werden vor dem ersten Release hier dokumentiert.
 
 Bitte verwende bis dahin keine automatisch aus dem Entwicklungszweig erzeugten Archive auf produktiven WordPress-Websites.
 
 ## Roadmap
 
-- [ ] stabile Metadaten- und Embed-Schnittstellen auf Turnierplan.eu
-- [ ] WordPress-Plugin-Grundgerüst und zentrale Konfigurationsvalidierung
-- [ ] dynamischer Block mit Tabellen- und Spielplanvariante
-- [ ] Shortcode und gemeinsamer Renderer
-- [ ] Editor-Vorschau, Filter und Fehlerzustände
-- [ ] wiederverwendbare Presets
-- [ ] Datenschutz-, Barrierefreiheits- und Sicherheitstests
-- [ ] automatisierter Release-Prozess und erstes öffentliches ZIP
+Die [Entwicklungsroadmap in 15 Blöcken](./WORDPRESS-ROADMAP.md) enthält für jeden Block Aufgaben, Abhängigkeiten, Liefergegenstände und Abnahmekriterien:
 
-Die Reihenfolge und die detaillierten Abnahmekriterien sind in der [Produktspezifikation](./WORDPRESS.md#20-umsetzungsetappen) beschrieben.
+- [ ] 01 – Produktentscheidungen und V1-Verträge
+- [ ] 02 – Repository, Entwicklungsumgebung und Plugin-Grundgerüst
+- [ ] 03 – Öffentliche Referenzen, Freigaben und Datenadapter
+- [ ] 04 – Metadaten-API mit Fehlern und Cache
+- [ ] 05 – Embed-Grundlayout und Turniertabelle
+- [ ] 06 – Spielplan, Filter und Live-Aktualisierung
+- [ ] 07 – Browserprotokoll und bestehendes Event-Widget
+- [ ] 08 – Zentrales Konfigurationsmodell und URL-Bau
+- [ ] 09 – Einstellungen, Dienstfreigabe und Metadaten-Proxy
+- [ ] 10 – Gemeinsamer Renderer und Shortcode
+- [ ] 11 – Gutenberg-Block und direkte Vorschau
+- [ ] 12 – Wiederverwendbare Presets und Verwaltungsoberfläche
+- [ ] 13 – Bedienqualität, Barrierefreiheit und Sprachen
+- [ ] 14 – Lebenszyklus, Multisite und Gesamtprüfung
+- [ ] 15 – Dokumentation, Release und WordPress.org
+
+Die ursprüngliche [Produktspezifikation](./WORDPRESS.md) bleibt erhalten. Die Roadmap ergänzt die Bestandsanalyse, notwendige Vertragspräzisierungen, WordPress.org-Vorgaben und das gesonderte Backlog nach Version 1.0.
 
 ## Sicherheit und Datenschutz
 
@@ -145,13 +154,14 @@ Konkrete Entwicklungsbefehle und Contribution-Richtlinien werden ergänzt, sobal
 ## Dokumentation
 
 - [Produktspezifikation und Architektur](./WORDPRESS.md)
+- [Entwicklungsplan in 15 Blöcken](./WORDPRESS-ROADMAP.md)
 - [Turnierplan.eu](https://www.turnierplan.eu/)
 - [WordPress Block Editor Handbook](https://developer.wordpress.org/block-editor/)
 - [WordPress Plugin Handbook](https://developer.wordpress.org/plugins/)
 
 ## Lizenz
 
-Für dieses Repository ist derzeit noch keine Lizenzdatei hinterlegt. Vor einer öffentlichen Code-Veröffentlichung wird eine WordPress-kompatible Open-Source-Lizenz festgelegt und als `LICENSE` ergänzt. Bis dahin werden durch die öffentliche Bereitstellung keine zusätzlichen Nutzungsrechte eingeräumt.
+Die vorhandene Datei [LICENSE](./LICENSE) enthält die GNU General Public License, Version 2. Vor dem ersten Plugin-Release werden die Lizenzangaben in Quelltexten, Plugin-Header, Readme und Abhängigkeiten aufeinander abgestimmt; die genaue Versionsklausel wird dabei ausdrücklich festgelegt.
 
 ---
 
