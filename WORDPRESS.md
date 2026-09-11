@@ -2,9 +2,11 @@
 
 Stand: 11. September 2026
 
-Status: Planungsgrundlage für eine vollständige Neuentwicklung.
+Status: Verbindliche Planungsgrundlage; die Umsetzung läuft entlang der Roadmap.
 
 > **Verbindliche Präzisierung für Version 1.0:** Block 1 der Roadmap ist im [Entscheidungsprotokoll](./docs/block-01/DECISIONS.md) und im [öffentlichen V1-Vertrag](./docs/contracts/v1/README.md) ausgearbeitet. Diese Dokumente schließen unter anderem die offenen Punkte zu Kennungen, Veröffentlichung, Datumsfiltern, Sprache, Branding, Browsernachrichten und Feldzuordnung. Bei einem Widerspruch gilt für die Implementierung der dort dokumentierte V1-Vertrag.
+
+> **Umsetzungsstand:** Block 2 stellt das aktivierbare Plugin-Grundgerüst, die reproduzierbare Entwicklungsumgebung und die Basis-CI bereit. Aufbau, Abhängigkeiten und Abnahme sind unter [`docs/block-02`](./docs/block-02/IMPLEMENTATION.md) dokumentiert.
 
 ## 1. Ziel
 
@@ -900,7 +902,7 @@ Da WordPress aktuell `block.json` als kanonische Blockbeschreibung empfiehlt, wi
 - WordPress Coding Standards über PHP_CodeSniffer
 - PHPStan auf sinnvoll hohem Level
 - PHPUnit
-- `@wordpress/scripts` für Build, Lint und Tests
+- `@wordpress/eslint-plugin` für WordPress-JavaScript-Regeln und eine schlanke, auditierbare Build-Kette; weitere `@wordpress/*`-Pakete nur nach tatsächlichem Bedarf
 - Playwright für Editor- und Frontend-E2E
 - Plugin Check vor jedem WordPress.org-Release
 - Accessibility-Prüfung automatisiert plus manuelle Tastaturkontrolle

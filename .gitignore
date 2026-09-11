@@ -1,0 +1,12 @@
+/build/
+/coverage/
+/node_modules/
+/vendor/
+/.phpunit.cache/
+/.phpunit.result.cache
+/.phpstan-cache/
+/.wp-env.override.json
+/.env
+/.env.*
+*.log
+*.zip

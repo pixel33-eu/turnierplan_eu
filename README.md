@@ -3,7 +3,7 @@
 Turnierpläne, Tabellen und Ergebnisse von [Turnierplan.eu](https://www.turnierplan.eu/) direkt in WordPress einbetten – ohne Ergebnisse doppelt zu pflegen und ohne eigenes HTML schreiben zu müssen.
 
 > [!IMPORTANT]
-> Das WordPress-Plugin befindet sich derzeit in der Konzept- und Entwicklungsphase. Es gibt noch kein produktionsreifes Release. Die technische Produktspezifikation liegt in [`WORDPRESS.md`](./WORDPRESS.md).
+> Das WordPress-Plugin besitzt ein aktivierbares und geprüftes Entwicklungsgrundgerüst. Die eigentlichen Embed-Funktionen folgen in den nächsten Roadmap-Blöcken; ein produktionsreifes Release gibt es noch nicht. Die technische Produktspezifikation liegt in [`WORDPRESS.md`](./WORDPRESS.md).
 
 ## Ziel des Projekts
 
@@ -93,7 +93,7 @@ Diese Mindestwerte wurden in Block 1 als Arbeitsgrundlage festgelegt. Vor dem er
 
 ## Installation
 
-Derzeit steht noch kein installierbares Plugin-Paket zur Verfügung. Die Veröffentlichung eines geprüften ZIP-Pakets ist über **GitHub Releases** und nach Zulassung über **WordPress.org** vorgesehen. Die WordPress.org-Ausgabe verwendet deren Updateweg. Die Installations- und Aktualisierungsschritte werden vor dem ersten Release hier dokumentiert.
+Der Quellstand lässt sich für die Entwicklung bereits als Plugin-Verzeichnis installieren und aktivieren. Einrichtung, lokale WordPress-Instanz und alle Prüfkommandos sind in [`DEVELOPMENT.md`](./DEVELOPMENT.md) beschrieben. Ein geprüftes Release-ZIP steht noch nicht zur Verfügung. Die spätere Veröffentlichung ist über **GitHub Releases** und nach Zulassung über **WordPress.org** vorgesehen.
 
 Bitte verwende bis dahin keine automatisch aus dem Entwicklungszweig erzeugten Archive auf produktiven WordPress-Websites.
 
@@ -102,7 +102,7 @@ Bitte verwende bis dahin keine automatisch aus dem Entwicklungszweig erzeugten A
 Die [Entwicklungsroadmap in 15 Blöcken](./WORDPRESS-ROADMAP.md) enthält für jeden Block Aufgaben, Abhängigkeiten, Liefergegenstände und Abnahmekriterien:
 
 - [x] 01 – Produktentscheidungen und V1-Verträge
-- [ ] 02 – Repository, Entwicklungsumgebung und Plugin-Grundgerüst
+- [x] 02 – Repository, Entwicklungsumgebung und Plugin-Grundgerüst
 - [ ] 03 – Öffentliche Referenzen, Freigaben und Datenadapter
 - [ ] 04 – Metadaten-API mit Fehlern und Cache
 - [ ] 05 – Embed-Grundlayout und Turniertabelle
@@ -139,7 +139,7 @@ Beiträge dürfen keinen kopierten Code und keine unzulässig verwendeten Assets
 
 ## Mitwirken
 
-Das Projekt befindet sich noch vor der Implementierungsphase. Hinweise zur Produktspezifikation, reproduzierbare Fehlerberichte und klar abgegrenzte Verbesserungsvorschläge sind willkommen.
+Die Implementierung läuft blockweise anhand der Roadmap. Hinweise zur Produktspezifikation, reproduzierbare Fehlerberichte und klar abgegrenzte Verbesserungsvorschläge sind willkommen.
 
 Für spätere Pull Requests gelten voraussichtlich folgende Grundsätze:
 
@@ -149,7 +149,7 @@ Für spätere Pull Requests gelten voraussichtlich folgende Grundsätze:
 - sichtbare Texte übersetzbar halten;
 - Änderungen an Verhalten oder Datenverträgen dokumentieren.
 
-Konkrete Entwicklungsbefehle und Contribution-Richtlinien werden ergänzt, sobald das Plugin-Grundgerüst vorhanden ist.
+Die konkreten Entwicklungsbefehle, Laufzeitgrenzen und Prüfungen stehen in [`DEVELOPMENT.md`](./DEVELOPMENT.md).
 
 ## Dokumentation
 
@@ -157,6 +157,9 @@ Konkrete Entwicklungsbefehle und Contribution-Richtlinien werden ergänzt, sobal
 - [Entwicklungsplan in 15 Blöcken](./WORDPRESS-ROADMAP.md)
 - [Entscheidungsprotokoll für Block 1](./docs/block-01/DECISIONS.md)
 - [Öffentlicher Embed-Vertrag V1](./docs/contracts/v1/README.md)
+- [Entwicklungsanleitung](./DEVELOPMENT.md)
+- [Umsetzung und Abnahme von Block 2](./docs/block-02/IMPLEMENTATION.md)
+- [Abhängigkeiten und Lizenzen](./docs/block-02/DEPENDENCIES.md)
 - [Turnierplan.eu](https://www.turnierplan.eu/)
 - [WordPress Block Editor Handbook](https://developer.wordpress.org/block-editor/)
 - [WordPress Plugin Handbook](https://developer.wordpress.org/plugins/)
@@ -164,7 +167,3 @@ Konkrete Entwicklungsbefehle und Contribution-Richtlinien werden ergänzt, sobal
 ## Lizenz
 
 Die vorhandene Datei [LICENSE](./LICENSE) enthält die GNU General Public License, Version 2. Vor dem ersten Plugin-Release werden die Lizenzangaben in Quelltexten, Plugin-Header, Readme und Abhängigkeiten aufeinander abgestimmt; die genaue Versionsklausel wird dabei ausdrücklich festgelegt.
-
----
-
-**Kurz gesagt:** Turniere einmal auf Turnierplan.eu pflegen und anschließend aktuell, responsiv und komfortabel in WordPress anzeigen.

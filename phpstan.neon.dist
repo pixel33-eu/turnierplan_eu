@@ -1,0 +1,10 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+    level: 8
+    paths:
+        - turnierplan-eu.php
+        - src
+        - tests
+    tmpDir: .phpstan-cache

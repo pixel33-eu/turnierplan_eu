@@ -1,0 +1,27 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "preferredVersions": {
+    "php": "8.3",
+    "wp": "6.5"
+  },
+  "landingPage": "/wp-admin/plugins.php",
+  "steps": [
+    {
+      "step": "login",
+      "username": "admin",
+      "password": "password"
+    },
+    {
+      "step": "activatePlugin",
+      "pluginPath": "/wordpress/wp-content/plugins/turnierplan-eu"
+    },
+    {
+      "step": "defineWpConfigConsts",
+      "consts": {
+        "WP_DEBUG": true,
+        "SCRIPT_DEBUG": true,
+        "WP_ENVIRONMENT_TYPE": "local"
+      }
+    }
+  ]
+}

@@ -91,6 +91,8 @@ Nach Block 1 können die Backend-Arbeiten 3–7 und die WordPress-Grundlagen 2/8
 
 **Ziel:** Eine reproduzierbare Grundlage für Entwicklung und Prüfung. Bezug: §§5.1, 10.1–10.2, 12.6, 18.5.
 
+**Status:** Abgeschlossen am 11. September 2026. Das aktivierbare Grundgerüst, die Entwicklungsbefehle, Lockfiles, Qualitätsprüfungen und CI liegen im Repository. Aufbau und Prüfnachweise stehen in [`docs/block-02/IMPLEMENTATION.md`](docs/block-02/IMPLEMENTATION.md).
+
 **Arbeitspakete:**
 
 - Das bereits angebundene GitHub-Repository als Entwicklungsquelle verwenden; überschaubare Änderungen und dokumentierte Prüfungen pro Block vorsehen.

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ruleset name="Turnierplan.eu WordPress Plugin">
+	<description>WordPress Coding Standards for the Turnierplan.eu plugin.</description>
+
+	<arg name="basepath" value="."/>
+	<arg name="colors"/>
+	<arg name="extensions" value="php"/>
+	<arg value="sp"/>
+
+	<file>turnierplan-eu.php</file>
+	<file>src</file>
+	<file>tests</file>
+
+	<exclude-pattern>vendor/*</exclude-pattern>
+
+	<rule ref="WordPress-Core"/>
+	<rule ref="WordPress-Extra"/>
+	<rule ref="WordPress-Docs"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="turnierplan-eu"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="TPEU"/>
+				<element value="tpeu"/>
+				<element value="TurnierplanEU"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
+		<exclude-pattern>tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
+		<exclude-pattern>tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.WP.CapitalPDangit.MisspelledInText">
+		<exclude-pattern>tests/*</exclude-pattern>
+	</rule>
+</ruleset>

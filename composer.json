@@ -1,0 +1,47 @@
+{
+    "name": "pixel33/turnierplan-eu",
+    "description": "WordPress plugin for embedding public tournaments from Turnierplan.eu.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=8.3"
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.2",
+        "phpstan/phpstan": "^2.2",
+        "phpunit/phpunit": "^10.5",
+        "szepeviktor/phpstan-wordpress": "^2.0",
+        "wp-coding-standards/wpcs": "^3.4"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TurnierplanEU\\WordPress\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "analyse": "phpstan analyse --configuration=phpstan.neon.dist --memory-limit=512M",
+        "check": [
+            "@lint",
+            "@analyse",
+            "@test"
+        ],
+        "lint": "phpcs --standard=phpcs.xml.dist",
+        "lint:fix": "phpcbf --standard=phpcs.xml.dist",
+        "test": "phpunit --configuration=phpunit.xml.dist"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "sort-packages": true
+    },
+    "support": {
+        "issues": "https://github.com/pixel33-eu/turnierplan_eu/issues",
+        "source": "https://github.com/pixel33-eu/turnierplan_eu"
+    }
+}
