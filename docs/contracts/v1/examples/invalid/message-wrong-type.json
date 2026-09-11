@@ -1,0 +1,9 @@
+{
+  "type": "other-service/embed",
+  "version": 1,
+  "instance": "550e8400-e29b-41d4-a716-446655440000",
+  "event": "resize",
+  "payload": {
+    "height": 742
+  }
+}

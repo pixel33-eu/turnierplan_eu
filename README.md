@@ -40,7 +40,7 @@ Eine Tabelle soll später mit einem kompakten Shortcode eingebunden werden könn
 Ein gefilterter Spielplan könnte so aussehen:
 
 ```text
-[turnierplan tournament="12345" view="matches" group="gruppe-a"]
+[turnierplan tournament="12345" view="matches" group="grp_01k4f70bcde2fgh3jkm4npq5rs"]
 ```
 
 Standardwerte werden bewusst nicht in den generierten Shortcode geschrieben. Block, Shortcode und Preset verwenden intern dasselbe validierte Konfigurationsmodell.
@@ -79,17 +79,17 @@ Die geplante Architektur umfasst:
 - fest definierte Turnierplan.eu-Endpunkte statt frei eingebbarer Remote-URLs;
 - ein versioniertes Konfigurationsschema für spätere Migrationen.
 
-Die vollständigen Datenverträge, Sicherheitsregeln, UI-Abläufe und Akzeptanzkriterien stehen in [`WORDPRESS.md`](./WORDPRESS.md).
+Die Produktspezifikation, Sicherheitsregeln, UI-Abläufe und Akzeptanzkriterien stehen in [`WORDPRESS.md`](./WORDPRESS.md). Die verbindlichen Datenverträge für Version 1 liegen unter [`docs/contracts/v1`](./docs/contracts/v1/README.md).
 
 ## Geplante Systemanforderungen
 
 - WordPress 6.5 oder neuer
-- PHP-Mindestversion noch festzulegen; Planungsvorschlag PHP 8.3 oder neuer
+- PHP 8.3 oder neuer
 - HTTPS
 - Block-Theme oder klassisches Theme
 - Classic Editor und viele Page Builder über den Shortcode
 
-Die endgültigen Mindestversionen werden in Block 1 festgelegt und vor dem ersten Release gegen die tatsächlich getestete Kompatibilitätsmatrix geprüft. Die ursprüngliche PHP-8.1-Vorgabe wird dabei überprüft; die [Roadmap](./WORDPRESS-ROADMAP.md) empfiehlt für die Neuentwicklung PHP 8.3 oder neuer.
+Diese Mindestwerte wurden in Block 1 als Arbeitsgrundlage festgelegt. Vor dem ersten Release werden sie gegen die tatsächlich getestete Kompatibilitätsmatrix und den dann aktuellen Sicherheitsstatus geprüft.
 
 ## Installation
 
@@ -101,7 +101,7 @@ Bitte verwende bis dahin keine automatisch aus dem Entwicklungszweig erzeugten A
 
 Die [Entwicklungsroadmap in 15 Blöcken](./WORDPRESS-ROADMAP.md) enthält für jeden Block Aufgaben, Abhängigkeiten, Liefergegenstände und Abnahmekriterien:
 
-- [ ] 01 – Produktentscheidungen und V1-Verträge
+- [x] 01 – Produktentscheidungen und V1-Verträge
 - [ ] 02 – Repository, Entwicklungsumgebung und Plugin-Grundgerüst
 - [ ] 03 – Öffentliche Referenzen, Freigaben und Datenadapter
 - [ ] 04 – Metadaten-API mit Fehlern und Cache
@@ -155,6 +155,8 @@ Konkrete Entwicklungsbefehle und Contribution-Richtlinien werden ergänzt, sobal
 
 - [Produktspezifikation und Architektur](./WORDPRESS.md)
 - [Entwicklungsplan in 15 Blöcken](./WORDPRESS-ROADMAP.md)
+- [Entscheidungsprotokoll für Block 1](./docs/block-01/DECISIONS.md)
+- [Öffentlicher Embed-Vertrag V1](./docs/contracts/v1/README.md)
 - [Turnierplan.eu](https://www.turnierplan.eu/)
 - [WordPress Block Editor Handbook](https://developer.wordpress.org/block-editor/)
 - [WordPress Plugin Handbook](https://developer.wordpress.org/plugins/)

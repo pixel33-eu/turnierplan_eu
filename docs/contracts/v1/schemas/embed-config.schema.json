@@ -1,0 +1,259 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.turnierplan.eu/schemas/embed/v1/embed-config.schema.json",
+  "title": "Turnierplan WordPress embed configuration V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "tournamentRef",
+    "view",
+    "language",
+    "group",
+    "participant",
+    "matchFrom",
+    "matchTo",
+    "dateFrom",
+    "dateTo",
+    "theme",
+    "density",
+    "accentColor",
+    "showBranding",
+    "openLinksInNewTab",
+    "minHeight",
+    "maxHeight",
+    "showTeamLogos",
+    "showPlayed",
+    "showWinsDrawsLosses",
+    "showScoreBalance",
+    "showPoints",
+    "enableGroupNavigation",
+    "showMatchNumber",
+    "showDate",
+    "showTime",
+    "showField",
+    "showGroup",
+    "showRound",
+    "showReferee",
+    "showLiveState",
+    "showExtraTime",
+    "showPenaltyResult"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "tournamentRef": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^(?:trn_[0-9a-hjkmnp-tv-z]{26}|[1-9][0-9]{0,19}|[a-z0-9]+(?:-[a-z0-9]+)*)$"
+    },
+    "view": {
+      "enum": [
+        "standings",
+        "matches"
+      ],
+      "default": "standings"
+    },
+    "language": {
+      "type": "string",
+      "pattern": "^(?:auto|[a-z]{2,3}(?:-[A-Z]{2})?)$",
+      "default": "auto"
+    },
+    "group": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^grp_[0-9a-hjkmnp-tv-z]{26}$",
+      "default": null
+    },
+    "participant": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^ptc_[0-9a-hjkmnp-tv-z]{26}$",
+      "default": null
+    },
+    "matchFrom": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1,
+      "maximum": 999999,
+      "default": null
+    },
+    "matchTo": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1,
+      "maximum": 999999,
+      "default": null
+    },
+    "dateFrom": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])$",
+      "default": null
+    },
+    "dateTo": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])$",
+      "default": null
+    },
+    "theme": {
+      "enum": [
+        "auto",
+        "light",
+        "dark"
+      ],
+      "default": "auto"
+    },
+    "density": {
+      "enum": [
+        "comfortable",
+        "compact"
+      ],
+      "default": "comfortable"
+    },
+    "accentColor": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^#[0-9A-Fa-f]{6}$",
+      "default": null
+    },
+    "showBranding": {
+      "type": "boolean",
+      "default": true
+    },
+    "openLinksInNewTab": {
+      "type": "boolean",
+      "default": true
+    },
+    "minHeight": {
+      "type": "integer",
+      "minimum": 160,
+      "maximum": 2000,
+      "default": 240
+    },
+    "maxHeight": {
+      "type": "integer",
+      "minimum": 300,
+      "maximum": 8000,
+      "default": 4000
+    },
+    "showTeamLogos": {
+      "type": "boolean",
+      "default": true
+    },
+    "showPlayed": {
+      "type": "boolean",
+      "default": true
+    },
+    "showWinsDrawsLosses": {
+      "type": "boolean",
+      "default": true
+    },
+    "showScoreBalance": {
+      "type": "boolean",
+      "default": true
+    },
+    "showPoints": {
+      "type": "boolean",
+      "default": true
+    },
+    "enableGroupNavigation": {
+      "type": "boolean",
+      "default": true
+    },
+    "showMatchNumber": {
+      "type": "boolean",
+      "default": true
+    },
+    "showDate": {
+      "enum": [
+        "auto",
+        "show",
+        "hide"
+      ],
+      "default": "auto"
+    },
+    "showTime": {
+      "type": "boolean",
+      "default": true
+    },
+    "showField": {
+      "type": "boolean",
+      "default": true
+    },
+    "showGroup": {
+      "type": "boolean",
+      "default": true
+    },
+    "showRound": {
+      "type": "boolean",
+      "default": true
+    },
+    "showReferee": {
+      "type": "boolean",
+      "default": true
+    },
+    "showLiveState": {
+      "type": "boolean",
+      "default": true
+    },
+    "showExtraTime": {
+      "type": "boolean",
+      "default": true
+    },
+    "showPenaltyResult": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "view": {
+            "const": "standings"
+          }
+        },
+        "required": [
+          "view"
+        ]
+      },
+      "then": {
+        "properties": {
+          "participant": {
+            "type": "null"
+          },
+          "matchFrom": {
+            "type": "null"
+          },
+          "matchTo": {
+            "type": "null"
+          },
+          "dateFrom": {
+            "type": "null"
+          },
+          "dateTo": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}

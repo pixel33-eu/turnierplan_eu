@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.turnierplan.eu/schemas/embed/v1/embed-message.schema.json",
+  "title": "Turnierplan embed browser message V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "version",
+    "instance",
+    "event",
+    "payload"
+  ],
+  "properties": {
+    "type": {
+      "const": "turnierplan.eu/embed"
+    },
+    "version": {
+      "const": 1
+    },
+    "instance": {
+      "$ref": "#/$defs/uuidV4"
+    },
+    "event": {
+      "enum": [
+        "ready",
+        "resize",
+        "status"
+      ]
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "event": {
+          "const": "ready"
+        },
+        "payload": {
+          "$ref": "#/$defs/readyPayload"
+        }
+      }
+    },
+    {
+      "properties": {
+        "event": {
+          "const": "resize"
+        },
+        "payload": {
+          "$ref": "#/$defs/resizePayload"
+        }
+      }
+    },
+    {
+      "properties": {
+        "event": {
+          "const": "status"
+        },
+        "payload": {
+          "$ref": "#/$defs/statusPayload"
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "uuidV4": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "height": {
+      "type": "integer",
+      "minimum": 160,
+      "maximum": 8000
+    },
+    "language": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
+    },
+    "warning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "parameter"
+      ],
+      "properties": {
+        "code": {
+          "const": "filter_ignored"
+        },
+        "parameter": {
+          "enum": [
+            "group",
+            "participant"
+          ]
+        }
+      }
+    },
+    "readyPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "view",
+        "resolved_language",
+        "height",
+        "warnings"
+      ],
+      "properties": {
+        "view": {
+          "enum": [
+            "standings",
+            "matches"
+          ]
+        },
+        "resolved_language": {
+          "$ref": "#/$defs/language"
+        },
+        "height": {
+          "$ref": "#/$defs/height"
+        },
+        "warnings": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/warning"
+          }
+        }
+      }
+    },
+    "resizePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "height"
+      ],
+      "properties": {
+        "height": {
+          "$ref": "#/$defs/height"
+        }
+      }
+    },
+    "statusPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "loading",
+            "ready",
+            "empty",
+            "stale",
+            "error"
+          ]
+        },
+        "code": {
+          "enum": [
+            "filter_ignored",
+            "refresh_failed",
+            "invalid_reference",
+            "invalid_parameter",
+            "tournament_not_found",
+            "view_unavailable",
+            "rate_limited",
+            "temporarily_unavailable"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "stale",
+                  "error"
+                ]
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "required": [
+              "code"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

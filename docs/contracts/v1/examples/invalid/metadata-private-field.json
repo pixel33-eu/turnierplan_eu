@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "response_language": "de",
+  "tournament": {
+    "ref": "trn_01k4f6y7m8n9p0q1r2s3t4v5wx",
+    "title": "Waldstadt-Pokal 2026",
+    "state": "live",
+    "default_language": "de",
+    "timezone": "Europe/Berlin",
+    "starts_on": "2026-09-12",
+    "ends_on": "2026-09-13",
+    "public_url": "https://www.turnierplan.eu/t/trn_01k4f6y7m8n9p0q1r2s3t4v5wx",
+    "updated_at": "2026-09-12T10:15:00Z",
+    "score_unit": "goals",
+    "refresh_interval_seconds": 30,
+    "owner_email": "private@example.test"
+  },
+  "supported_languages": [
+    "de",
+    "en"
+  ],
+  "views": [
+    {
+      "id": "standings",
+      "filters": [
+        "group"
+      ],
+      "options": [
+        "played",
+        "points"
+      ]
+    }
+  ],
+  "groups": [],
+  "participants": [],
+  "branding": {
+    "policy": "required",
+    "default_visible": true
+  }
+}

@@ -4,6 +4,8 @@ Stand: 11. September 2026
 
 Status: Planungsgrundlage für eine vollständige Neuentwicklung.
 
+> **Verbindliche Präzisierung für Version 1.0:** Block 1 der Roadmap ist im [Entscheidungsprotokoll](./docs/block-01/DECISIONS.md) und im [öffentlichen V1-Vertrag](./docs/contracts/v1/README.md) ausgearbeitet. Diese Dokumente schließen unter anderem die offenen Punkte zu Kennungen, Veröffentlichung, Datumsfiltern, Sprache, Branding, Browsernachrichten und Feldzuordnung. Bei einem Widerspruch gilt für die Implementierung der dort dokumentierte V1-Vertrag.
+
 ## 1. Ziel
 
 Wir bauen ein eigenständiges WordPress-Plugin, mit dem öffentliche Turniere von Turnierplan.eu in WordPress-Seiten eingebettet werden können. Die erste Version stellt mindestens folgende Ansichten bereit:
@@ -95,7 +97,7 @@ Das Plugin darf nicht direkt von der internen Struktur von `scores.php` abhängi
 
 ### 5.1 Eigene Identität
 
-Vorgeschlagene technische Identität:
+Für die Implementierung festgelegte technische Identität:
 
 | Element | Wert |
 | --- | --- |
@@ -154,10 +156,10 @@ Die einfache Einrichtung wird messbar gemacht:
 1. Administrator installiert und aktiviert das Plugin.
 2. Unter „Einstellungen → Turnierplan.eu“ wird erklärt, dass öffentliche Inhalte von Turnierplan.eu geladen werden.
 3. Der Administrator bestätigt die Nutzung des externen Dienstes und kann optional Standardwerte festlegen.
-4. Das Plugin führt einen Verbindungstest zum Metadaten-Endpunkt aus.
+4. Nach der Freigabe kann der Administrator mit einer selbst eingegebenen Turnierreferenz einen Verbindungstest ausführen.
 5. Es werden keine Turnierplan.eu-Zugangsdaten benötigt, solange ausschließlich öffentliche Turniere eingebettet werden.
 
-Die Aktivierung allein startet keinen unaufgeforderten Netzaufruf. Der erste Abruf erfolgt nach bewusster Konfiguration beziehungsweise sobald ein Redakteur eine Turnierreferenz eingibt.
+Die Aktivierung allein startet keinen unaufgeforderten Netzaufruf. Vor der Administratorfreigabe entstehen weder Remote-Abfragen noch Iframes. Danach erfolgt der erste Abruf erst durch „Turnier verbinden“ beziehungsweise den ausdrücklichen Verbindungstest, nicht bereits durch das Einfügen eines leeren Blocks.
 
 ### 6.2 Direkte Block-Konfiguration
 
@@ -192,8 +194,8 @@ Weitere Beispiele:
 
 ```text
 [turnierplan preset="87"]
-[turnierplan tournament="sommer-cup-2026" view="matches" group="A"]
-[turnierplan tournament="12345" view="matches" participant="team-public-id" from="2026-09-09" to="2026-09-10"]
+[turnierplan tournament="sommer-cup-2026" view="matches" group="grp_01k4f70bcde2fgh3jkm4npq5rs"]
+[turnierplan tournament="12345" view="matches" participant="ptc_01k4f71bcde2fgh3jkm4npq5rs" date_from="2026-09-09" date_to="2026-09-10"]
 ```
 
 Erlaubte Shortcode-Attribute entsprechen einem bewusst begrenzten Teil des Konfigurationsschemas. Unbekannte Attribute werden ignoriert. Der Shortcode darf keine beliebige Remote-URL akzeptieren.
@@ -262,9 +264,11 @@ Die interne Konfiguration verwendet sprechende, englische Schlüssel, damit PHP,
 | `participant` | String/null | `null` | ausschließlich öffentliche Teilnehmerkennung aus den Metadaten |
 | `matchFrom` | Integer/null | `null` | mindestens 1 |
 | `matchTo` | Integer/null | `null` | mindestens `matchFrom` |
+| `dateFrom` | String/null | `null` | `YYYY-MM-DD`, inklusive, in der Turnierzeitzone |
+| `dateTo` | String/null | `null` | `YYYY-MM-DD`, inklusive und nicht vor `dateFrom` |
 | `theme` | Enum | `auto` | `auto`, `light`, `dark` |
 | `density` | Enum | `comfortable` | `compact`, `comfortable` |
-| `accentColor` | String | leer | gültige 6-stellige Hex-Farbe oder leer |
+| `accentColor` | String/null | `null` | gültige 6-stellige Hex-Farbe mit `#` oder `null` |
 | `showBranding` | Boolean | `true` | serverseitige Tarifregeln haben Vorrang |
 | `openLinksInNewTab` | Boolean | `true` | steuert Linkverhalten im Frame |
 | `minHeight` | Integer | `240` | 160–2000 Pixel; nur Fallback |
@@ -310,16 +314,16 @@ Optional können später unter „Erweitert“ kontrollierte CSS-Variablen ergä
 
 - Basisdomain ist fest `https://www.turnierplan.eu`.
 - Jede Schnittstelle trägt eine explizite Hauptversion im Pfad.
-- Nur aktive und öffentlich freigegebene Turniere dürfen ohne Authentifizierung ausgeliefert werden.
+- Nur ausdrücklich öffentlich freigegebene Turniere dürfen ohne Authentifizierung ausgeliefert werden. Der sportliche Zustand `upcoming`, `live`, `completed` oder `cancelled` wird davon getrennt behandelt.
 - Alle Antworten sind UTF-8.
 - Fehler verwenden passende HTTP-Statuscodes und stabile maschinenlesbare Fehlercodes.
 - Antworten unterstützen ETag und sinnvolle `Cache-Control`-Header.
-- Unbekannte Query-Parameter werden ignoriert oder mit `400` abgewiesen; sie dürfen niemals direkt in HTML/CSS gelangen.
+- Unbekannte Query-Parameter werden mit `400` abgewiesen und dürfen niemals direkt in HTML/CSS gelangen.
 - API und Frame dürfen weder E-Mail-Adressen noch interne Hashes, Benutzer-IDs, private Notizen oder andere Verwaltungsdaten ausgeben.
 
 ### 9.2 Metadaten-Endpunkt
 
-Vorschlag:
+Vertrag:
 
 ```text
 GET /api/embed/v1/tournaments/{public-ref}/metadata?lang=de
@@ -327,38 +331,9 @@ GET /api/embed/v1/tournaments/{public-ref}/metadata?lang=de
 
 Zweck: Block-Editor, Preset-Editor und Verbindungstest. Dieser Endpunkt liefert kleine, für die Konfiguration geeignete Daten und kein vollständiges Turnier.
 
-Beispiel für unser eigenes Zielschema:
+Das vollständige Zielschema liegt in [`metadata-response.schema.json`](./docs/contracts/v1/schemas/metadata-response.schema.json), ein geprüftes Beispiel in [`metadata-success.json`](./docs/contracts/v1/examples/valid/metadata-success.json). Es enthält kanonische Kennungen, sportlichen Zustand, IANA-Zeitzone, unterstützte Sprachen, Ansichten mit ihren Filtern und Optionen sowie die serverseitige Branding-Richtlinie.
 
-```json
-{
-  "schema_version": 1,
-  "tournament": {
-    "ref": "12345",
-    "title": "Sommer-Cup 2026",
-    "status": "active",
-    "language": "de",
-    "public_url": "https://www.turnierplan.eu/live.php?id=12345",
-    "updated_at": "2026-09-09T18:45:00Z"
-  },
-  "views": ["standings", "matches"],
-  "groups": [
-    {"id": "A", "label": "Gruppe A"}
-  ],
-  "participants": [
-    {"id": "team-1", "label": "Beispielteam", "group_id": "A"}
-  ],
-  "capabilities": {
-    "has_standings": true,
-    "has_playoffs": true,
-    "has_fields": true,
-    "has_referees": false,
-    "has_team_logos": true,
-    "has_live_state": true
-  }
-}
-```
-
-Wichtig: Öffentliche Teilnehmerkennungen müssen stabil sein. Positionsnummern dürfen nur verwendet werden, wenn sie innerhalb eines laufenden Turniers nicht neu vergeben werden.
+Öffentliche Turnier-, Gruppen- und Teilnehmerkennungen sind dauerhaft stabil und unabhängig von Name, Position und Gruppeneinteilung. Numerische IDs und bestehende Slugs sind ausschließlich Eingabe-Aliase; die API antwortet mit der kanonischen Kennung.
 
 Empfohlene Antwortheader:
 
@@ -371,7 +346,7 @@ X-Content-Type-Options: nosniff
 
 ### 9.3 Frame-Endpunkt
 
-Vorschlag:
+Vertrag:
 
 ```text
 GET /embed/v1/tournaments/{public-ref}
@@ -383,15 +358,21 @@ Unterstützte Query-Parameter sind eine explizite Allowlist:
 | --- | --- | --- |
 | `view` | `matches` | Ansicht |
 | `lang` | `de` | Sprache |
-| `group` | `A` | Gruppenfilter |
-| `participant` | `team-1` | Teilnehmerfilter |
+| `group` | `grp_…` | stabile Gruppenkennung |
+| `participant` | `ptc_…` | stabile Teilnehmerkennung |
 | `match_from` | `4` | erste Spielnummer |
 | `match_to` | `12` | letzte Spielnummer |
+| `date_from` | `2026-09-09` | erstes lokales Turnierdatum, inklusive |
+| `date_to` | `2026-09-10` | letztes lokales Turnierdatum, inklusive |
 | `theme` | `dark` | Farbvariante |
 | `density` | `compact` | Darstellungsdichte |
 | `accent` | `16a34a` | Akzentfarbe ohne `#` |
 | `show` | `time,field,group` | positive Allowlist sichtbarer Elemente |
-| `instance` | UUID | Zuordnung der Resize-Nachricht |
+| `date` | `auto` | Datum automatisch, immer oder nie anzeigen |
+| `branding` | `show` | Wunsch; Serverrichtlinie hat Vorrang |
+| `links` | `new-tab` | Linkziel |
+| `instance` | UUID v4 | Zuordnung der Browsernachricht |
+| `parent_origin` | `https://verein.example` | konkretes Nachrichtenziel |
 
 Boolean-Schalter werden möglichst als positive, lesbare Liste übertragen. Das vermeidet schwer verständliche Negativoptionen.
 
@@ -406,16 +387,19 @@ Der Frame:
 - zeigt einen Link zur vollständigen Turnierseite;
 - meldet seine Höhe nach Laden und Größenänderungen.
 
-### 9.4 Resize-Protokoll
+### 9.4 Browserprotokoll
 
 Eigener Nachrichtentyp:
 
 ```json
 {
-  "type": "turnierplan.eu/embed-resize",
+  "type": "turnierplan.eu/embed",
   "version": 1,
-  "instance": "9d938fc0-41ff-4d75-8cc7-e44bc6656e11",
-  "height": 684
+  "instance": "550e8400-e29b-41d4-a716-446655440000",
+  "event": "resize",
+  "payload": {
+    "height": 684
+  }
 }
 ```
 
@@ -423,12 +407,12 @@ Regeln im WordPress-Empfänger:
 
 1. `event.origin` muss exakt `https://www.turnierplan.eu` sein.
 2. `event.source` muss dem `contentWindow` des zugehörigen Iframes entsprechen.
-3. `type`, `version` und `instance` müssen passen.
-4. `height` muss eine endliche Zahl innerhalb 160–8000 sein.
+3. `type`, `version`, `event` und `instance` müssen passen.
+4. Die Nutzlast muss dem Ereignis entsprechen; `height` ist eine endliche Ganzzahl innerhalb 160–8000.
 5. Breite wird nicht per Nachricht in feste Pixel umgestellt; der Iframe bleibt `width: 100%`.
 6. Pro Iframe wird nur ein Listener verwaltet und beim Entfernen aufgeräumt.
 
-Wenn die Eltern-Domain an den Frame übergeben und serverseitig validiert wird, soll der Frame `postMessage` zusätzlich auf diese konkrete Origin statt auf `*` begrenzen.
+Der Renderer übergibt `parent_origin`; der Frame validiert sie als Origin und verwendet sie als konkretes `postMessage`-Ziel statt `*`. Neben `resize` sind `ready` und `status` verbindlich. Das vollständige Schema steht in [`embed-message.schema.json`](./docs/contracts/v1/schemas/embed-message.schema.json).
 
 ### 9.5 Fehlervertrag
 
@@ -783,10 +767,10 @@ Fehlertexte enthalten eine konkrete nächste Aktion, aber keine internen Serverd
 Das Plugin muss in `readme.txt` klar erklären:
 
 - dass es öffentliche Turnierinhalte von `https://www.turnierplan.eu` einbettet;
-- wann eine Verbindung entsteht: im Editor nach Eingabe einer Turnierreferenz und im Frontend beim Laden einer Seite mit Embed;
-- welche Parameter übertragen werden: öffentliche Turnierreferenz, Anzeigeoptionen, Sprache und technisch übliche HTTP-Daten wie IP-Adresse, User-Agent, Referrer und Zeitpunkt;
+- wann eine Verbindung entsteht: im Editor nach Administratorfreigabe und der bewussten Aktion „Turnier verbinden“ sowie im Frontend beim Laden einer freigegebenen Seite mit Embed;
+- welche Parameter übertragen werden: öffentliche Turnierreferenz, Anzeigeoptionen, Sprache, die für Browsernachrichten benötigte WordPress-Origin und technisch übliche HTTP-Daten wie IP-Adresse, User-Agent, Referrer und Zeitpunkt;
 - dass das Plugin selbst keine Trackingdaten erhebt und keine Telemetrie sendet;
-- ob der Frame Cookies oder Speichermechanismen nutzt; Zielvorgabe ist: keine;
+- dass der Frame gemäß V1-Vertrag keine Cookies oder Browser-Speichermechanismen nutzt;
 - wo Datenschutzerklärung und Nutzungsbedingungen von Turnierplan.eu zu finden sind.
 
 Das Plugin ergänzt über `wp_add_privacy_policy_content()` einen sachlichen Textvorschlag für Websitebetreiber. Es behauptet nicht, dass durch die technische Gestaltung automatisch keine Einwilligung erforderlich sei; die rechtliche Bewertung hängt vom Einsatz und der Website ab.
@@ -851,11 +835,11 @@ Konfigurationen tragen `schemaVersion`. Migrationen sind idempotent, klein und g
 
 ## 17. Kompatibilitätsziel
 
-Vorgeschlagene Ausgangsbasis:
+Festgelegte Ausgangsbasis:
 
 - WordPress 6.5 oder neuer
-- PHP 8.1 oder neuer
-- aktuelle Hauptbrowser mit ES2019-Unterstützung
+- PHP 8.3 oder neuer
+- aktuelle zwei Hauptversionen von Chrome, Edge, Firefox und Safari; funktionale Basis mit ES2019
 - Einzelinstallation und Multisite
 - Block-Themes und klassische Themes
 - Classic Editor über Shortcode
@@ -901,7 +885,7 @@ Da WordPress aktuell `block.json` als kanonische Blockbeschreibung empfiehlt, wi
 ### 18.4 End-to-End-Matrix
 
 - WordPress-Mindestversion und aktuelle stabile Version
-- PHP 8.1 und aktuelle unterstützte PHP-Version
+- PHP 8.3 und aktuelle unterstützte PHP-Version
 - Block-Theme und klassisches Theme
 - Desktop 1440 px, Tablet 768 px, Mobil 320/375 px
 - helles und dunkles Theme
@@ -988,19 +972,16 @@ Ergebnis: Einbettung funktioniert per handgeschriebenem Test-Iframe, bevor WordP
 - Plugin Check, Security Review, Accessibility Review
 - Test auf frischer WordPress-Installation und Multisite
 
-## 21. Offene Produktentscheidungen vor Implementierungsbeginn
+## 21. Produktentscheidungen für Version 1.0
 
-Diese Punkte verändern nicht die Grundarchitektur, müssen aber vor Etappe A entschieden werden:
+Die früher offenen Punkte sind in Block 1 der Roadmap als überprüfbare Arbeitsentscheidungen geschlossen. Maßgeblich ist das vollständige [`DECISIONS.md`](./docs/block-01/DECISIONS.md):
 
-- Ist das Einbetten für alle aktiven Turniere verfügbar oder an einen Tarif gebunden?
-- Soll eine numerische ID langfristig öffentlich bleiben oder wird eine separate stabile öffentliche Kennung eingeführt?
-- Darf Branding je nach Tarif ausgeblendet werden?
-- Welche Turniersprachen müssen Plugin und Frame in Version 1.0 vollständig unterstützen?
-- Soll die Domain-Allowlist bereits in Version 1.0 umgesetzt werden?
-- Welche Daten dürfen bei abgeschlossenen Turnieren dauerhaft öffentlich eingebettet bleiben?
-- Werden Teilnehmernamen rechtlich und fachlich immer als öffentliche Turnierdaten behandelt?
-
-Empfehlung für das MVP: öffentliche Kennung unterstützen, aktive öffentliche Turniere ohne Login einbetten, Branding serverseitig nach Tarif steuern, Domain-Allowlist für Phase 2 vorsehen und Deutsch/Englisch als vollständig getestete Plugin-Sprachen liefern.
+- Einbettungen verwenden dauerhafte zufällige öffentliche Kennungen; numerische IDs und bestehende Slugs bleiben Eingabe-Aliase.
+- Veröffentlichung und sportlicher Zustand sind getrennt. Ein abgeschlossenes Turnier bleibt erreichbar, solange es ausdrücklich veröffentlicht ist.
+- Alle ausdrücklich öffentlichen Turniere können ohne gesonderten Einbettungstarif angezeigt werden. Eine tarifabhängige Branding-Ausblendung wird vom Dienst am Turnier durchgesetzt. Das Plugin enthält keine eigene Lizenzsperre und fügt keine Werbecredits ein.
+- Deutsch und Englisch sind vollständig getestete Plugin-Sprachen. Weitere Frame-Sprachen werden nur angeboten, wenn die Metadaten sie melden.
+- Die kontobezogene Domain-Allowlist bleibt Phase 2; `parent_origin` begrenzt bereits in Version 1 nur das Nachrichtenziel.
+- Öffentliche Antworten enthalten ausschließlich für die Turnierdarstellung freigegebene Namen und Logos, keine Kontakt- oder Verwaltungsdaten.
 
 ## 22. Technische Leitplanken aus der WordPress-Dokumentation
 

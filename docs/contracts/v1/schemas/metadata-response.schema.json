@@ -1,0 +1,303 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.turnierplan.eu/schemas/embed/v1/metadata-response.schema.json",
+  "title": "Turnierplan embed metadata response V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "response_language",
+    "tournament",
+    "supported_languages",
+    "views",
+    "groups",
+    "participants",
+    "branding"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "response_language": {
+      "$ref": "#/$defs/language"
+    },
+    "tournament": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ref",
+        "title",
+        "state",
+        "default_language",
+        "timezone",
+        "starts_on",
+        "ends_on",
+        "public_url",
+        "updated_at",
+        "score_unit",
+        "refresh_interval_seconds"
+      ],
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/tournamentRef"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "state": {
+          "enum": [
+            "upcoming",
+            "live",
+            "completed",
+            "cancelled"
+          ]
+        },
+        "default_language": {
+          "$ref": "#/$defs/language"
+        },
+        "timezone": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^(?:UTC|[A-Za-z_+-]+(?:/[A-Za-z0-9_+.-]+)+)$"
+        },
+        "starts_on": {
+          "$ref": "#/$defs/nullableDate"
+        },
+        "ends_on": {
+          "$ref": "#/$defs/nullableDate"
+        },
+        "public_url": {
+          "type": "string",
+          "maxLength": 300,
+          "pattern": "^https://www\\.turnierplan\\.eu/t/(?:trn_[0-9a-hjkmnp-tv-z]{26}|[a-z0-9]+(?:-[a-z0-9]+)*)$"
+        },
+        "updated_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "score_unit": {
+          "enum": [
+            "goals",
+            "sets",
+            "points",
+            "time",
+            "custom"
+          ]
+        },
+        "refresh_interval_seconds": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 30,
+          "maximum": 300
+        }
+      }
+    },
+    "supported_languages": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/language"
+      }
+    },
+    "views": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "filters",
+          "options"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "standings",
+              "matches"
+            ]
+          },
+          "filters": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "group",
+                "participant",
+                "match_number_range",
+                "date_range"
+              ]
+            }
+          },
+          "options": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "team_logos",
+                "played",
+                "wins_draws_losses",
+                "score_balance",
+                "points",
+                "group_navigation",
+                "match_number",
+                "date",
+                "time",
+                "field",
+                "group",
+                "round",
+                "referee",
+                "live_state",
+                "extra_time",
+                "penalty_result"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "groups": {
+      "type": "array",
+      "maxItems": 500,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/groupRef"
+          },
+          "label": {
+            "$ref": "#/$defs/label"
+          }
+        }
+      }
+    },
+    "participants": {
+      "type": "array",
+      "maxItems": 2000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "group_ids"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/participantRef"
+          },
+          "label": {
+            "$ref": "#/$defs/label"
+          },
+          "group_ids": {
+            "type": "array",
+            "maxItems": 50,
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/$defs/groupRef"
+            }
+          }
+        }
+      }
+    },
+    "branding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy",
+        "default_visible"
+      ],
+      "properties": {
+        "policy": {
+          "enum": [
+            "required",
+            "optional",
+            "hidden"
+          ]
+        },
+        "default_visible": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "policy": {
+                "const": "required"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "default_visible": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "policy": {
+                "const": "hidden"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "default_visible": {
+                "const": false
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "language": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
+    },
+    "nullableDate": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])$"
+    },
+    "timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])T(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$"
+    },
+    "tournamentRef": {
+      "type": "string",
+      "pattern": "^trn_[0-9a-hjkmnp-tv-z]{26}$"
+    },
+    "groupRef": {
+      "type": "string",
+      "pattern": "^grp_[0-9a-hjkmnp-tv-z]{26}$"
+    },
+    "participantRef": {
+      "type": "string",
+      "pattern": "^ptc_[0-9a-hjkmnp-tv-z]{26}$"
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    }
+  }
+}

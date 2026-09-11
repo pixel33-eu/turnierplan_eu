@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "error": {
+    "code": "tournament_not_found",
+    "message": "Das Turnier wurde nicht gefunden oder ist nicht öffentlich.",
+    "request_id": "req_01k4f74bcde2fgh3jkm4npq5rs"
+  }
+}

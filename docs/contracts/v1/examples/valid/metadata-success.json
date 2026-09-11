@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "response_language": "de",
+  "tournament": {
+    "ref": "trn_01k4f6y7m8n9p0q1r2s3t4v5wx",
+    "title": "Waldstadt-Pokal 2026",
+    "state": "live",
+    "default_language": "de",
+    "timezone": "Europe/Berlin",
+    "starts_on": "2026-09-12",
+    "ends_on": "2026-09-13",
+    "public_url": "https://www.turnierplan.eu/t/trn_01k4f6y7m8n9p0q1r2s3t4v5wx",
+    "updated_at": "2026-09-12T10:15:00Z",
+    "score_unit": "goals",
+    "refresh_interval_seconds": 30
+  },
+  "supported_languages": [
+    "de",
+    "en"
+  ],
+  "views": [
+    {
+      "id": "standings",
+      "filters": [
+        "group"
+      ],
+      "options": [
+        "team_logos",
+        "played",
+        "wins_draws_losses",
+        "score_balance",
+        "points",
+        "group_navigation"
+      ]
+    },
+    {
+      "id": "matches",
+      "filters": [
+        "group",
+        "participant",
+        "match_number_range",
+        "date_range"
+      ],
+      "options": [
+        "match_number",
+        "date",
+        "time",
+        "field",
+        "group",
+        "round",
+        "live_state",
+        "extra_time",
+        "penalty_result"
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "id": "grp_01k4f70bcde2fgh3jkm4npq5rs",
+      "label": "Gruppe Nord"
+    },
+    {
+      "id": "grp_01k4f72bcde2fgh3jkm4npq5rs",
+      "label": "Gruppe Süd"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ptc_01k4f71bcde2fgh3jkm4npq5rs",
+      "label": "SV Waldstadt",
+      "group_ids": [
+        "grp_01k4f70bcde2fgh3jkm4npq5rs"
+      ]
+    },
+    {
+      "id": "ptc_01k4f73bcde2fgh3jkm4npq5rs",
+      "label": "FC Sonnenhang",
+      "group_ids": [
+        "grp_01k4f72bcde2fgh3jkm4npq5rs"
+      ]
+    }
+  ],
+  "branding": {
+    "policy": "optional",
+    "default_visible": true
+  }
+}

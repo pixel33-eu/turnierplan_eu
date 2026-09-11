@@ -2,7 +2,7 @@
 
 Stand: 11. September 2026. Grundlage: [WORDPRESS.md](./WORDPRESS.md), die vorhandene Turnierplan.eu-Anwendung und die unten verlinkten offiziellen Vorgaben.
 
-Diese Roadmap zerlegt die Produktspezifikation in prüfbare Arbeitspakete für Version 1.0. Sie dokumentiert außerdem notwendige Präzisierungen. Die ursprüngliche Spezifikation bleibt als Ausgangsbasis erhalten; technische Korrekturen und noch offene Produktentscheidungen werden in Block 1 in einen eindeutigen Vertrag überführt. Die aufgeführten Implementierungen sind geplant, noch nicht umgesetzt.
+Diese Roadmap zerlegt die Produktspezifikation in prüfbare Arbeitspakete für Version 1.0. Sie dokumentiert außerdem notwendige Präzisierungen. Die ursprüngliche Spezifikation bleibt als Ausgangsbasis erhalten; Block 1 hat technische Korrekturen und Produktentscheidungen in einen eindeutigen Vertrag überführt. Die übrigen aufgeführten Implementierungen sind geplant, noch nicht umgesetzt.
 
 ## Ergebnis der Analyse
 
@@ -41,7 +41,7 @@ Dateiangaben in dieser Tabelle beziehen sich auf die vorhandene Turnierplan.eu-A
 
 WordPress bestätigt die erforderliche `custom-fields`-Unterstützung für REST-Metadaten ausdrücklich. Die nicht öffentliche CPT-Konfiguration ersetzt die gesonderten Zugriffstests nicht. [REST-Metadaten dokumentiert](https://developer.wordpress.org/rest-api/extending-the-rest-api/modifying-responses/#read-and-write-a-post-meta-field-in-post-responses).
 
-Die vorgeschlagene Mindestversion PHP 8.1 ist für ein neues Projekt erneut zu bewerten: In der aktuellen PHP-Supportübersicht beginnen unterstützte Versionen bei 8.2. Empfehlung für die Planung ist PHP 8.3 oder neuer; die endgültige Mindestversion wird in Block 1 festgelegt. WordPress 6.5 bleibt zunächst ein Kompatibilitätsziel, keine bereits nachgewiesene Kompatibilität. [PHP-Supportübersicht](https://www.php.net/supported-versions.php).
+PHP 8.3 oder neuer ist als Arbeitsgrundlage festgelegt; die ursprüngliche PHP-8.1-Angabe wäre für eine Neuentwicklung veraltet. WordPress 6.5 bleibt zunächst ein Kompatibilitätsziel, keine bereits nachgewiesene Kompatibilität. Beide Mindestwerte werden vor dem Release gegen reale Tests und den dann aktuellen Sicherheitsstatus geprüft. [PHP-Supportübersicht](https://www.php.net/supported-versions.php).
 
 ## Überblick und Reihenfolge
 
@@ -71,6 +71,8 @@ Nach Block 1 können die Backend-Arbeiten 3–7 und die WordPress-Grundlagen 2/8
 
 **Ziel:** Alle späteren Komponenten verwenden dieselben fachlichen Regeln. Bezug: Spezifikation §§1–9, 17, 21.
 
+**Status:** Ausgearbeitet am 11. September 2026. Maßgeblich sind das [Entscheidungsprotokoll](docs/block-01/DECISIONS.md) und der [V1-Vertrag](docs/contracts/v1/README.md). Die geschäftlichen Festlegungen werden als dokumentierte Arbeitsentscheidungen geführt und können vor Block 3 kontrolliert geändert werden.
+
 **Arbeitspakete:**
 
 - Öffentlichkeit und Sichtbarkeit definieren: aktiv, beendet, archiviert, verborgen, gelöscht; Verhalten nach Entzug der Freigabe und bei verknüpften Turnieren festhalten.
@@ -81,7 +83,7 @@ Nach Block 1 können die Backend-Arbeiten 3–7 und die WordPress-Grundlagen 2/8
 - Dienstfreigabe, Freigabewiderruf, serverseitige Tarifregeln, Branding und öffentliche Archivierung als ausdrückliche Produktentscheidungen dokumentieren.
 - WordPress-/PHP-Mindestversion, Browserziel und Unterstützungsumfang festlegen. Deutsch/Englisch sind vollständig getestete Zielsprachen.
 
-**Lieferung:** Vertragstabellen, maschinenprüfbare Schemaentwürfe, positive/negative Beispielantworten und ein Entscheidungsprotokoll. Namensgebung aus §5.1 bleibt der eigene Ausgangspunkt.
+**Lieferung:** Erfüllt durch Vertragstabellen, vier maschinenprüfbare Schemaentwürfe, sieben gültige und drei bewusst ungültige Beispiele sowie das Entscheidungsprotokoll. Namensgebung aus §5.1 bleibt der eigene Ausgangspunkt.
 
 **Abnahme:** Für jedes Feld ist klar, wer es speichert, prüft, überträgt und auswertet. Kein Beispiel verwendet einen nicht spezifizierten Parameter. Offene Geschäftsentscheidungen sind benannt und blockieren nur die davon betroffenen Implementierungen.
 
@@ -350,21 +352,21 @@ Readme-Felder, Stable Tag und Beschreibung werden mit der [Readme-Dokumentation]
 
 Die technische Dienstfreigabe ist keine pauschale rechtliche Bewertung einer Besuchereinwilligung. Der Datenschutztext beschreibt die tatsächlich geprüften Verbindungen: Metadaten vom WordPress-Server und Frameinhalte vom Browser. Auch der eigene Dienst muss in den Plugin-Unterlagen erläutert werden. [Externe Dienste dokumentieren](https://developer.wordpress.org/plugins/wordpress-org/common-issues/#undocumented-3rd-party).
 
-## Noch offene Produktentscheidungen
+## Arbeitsentscheidungen aus Block 1
 
-Diese Empfehlungen erlauben die Planung. Sie sind noch keine vom Betreiber festgelegten Geschäftsregeln.
+Das [Entscheidungsprotokoll](docs/block-01/DECISIONS.md) enthält Begründungen und Auswirkungen. Die geschäftlichen Festlegungen lassen sich vor Block 3 kontrolliert ändern; eine Änderung aktualisiert Vertrag, Schema, Beispiele und spätere Tests gemeinsam.
 
-| Entscheidung | Planungsempfehlung | Spätestens benötigt |
-| --- | --- | --- |
-| Wer darf einbetten? | Aktive, ausdrücklich öffentliche Turniere ohne WordPress-Kontoverknüpfung. Etwaige Tarifgrenzen ausschließlich serverseitig. | Block 1/3 |
-| Welche öffentliche Kennung gilt langfristig? | Dauerhafte Referenz; Slugs nur mit stabiler Auflösung/Aliasstrategie. Teilnehmer erhalten unabhängige dauerhafte IDs. | Block 1/3 |
-| Bleiben beendete Turniere sichtbar? | Sportliches Ende beendet Polling; Sichtbarkeit folgt einer gesonderten Freigabe-/Archivregel. Aufbewahrungsdauer ausdrücklich festlegen. | Block 1/3 |
-| Welche Teilnehmerdaten sind öffentlich? | Nur ausdrücklich zur öffentlichen Turnierdarstellung bestimmte Namen und Logos; keine Kontaktdaten oder Verwaltungsinformationen. | Block 1/3 |
-| Branding und Tarife? | Branding entsteht im Service-Frame; Ausblendbarkeit wird vom Dienst entschieden und als Fähigkeit gemeldet. | Block 1/4 |
-| Wie erfolgt die Dienstfreigabe? | Administrator gibt den Dienst pro Site frei; Redakteure verbinden anschließend bewusst ein Turnier. Widerruf stoppt neue Einbettungen/Abrufe. | Block 1/9 |
-| Datumsfilter bereits in 1.0? | Ja, da vorhandene Abläufe sie versprechen; Schema und Zeitzonenregeln ergänzen. | Block 1/6 |
-| Mindestversionen? | PHP 8.3+ prüfen; WordPress 6.5 als Ausgangsziel gegen Build und tatsächliche Testmatrix bewerten. | Block 1/2 |
-| Weitere Sprachen und Domain-Allowlist? | Deutsch/Englisch vollständig; zusätzliche Turniersprachen nur nach geprüftem API-Angebot. Kontobezogene Domain-Allowlist in Phase 2. | Block 1/4 |
+| Entscheidung | Festlegung für Version 1.0 |
+| --- | --- |
+| Wer darf einbetten? | Alle ausdrücklich öffentlichen Turniere ohne WordPress-Kontoverknüpfung oder gesonderten Einbettungstarif. |
+| Welche öffentliche Kennung gilt langfristig? | Zufällige dauerhafte Referenzen für Turnier, Gruppe und Teilnehmer; Bestands-IDs und Slugs nur als Eingabe-Aliase. |
+| Bleiben beendete Turniere sichtbar? | Das sportliche Ende stoppt Polling; die Einbettung bleibt bis zum Widerruf der Veröffentlichung sichtbar. |
+| Welche Teilnehmerdaten sind öffentlich? | Nur ausdrücklich zur öffentlichen Turnierdarstellung bestimmte Namen und Logos; keine Kontakt- oder Verwaltungsinformationen. |
+| Branding und Tarife? | Branding entsteht im Service-Frame; seine Ausblendung darf tarifabhängig sein und wird pro Turnier als `required`, `optional` oder `hidden` gemeldet. |
+| Wie erfolgt die Dienstfreigabe? | Administrator gibt den Dienst pro Site frei; Redakteure verbinden danach bewusst ein Turnier. Widerruf stoppt neue Einbettungen und Abrufe. |
+| Datumsfilter bereits in 1.0? | Ja; inklusive Grenzen und Auswertung in der IANA-Turnierzeitzone. |
+| Mindestversionen? | WordPress 6.5 und PHP 8.3 als Ausgangsbasis, vor Release durch die echte Testmatrix bestätigt. |
+| Weitere Sprachen und Domain-Allowlist? | Deutsche und englische Plugin-Oberfläche; weitere gemeldete Frame-Sprachen möglich. Kontobezogene Domain-Allowlist in Phase 2. |
 
 ## Meilensteine und Fortschrittsführung
 
