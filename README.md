@@ -122,11 +122,11 @@ Sicherheitsprobleme bitte nicht als öffentliches Issue mit ausnutzbaren Details
 
 Die Bedienoberfläche soll vollständig per Tastatur nutzbar sein und WordPress-Komponenten mit verständlichen Beschriftungen verwenden. Die eingebettete Ansicht benötigt eine sinnvolle Iframe-Beschriftung, sichtbare Fokuszustände, ausreichende Kontraste und eine brauchbare Darstellung auf kleinen Bildschirmen.
 
-## Unabhängige Entwicklung
+## Eigene Produktentwicklung
 
-Dieses Projekt wird als eigenständige Clean-Room-Implementierung entwickelt. Quellcode, HTML, CSS, JavaScript, Texte, Grafiken, interne Bezeichner und Markenauftritt anderer Plugins werden nicht übernommen. Vergleichbare Grundfunktionen ergeben sich aus dem allgemeinen Anwendungsfall; Architektur, Bedienkonzept, Datenverträge, Tests und Gestaltung entstehen neu für Turnierplan.eu.
+Architektur, Bedienkonzept, Datenverträge, Texte, Tests und Gestaltung entstehen neu für Turnierplan.eu. Das Repository enthält ausschließlich eigene Projektdateien sowie bewusst ausgewählte und lizenzrechtlich geprüfte Abhängigkeiten.
 
-Beiträge dürfen daher keinen kopierten Code und keine fremden Assets enthalten. Als technische Referenzen dienen die offiziellen WordPress-Schnittstellen sowie die von Turnierplan.eu selbst definierten APIs.
+Beiträge dürfen keinen kopierten Code und keine unzulässig verwendeten Assets enthalten. Als technische Grundlagen dienen die offiziellen WordPress-Schnittstellen sowie die von Turnierplan.eu selbst definierten APIs.
 
 ## Mitwirken
 
