@@ -37,7 +37,7 @@
     "esbuild": "0.28.2",
     "eslint": "10.10.0",
     "prettier": "3.6.2",
-    "typescript": "5.9.2"
+    "typescript": "7.0.2"
   },
   "scripts": {
     "analyse": "npm run check:versions && npm run test:contracts",
