@@ -6,7 +6,7 @@ Status: Verbindliche Planungsgrundlage; die Umsetzung läuft entlang der Roadmap
 
 > **Verbindliche Präzisierung für Version 1.0:** Block 1 der Roadmap ist im [Entscheidungsprotokoll](./docs/block-01/DECISIONS.md) und im [öffentlichen V1-Vertrag](./docs/contracts/v1/README.md) ausgearbeitet. Diese Dokumente schließen unter anderem die offenen Punkte zu Kennungen, Veröffentlichung, Datumsfiltern, Sprache, Branding, Browsernachrichten und Feldzuordnung. Bei einem Widerspruch gilt für die Implementierung der dort dokumentierte V1-Vertrag.
 
-> **Umsetzungsstand:** Block 2 stellt das aktivierbare Plugin-Grundgerüst, die reproduzierbare Entwicklungsumgebung und die Basis-CI bereit. Aufbau, Abhängigkeiten und Abnahme sind unter [`docs/block-02`](./docs/block-02/IMPLEMENTATION.md) dokumentiert.
+> **Umsetzungsstand:** Die Blöcke 1 bis 3 sind abgeschlossen. Block 2 stellt das aktivierbare Plugin-Grundgerüst und die Basis-CI bereit. Block 3 ergänzt im getrennten Website-Projekt die Grundlage der zusätzlichen Embed-API mit stabilen Referenzen, zentraler Freigabeprüfung und öffentlichem Datenadapter. Die Nachweise stehen unter [`docs/block-02`](./docs/block-02/IMPLEMENTATION.md) und [`docs/block-03`](./docs/block-03/IMPLEMENTATION.md). Die öffentlichen HTTP-Endpunkte folgen in Block 4.
 
 ## 1. Ziel
 

@@ -2,7 +2,7 @@
 
 Stand: 11. September 2026. Grundlage: [WORDPRESS.md](./WORDPRESS.md), die vorhandene Turnierplan.eu-Anwendung und die unten verlinkten offiziellen Vorgaben.
 
-Diese Roadmap zerlegt die Produktspezifikation in prüfbare Arbeitspakete für Version 1.0. Sie dokumentiert außerdem notwendige Präzisierungen. Die ursprüngliche Spezifikation bleibt als Ausgangsbasis erhalten; Block 1 hat technische Korrekturen und Produktentscheidungen in einen eindeutigen Vertrag überführt. Die übrigen aufgeführten Implementierungen sind geplant, noch nicht umgesetzt.
+Diese Roadmap zerlegt die Produktspezifikation in prüfbare Arbeitspakete für Version 1.0. Sie dokumentiert außerdem notwendige Präzisierungen. Die ursprüngliche Spezifikation bleibt als Ausgangsbasis erhalten; die Blöcke 1 bis 3 sind umgesetzt. Die folgenden Blöcke sind geplant.
 
 ## Ergebnis der Analyse
 
@@ -109,6 +109,8 @@ Nach Block 1 können die Backend-Arbeiten 3–7 und die WordPress-Grundlagen 2/8
 ## Block 03 – Öffentliche Referenzen, Freigaben und Datenadapter
 
 **Ziel:** Nur ausdrücklich freigegebene Daten gelangen in die neue Embed-Schicht. Bezug: §§4, 9.1, 9.6, 12, 21.
+
+**Status:** Abgeschlossen am 12. September 2026. Die Website besitzt eine getrennte Embed-API-Grundlage, stabile öffentliche Referenzen, die zentrale Freigabepolitik und einen positiv listenden Datenadapter. Umfang, Projektgrenze und Prüfnachweise stehen in [`docs/block-03/IMPLEMENTATION.md`](docs/block-03/IMPLEMENTATION.md). Der öffentliche Metadaten-Endpunkt folgt in Block 4.
 
 **Arbeitspakete:**
 
