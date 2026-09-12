@@ -2,7 +2,7 @@
 
 Stand: 11. September 2026. Grundlage: [WORDPRESS.md](./WORDPRESS.md), die vorhandene Turnierplan.eu-Anwendung und die unten verlinkten offiziellen Vorgaben.
 
-Diese Roadmap zerlegt die Produktspezifikation in prüfbare Arbeitspakete für Version 1.0. Sie dokumentiert außerdem notwendige Präzisierungen. Die ursprüngliche Spezifikation bleibt als Ausgangsbasis erhalten; die Blöcke 1 bis 4 sind umgesetzt. Die folgenden Blöcke sind geplant.
+Diese Roadmap zerlegt die Produktspezifikation in prüfbare Arbeitspakete für Version 1.0. Sie dokumentiert außerdem notwendige Präzisierungen. Die ursprüngliche Spezifikation bleibt als Ausgangsbasis erhalten; die Blöcke 1 bis 5 sind umgesetzt. Die folgenden Blöcke sind geplant.
 
 ## Ergebnis der Analyse
 
@@ -147,6 +147,8 @@ Nach Block 1 können die Backend-Arbeiten 3–7 und die WordPress-Grundlagen 2/8
 ## Block 05 – Embed-Grundlayout und Turniertabelle
 
 **Ziel:** Die Tabellenansicht funktioniert eigenständig in einem einfachen Test-Iframe. Bezug: §§7.1, 8.2, 9.3, 12.5, 14.
+
+**Status:** Abgeschlossen am 12. September 2026. Die getrennte Website enthält die eigenständige Tabellenroute, lokale Layout- und Akzent-Assets, Gruppenwahl, wertungsabhängige Spalten, Abschlussplatzierungen, zugängliche Leer- und Fehlerzustände sowie die vereinbarten Cache- und Einbettungsheader. Umfang, Browserprüfung und Testnachweise stehen in [`docs/block-05/IMPLEMENTATION.md`](docs/block-05/IMPLEMENTATION.md). Migration, Deployment und Produktionstest bleiben Teil der kontrollierten Inbetriebnahme.
 
 **Arbeitspakete:**
 
