@@ -3,7 +3,7 @@
 Turnierpläne, Tabellen und Ergebnisse von [Turnierplan.eu](https://www.turnierplan.eu/) direkt in WordPress einbetten – ohne Ergebnisse doppelt zu pflegen und ohne eigenes HTML schreiben zu müssen.
 
 > [!IMPORTANT]
-> Das WordPress-Plugin besitzt ein aktivierbares und geprüftes Entwicklungsgrundgerüst. Die getrennte Website enthält außerdem die interne Grundlage der zusätzlichen Embed-API. Die öffentlichen Endpunkte und eigentlichen Embed-Funktionen folgen in den nächsten Roadmap-Blöcken; ein produktionsreifes Release gibt es noch nicht. Die technische Produktspezifikation liegt in [`WORDPRESS.md`](./WORDPRESS.md).
+> Das WordPress-Plugin besitzt ein aktivierbares und geprüftes Entwicklungsgrundgerüst. Die getrennte Website enthält außerdem die zusätzliche Embed-API samt öffentlichem Metadaten-Endpunkt. Das Embed-Layout und die WordPress-Funktionen folgen in den nächsten Roadmap-Blöcken; ein produktionsreifes Release gibt es noch nicht. Die technische Produktspezifikation liegt in [`WORDPRESS.md`](./WORDPRESS.md).
 
 ## Ziel des Projekts
 
@@ -104,7 +104,7 @@ Die [Entwicklungsroadmap in 15 Blöcken](./WORDPRESS-ROADMAP.md) enthält für j
 - [x] 01 – Produktentscheidungen und V1-Verträge
 - [x] 02 – Repository, Entwicklungsumgebung und Plugin-Grundgerüst
 - [x] 03 – Öffentliche Referenzen, Freigaben und Datenadapter
-- [ ] 04 – Metadaten-API mit Fehlern und Cache
+- [x] 04 – Metadaten-API mit Fehlern und Cache
 - [ ] 05 – Embed-Grundlayout und Turniertabelle
 - [ ] 06 – Spielplan, Filter und Live-Aktualisierung
 - [ ] 07 – Browserprotokoll und bestehendes Event-Widget

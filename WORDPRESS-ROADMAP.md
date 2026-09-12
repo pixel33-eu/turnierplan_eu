@@ -2,7 +2,7 @@
 
 Stand: 11. September 2026. Grundlage: [WORDPRESS.md](./WORDPRESS.md), die vorhandene Turnierplan.eu-Anwendung und die unten verlinkten offiziellen Vorgaben.
 
-Diese Roadmap zerlegt die Produktspezifikation in prüfbare Arbeitspakete für Version 1.0. Sie dokumentiert außerdem notwendige Präzisierungen. Die ursprüngliche Spezifikation bleibt als Ausgangsbasis erhalten; die Blöcke 1 bis 3 sind umgesetzt. Die folgenden Blöcke sind geplant.
+Diese Roadmap zerlegt die Produktspezifikation in prüfbare Arbeitspakete für Version 1.0. Sie dokumentiert außerdem notwendige Präzisierungen. Die ursprüngliche Spezifikation bleibt als Ausgangsbasis erhalten; die Blöcke 1 bis 4 sind umgesetzt. Die folgenden Blöcke sind geplant.
 
 ## Ergebnis der Analyse
 
@@ -128,6 +128,8 @@ Nach Block 1 können die Backend-Arbeiten 3–7 und die WordPress-Grundlagen 2/8
 ## Block 04 – Metadaten-API mit Fehlern und Cache
 
 **Ziel:** Der Editor erhält einen kleinen, stabilen Konfigurationsvertrag. Bezug: §§9.1–9.2, 9.5–9.6, 15.
+
+**Status:** Abgeschlossen am 12. September 2026. Der versionierte Metadaten-Endpunkt, die HTTP-Fehlerabbildung, ETag und Cache-Header, Größen- und Abruflimits sowie die Vertragsprüfungen sind im getrennten Website-Projekt umgesetzt. Umfang und Prüfnachweise stehen in [`docs/block-04/IMPLEMENTATION.md`](docs/block-04/IMPLEMENTATION.md). Die Produktionsmigration und ein Test gegen einen eigens freigegebenen Datensatz bleiben Teil der kontrollierten Inbetriebnahme.
 
 **Arbeitspakete:**
 
