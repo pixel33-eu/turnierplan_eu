@@ -279,6 +279,12 @@ Der Shortcode fasst die mit `show:` bezeichneten Werte in einem einzigen kommage
 
 Globale Plugin-Einstellungen sind Vorlagen für neu angelegte Konfigurationen. Sie verändern keine bereits gespeicherten Blöcke, Presets oder Shortcodes. Vertragliche Defaults bleiben innerhalb der Haupt-/Konfigurationsversion stabil.
 
+### Konfigurationsmigration
+
+Die vor dem ersten Plugin-Release verwendete kompakte, noch unversionierte Entwicklungsform wird einmalig als Schema 1 gelesen und um die festen V1-Vertragsdefaults ergänzt. Bereits vorhandene Werte haben Vorrang. Gespeichert und weitergegeben wird anschließend immer das vollständige V1-Objekt mit `schemaVersion: 1`.
+
+Andere vorhandene Versionsnummern werden abgelehnt, statt ihre Bedeutung still umzudeuten. Zukünftige Migrationen erhalten deshalb einen ausdrücklich getesteten Schritt von der jeweiligen Ausgangsversion. Einrichtungsstandards werden ausschließlich beim bewussten Erzeugen einer neuen Konfiguration angewendet und sind kein Teil einer Migration.
+
 ## Beispiele
 
 Gültige Beispiele unter [`examples/valid`](examples/valid):

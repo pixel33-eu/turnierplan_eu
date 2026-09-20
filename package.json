@@ -40,7 +40,7 @@
     "typescript": "5.9.2"
   },
   "scripts": {
-    "analyse": "npm run check:versions && npm run test:contracts && npm run test:browser-protocol",
+    "analyse": "npm run check:versions && npm run test:contracts && npm run test:browser-protocol && npm run test:config",
     "build": "node tools/build.mjs",
     "check": "npm run check:engines && npm run lint && npm run analyse && npm run build && npm run check:licenses && npm run test:wordpress",
     "check:engines": "node tools/check-engines.mjs",
@@ -55,6 +55,7 @@
     "start": "node tools/build.mjs --watch",
     "test:contracts": "node tools/validate-contracts.mjs",
     "test:browser-protocol": "node tests/embed-parent.test.mjs",
+    "test:config": "node tests/embed-config.test.mjs",
     "test:wordpress": "node tools/smoke-wordpress.mjs"
   }
 }

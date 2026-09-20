@@ -40,6 +40,12 @@
 	</rule>
 	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
 		<exclude-pattern>tests/*</exclude-pattern>
+		<!-- The runtime autoloader maps CamelCase class names to readable hyphenated files. -->
+		<exclude-pattern>src/config/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.Security.EscapeOutput.ExceptionNotEscaped">
+		<!-- Configuration exceptions contain internal field IDs and are never rendered directly. -->
+		<exclude-pattern>src/config/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.WP.CapitalPDangit.MisspelledInText">
 		<exclude-pattern>tests/*</exclude-pattern>

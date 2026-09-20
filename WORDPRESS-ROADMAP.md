@@ -203,6 +203,8 @@ Nach Block 1 können die Backend-Arbeiten 3–7 und die WordPress-Grundlagen 2/8
 
 **Ziel:** Alle WordPress-Eingabewege erzeugen dieselbe gültige Konfiguration. Bezug: §§5.2, 8, 10.4–10.6, 12.1–12.3.
 
+**Status:** Abgeschlossen am 20. September 2026. Das gemeinsame V1-Modell, die getrennte Preset-Auswahl, Referenznormalisierung, Shortcode-Abbildung, lokale Metadatenhinweise sowie deterministische Service-URLs sind in PHP und für den späteren Editor in JavaScript umgesetzt. Umfang und Prüfnachweise stehen in [`docs/block-08/IMPLEMENTATION.md`](docs/block-08/IMPLEMENTATION.md).
+
 **Arbeitspakete:**
 
 - Versioniertes Konfigurationsobjekt für Inline-Einbettung und eine davon getrennte Preset-Referenz implementieren; Mischzustände ablehnen.
