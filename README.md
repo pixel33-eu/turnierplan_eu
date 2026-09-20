@@ -107,7 +107,7 @@ Die [Entwicklungsroadmap in 15 Blöcken](./WORDPRESS-ROADMAP.md) enthält für j
 - [x] 04 – Metadaten-API mit Fehlern und Cache
 - [x] 05 – Embed-Grundlayout und Turniertabelle
 - [x] 06 – Spielplan, Filter und Live-Aktualisierung
-- [ ] 07 – Browserprotokoll und bestehendes Event-Widget
+- [x] 07 – Browserprotokoll und bestehendes Event-Widget
 - [ ] 08 – Zentrales Konfigurationsmodell und URL-Bau
 - [ ] 09 – Einstellungen, Dienstfreigabe und Metadaten-Proxy
 - [ ] 10 – Gemeinsamer Renderer und Shortcode
@@ -161,6 +161,7 @@ Die konkreten Entwicklungsbefehle, Laufzeitgrenzen und Prüfungen stehen in [`DE
 - [Umsetzung und Abnahme von Block 2](./docs/block-02/IMPLEMENTATION.md)
 - [Umsetzung und Abnahme von Block 5](./docs/block-05/IMPLEMENTATION.md)
 - [Umsetzung und Abnahme von Block 6](./docs/block-06/IMPLEMENTATION.md)
+- [Umsetzung und Abnahme von Block 7](./docs/block-07/IMPLEMENTATION.md)
 - [Abhängigkeiten und Lizenzen](./docs/block-02/DEPENDENCIES.md)
 - [Turnierplan.eu](https://www.turnierplan.eu/)
 - [WordPress Block Editor Handbook](https://developer.wordpress.org/block-editor/)

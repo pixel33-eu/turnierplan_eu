@@ -1,6 +1,10 @@
-/**
- * Build entry for the plugin toolchain.
- *
- * Runtime assets will be introduced with the editor and frontend features.
- */
-export const runtimeAssetsPending = true;
+import { turnierplanEmbedProtocol } from './embed-parent';
+
+if (typeof window !== 'undefined') {
+	window.TurnierplanEU = {
+		...window.TurnierplanEU,
+		embedProtocol: turnierplanEmbedProtocol,
+	};
+}
+
+export { turnierplanEmbedProtocol };

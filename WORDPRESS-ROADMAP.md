@@ -184,6 +184,8 @@ Nach Block 1 können die Backend-Arbeiten 3–7 und die WordPress-Grundlagen 2/8
 
 **Ziel:** Mehrere Iframes kommunizieren sicher und verlässlich mit der einbettenden Seite. Bezug: §§9.4, 10.6/10.9, 12.5, 19.4–19.7, 20 Etappe A.
 
+**Status:** Abgeschlossen am 20. September 2026. Sender, Empfänger, Größen- und Statuskommunikation sowie die kontrollierte Migration des vorhandenen Event-Widgets sind umgesetzt und getestet. Umfang, Übergangsstrategie und Prüfnachweise stehen in [`docs/block-07/IMPLEMENTATION.md`](docs/block-07/IMPLEMENTATION.md).
+
 **Arbeitspakete:**
 
 - Versionierte `resize`-, Bereitschafts- und Statusmeldungen mit eindeutiger Instanzkennung definieren und auf beiden Seiten implementieren.
