@@ -1,8 +1,8 @@
 # Turnierplan.eu für WordPress – Entwicklungsplan in 15 Blöcken
 
-Stand: 12. September 2026. Grundlage: [WORDPRESS.md](./WORDPRESS.md), die vorhandene Turnierplan.eu-Anwendung und die unten verlinkten offiziellen Vorgaben.
+Stand: 21. September 2026. Grundlage: [WORDPRESS.md](./WORDPRESS.md), die vorhandene Turnierplan.eu-Anwendung und die unten verlinkten offiziellen Vorgaben.
 
-Diese Roadmap zerlegt die Produktspezifikation in prüfbare Arbeitspakete für Version 1.0. Sie dokumentiert außerdem notwendige Präzisierungen. Die ursprüngliche Spezifikation bleibt als Ausgangsbasis erhalten; die Blöcke 1 bis 6 sind umgesetzt. Die folgenden Blöcke sind geplant.
+Diese Roadmap zerlegt die Produktspezifikation in prüfbare Arbeitspakete für Version 1.0. Sie dokumentiert außerdem notwendige Präzisierungen. Die ursprüngliche Spezifikation bleibt als Ausgangsbasis erhalten; die Blöcke 1 bis 9 sind umgesetzt. Die folgenden Blöcke sind geplant.
 
 ## Ergebnis der Analyse
 
@@ -221,6 +221,8 @@ Nach Block 1 können die Backend-Arbeiten 3–7 und die WordPress-Grundlagen 2/8
 ## Block 09 – Einstellungen, Dienstfreigabe und Metadaten-Proxy
 
 **Ziel:** Transparente Einrichtung und sichere Kommunikation im WordPress-Backend. Bezug: §§6.1, 10.7–10.8, 11.1, 12.3–12.4, 13.
+
+**Status:** Abgeschlossen am 21. September 2026. Die Einstellungsseite, ausdrückliche Dienstfreigabe, der fest begrenzte Remote-Client, Cache mit ETag- und Rückfallpolitik, geschützte REST-Routen, Diagnose sowie der Datenschutztext sind umgesetzt. Umfang und Prüfnachweise stehen in [`docs/block-09/IMPLEMENTATION.md`](docs/block-09/IMPLEMENTATION.md).
 
 **Arbeitspakete:**
 

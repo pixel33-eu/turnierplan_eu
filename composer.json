@@ -24,7 +24,7 @@
         }
     },
     "scripts": {
-        "analyse": "phpstan analyse --configuration=phpstan.neon.dist --memory-limit=512M",
+        "analyse": "phpstan analyse --configuration=phpstan.neon.dist --memory-limit=1G",
         "check": [
             "@lint",
             "@analyse",

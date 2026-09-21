@@ -9,6 +9,21 @@ declare(strict_types=1);
 
 namespace TurnierplanEU\WordPress;
 
+use TurnierplanEU\WordPress\Cache\MetadataCache;
+use TurnierplanEU\WordPress\Cache\WordPressCacheStore;
+use TurnierplanEU\WordPress\Config\EmbedUrlBuilder;
+use TurnierplanEU\WordPress\Config\ServiceConfiguration;
+use TurnierplanEU\WordPress\Remote\MetadataClient;
+use TurnierplanEU\WordPress\Remote\MetadataGateway;
+use TurnierplanEU\WordPress\Remote\MetadataResponseValidator;
+use TurnierplanEU\WordPress\Remote\TrustedMetadataUrl;
+use TurnierplanEU\WordPress\Remote\WordPressHttpTransport;
+use TurnierplanEU\WordPress\Rest\MetadataController;
+use TurnierplanEU\WordPress\Rest\UserRateLimiter;
+use TurnierplanEU\WordPress\Settings\PrivacyPolicy;
+use TurnierplanEU\WordPress\Settings\SettingsPage;
+use TurnierplanEU\WordPress\Settings\SettingsRepository;
+
 /**
  * Starts feature registration after all active plugins are loaded.
  */
@@ -45,6 +60,24 @@ final class Plugin {
 	 * @return void
 	 */
 	public function announce_loaded(): void {
+		$service   = ServiceConfiguration::production();
+		$builder   = new EmbedUrlBuilder( $service );
+		$validator = new MetadataResponseValidator();
+		$cache     = new MetadataCache( new WordPressCacheStore(), $validator );
+		$settings  = new SettingsRepository();
+		$client    = new MetadataClient(
+			$builder,
+			new TrustedMetadataUrl( $service ),
+			new WordPressHttpTransport(),
+			$validator,
+			$this->version
+		);
+		$gateway   = new MetadataGateway( $settings, $cache, $client );
+
+		( new SettingsPage( $settings, $cache, $gateway, $service ) )->register();
+		( new PrivacyPolicy() )->register();
+		( new MetadataController( $gateway, new UserRateLimiter() ) )->register();
+
 		/**
 		 * Fires after the Turnierplan.eu runtime has passed its requirement checks.
 		 *

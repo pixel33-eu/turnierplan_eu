@@ -196,8 +196,41 @@ try {
 		);
 	}
 
+	const settingsResponse = await fetch(
+		`${baseUrl}/wp-admin/options-general.php?page=turnierplan-eu`,
+		{
+			headers: { cookie: pluginPage.cookie },
+			redirect: 'manual',
+		}
+	);
+
+	if (settingsResponse.status !== 200) {
+		throw new Error(
+			`The settings page returned HTTP ${settingsResponse.status} with location ${settingsResponse.headers.get('location')}.`
+		);
+	}
+
+	const settingsPage = {
+		body: await settingsResponse.text(),
+		cookie: pluginPage.cookie,
+	};
+
+	if (/Fatal error/i.test(settingsPage.body)) {
+		throw new Error('The Turnierplan.eu settings page failed to render.');
+	}
+
+	if (
+		!settingsPage.body.includes('https://www.turnierplan.eu') ||
+		!settingsPage.body.includes('tpeu_settings[service_enabled]') ||
+		!settingsPage.body.includes('tpeu_connection_test')
+	) {
+		throw new Error(
+			'The settings page is missing service approval or connection-test controls.'
+		);
+	}
+
 	process.stdout.write(
-		'WordPress smoke test passed: WordPress 6.5, PHP 8.3, plugin active, version option stored, no fatal error.\n'
+		'WordPress smoke test passed: WordPress 6.5, PHP 8.3, plugin active, settings rendered, REST permissions verified.\n'
 	);
 } finally {
 	stopChild();
