@@ -3,7 +3,7 @@
 Turnierpläne, Tabellen und Ergebnisse von [Turnierplan.eu](https://www.turnierplan.eu/) direkt in WordPress einbetten – ohne Ergebnisse doppelt zu pflegen und ohne eigenes HTML schreiben zu müssen.
 
 > [!IMPORTANT]
-> Das WordPress-Plugin besitzt ein aktivierbares und geprüftes Entwicklungsgrundgerüst, ein gemeinsames Konfigurationsmodell sowie die Einstellungen, Dienstfreigabe und geschützte Metadatenverbindung für den Editor. Die getrennte Website enthält außerdem die zusätzliche Embed-API, den öffentlichen Metadaten-Endpunkt sowie eigenständige Tabellen- und Spielplanansichten. Renderer, Shortcode und Block-Editor folgen in den nächsten Roadmap-Blöcken; ein produktionsreifes Release gibt es noch nicht. Die technische Produktspezifikation liegt in [`WORDPRESS.md`](./WORDPRESS.md).
+> Das WordPress-Plugin besitzt ein aktivierbares und geprüftes Entwicklungsgrundgerüst, ein gemeinsames Konfigurationsmodell, die Einstellungen und Dienstfreigabe, eine geschützte Metadatenverbindung für den Editor sowie den gemeinsamen Renderer und Shortcode. Die getrennte Website enthält außerdem die zusätzliche Embed-API, den öffentlichen Metadaten-Endpunkt sowie eigenständige Tabellen- und Spielplanansichten. Block-Editor und Presets folgen in den nächsten Roadmap-Blöcken; ein produktionsreifes Release gibt es noch nicht. Die technische Produktspezifikation liegt in [`WORDPRESS.md`](./WORDPRESS.md).
 
 ## Ziel des Projekts
 
@@ -31,13 +31,13 @@ Geplant sind drei gleichwertige Zugänge:
 
 ## Beispiel
 
-Eine Tabelle soll später mit einem kompakten Shortcode eingebunden werden können:
+Eine Tabelle kann mit einem kompakten Shortcode eingebunden werden:
 
 ```text
 [turnierplan tournament="12345" view="standings"]
 ```
 
-Ein gefilterter Spielplan könnte so aussehen:
+Ein gefilterter Spielplan sieht zum Beispiel so aus:
 
 ```text
 [turnierplan tournament="12345" view="matches" group="grp_01k4f70bcde2fgh3jkm4npq5rs"]
@@ -110,7 +110,7 @@ Die [Entwicklungsroadmap in 15 Blöcken](./WORDPRESS-ROADMAP.md) enthält für j
 - [x] 07 – Browserprotokoll und bestehendes Event-Widget
 - [x] 08 – Zentrales Konfigurationsmodell und URL-Bau
 - [x] 09 – Einstellungen, Dienstfreigabe und Metadaten-Proxy
-- [ ] 10 – Gemeinsamer Renderer und Shortcode
+- [x] 10 – Gemeinsamer Renderer und Shortcode
 - [ ] 11 – Gutenberg-Block und direkte Vorschau
 - [ ] 12 – Wiederverwendbare Presets und Verwaltungsoberfläche
 - [ ] 13 – Bedienqualität, Barrierefreiheit und Sprachen
@@ -163,6 +163,8 @@ Die konkreten Entwicklungsbefehle, Laufzeitgrenzen und Prüfungen stehen in [`DE
 - [Umsetzung und Abnahme von Block 6](./docs/block-06/IMPLEMENTATION.md)
 - [Umsetzung und Abnahme von Block 7](./docs/block-07/IMPLEMENTATION.md)
 - [Umsetzung und Abnahme von Block 8](./docs/block-08/IMPLEMENTATION.md)
+- [Umsetzung und Abnahme von Block 9](./docs/block-09/IMPLEMENTATION.md)
+- [Umsetzung und Abnahme von Block 10](./docs/block-10/IMPLEMENTATION.md)
 - [Abhängigkeiten und Lizenzen](./docs/block-02/DEPENDENCIES.md)
 - [Turnierplan.eu](https://www.turnierplan.eu/)
 - [WordPress Block Editor Handbook](https://developer.wordpress.org/block-editor/)

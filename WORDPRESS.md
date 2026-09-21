@@ -6,7 +6,7 @@ Status: Verbindliche Planungsgrundlage; die Umsetzung läuft entlang der Roadmap
 
 > **Verbindliche Präzisierung für Version 1.0:** Block 1 der Roadmap ist im [Entscheidungsprotokoll](./docs/block-01/DECISIONS.md) und im [öffentlichen V1-Vertrag](./docs/contracts/v1/README.md) ausgearbeitet. Diese Dokumente schließen unter anderem die offenen Punkte zu Kennungen, Veröffentlichung, Datumsfiltern, Sprache, Branding, Browsernachrichten und Feldzuordnung. Bei einem Widerspruch gilt für die Implementierung der dort dokumentierte V1-Vertrag.
 
-> **Umsetzungsstand:** Die Blöcke 1 bis 9 sind abgeschlossen. Block 2 stellt das aktivierbare Plugin-Grundgerüst und die Basis-CI bereit. Die Blöcke 3 bis 7 liefern im getrennten Website-Projekt die öffentliche Embed-API, Tabellen- und Spielplanansichten sowie das Browserprotokoll. Die Blöcke 8 und 9 ergänzen im WordPress-Plugin das gemeinsame Konfigurationsmodell, die ausdrückliche Dienstfreigabe, den festen Remote-Client, den Metadaten-Cache und geschützte Editor-Routen. Die Nachweise stehen in den jeweiligen Verzeichnissen unter [`docs`](./docs/).
+> **Umsetzungsstand:** Die Blöcke 1 bis 10 sind abgeschlossen. Block 2 stellt das aktivierbare Plugin-Grundgerüst und die Basis-CI bereit. Die Blöcke 3 bis 7 liefern im getrennten Website-Projekt die öffentliche Embed-API, Tabellen- und Spielplanansichten sowie das Browserprotokoll. Die Blöcke 8 bis 10 ergänzen im WordPress-Plugin das gemeinsame Konfigurationsmodell, die ausdrückliche Dienstfreigabe, den festen Remote-Client, den Metadaten-Cache, geschützte Editor-Routen sowie den gemeinsamen Renderer und Shortcode. Die Nachweise stehen in den jeweiligen Verzeichnissen unter [`docs`](./docs/).
 
 ## 1. Ziel
 

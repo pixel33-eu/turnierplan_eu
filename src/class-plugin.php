@@ -20,9 +20,14 @@ use TurnierplanEU\WordPress\Remote\TrustedMetadataUrl;
 use TurnierplanEU\WordPress\Remote\WordPressHttpTransport;
 use TurnierplanEU\WordPress\Rest\MetadataController;
 use TurnierplanEU\WordPress\Rest\UserRateLimiter;
+use TurnierplanEU\WordPress\Render\EmbedRenderer;
+use TurnierplanEU\WordPress\Render\WordPressFrontendAssets;
+use TurnierplanEU\WordPress\Render\WordPressInstanceIdGenerator;
+use TurnierplanEU\WordPress\Render\WordPressParentOrigin;
 use TurnierplanEU\WordPress\Settings\PrivacyPolicy;
 use TurnierplanEU\WordPress\Settings\SettingsPage;
 use TurnierplanEU\WordPress\Settings\SettingsRepository;
+use TurnierplanEU\WordPress\Shortcode\ShortcodeHandler;
 
 /**
  * Starts feature registration after all active plugins are loaded.
@@ -77,6 +82,17 @@ final class Plugin {
 		( new SettingsPage( $settings, $cache, $gateway, $service ) )->register();
 		( new PrivacyPolicy() )->register();
 		( new MetadataController( $gateway, new UserRateLimiter() ) )->register();
+
+		$renderer = new EmbedRenderer(
+			$settings,
+			$builder,
+			$service,
+			new WordPressParentOrigin(),
+			new WordPressInstanceIdGenerator(),
+			new WordPressFrontendAssets( TPEU_PLUGIN_FILE, $this->version )
+		);
+
+		( new ShortcodeHandler( $renderer ) )->register();
 
 		/**
 		 * Fires after the Turnierplan.eu runtime has passed its requirement checks.
