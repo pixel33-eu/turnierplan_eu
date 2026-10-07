@@ -13,6 +13,7 @@ use TurnierplanEU\WordPress\Config\ConfigException;
 use TurnierplanEU\WordPress\Config\EmbedConfig;
 use TurnierplanEU\WordPress\Render\EmbedRenderer;
 use TurnierplanEU\WordPress\Settings\SettingsRepository;
+use TurnierplanEU\WordPress\Preset\PresetResolver;
 
 /**
  * Registers the metadata-defined block and delegates all public markup.
@@ -22,6 +23,7 @@ final class EmbedBlock {
 	/** Creates the dynamic block adapter. */
 	public function __construct(
 		private readonly EmbedRenderer $renderer,
+		private readonly PresetResolver $presets,
 		private readonly SettingsRepository $settings,
 		private readonly string $plugin_file,
 		private readonly string $plugin_version
@@ -53,7 +55,11 @@ final class EmbedBlock {
 		$preset_id = $attributes['presetId'] ?? 0;
 
 		if ( is_int( $preset_id ) && $preset_id > 0 ) {
-			return $this->renderer->render_preset_unavailable();
+			$preset = $this->presets->resolve_published( $preset_id );
+
+			return null === $preset
+				? $this->renderer->render_preset_unavailable()
+				: $this->renderer->render( $preset->get_config(), $preset->get_title() );
 		}
 
 		$input = $attributes['config'] ?? null;

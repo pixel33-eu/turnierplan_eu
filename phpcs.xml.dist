@@ -49,6 +49,7 @@
 		<exclude-pattern>src/render/*</exclude-pattern>
 		<exclude-pattern>src/shortcode/*</exclude-pattern>
 		<exclude-pattern>src/block/*</exclude-pattern>
+		<exclude-pattern>src/preset/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.Security.EscapeOutput.ExceptionNotEscaped">
 		<!-- Configuration exceptions contain internal field IDs and are never rendered directly. -->
@@ -66,11 +67,26 @@
 		<exclude-pattern>src/render/*</exclude-pattern>
 		<exclude-pattern>src/shortcode/*</exclude-pattern>
 		<exclude-pattern>src/block/*</exclude-pattern>
+		<exclude-pattern>src/preset/*</exclude-pattern>
 		<exclude-pattern>tests/*</exclude-pattern>
+	</rule>
+	<rule ref="Squiz.Commenting.FunctionCommentThrowTag.Missing">
+		<exclude-pattern>src/preset/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.WP.Capabilities">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="create_tpeu_embeds"/>
+				<element value="tpeu_manage_settings"/>
+				<element value="tpeu_refresh_embeds"/>
+				<element value="tpeu_use_embeds"/>
+			</property>
+		</properties>
 	</rule>
 	<rule ref="Squiz.Commenting.FunctionComment.IncorrectTypeHint">
 		<!-- PHPStan list shapes are more precise than the native array type accepted by this legacy sniff. -->
 		<exclude-pattern>src/remote/*</exclude-pattern>
+		<exclude-pattern>src/preset/*</exclude-pattern>
 	</rule>
 	<rule ref="Generic.Files.OneObjectStructurePerFile.MultipleFound">
 		<!-- Focused test files keep tiny private doubles beside the behavior they exercise. -->

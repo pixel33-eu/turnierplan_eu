@@ -14,6 +14,7 @@ use TurnierplanEU\WordPress\Config\EmbedConfig;
 use TurnierplanEU\WordPress\Config\TournamentReference;
 use TurnierplanEU\WordPress\Remote\MetadataGateway;
 use TurnierplanEU\WordPress\Remote\MetadataResult;
+use TurnierplanEU\WordPress\Preset\Capabilities;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -119,7 +120,13 @@ final class MetadataController {
 
 		$preset_id = absint( $request->get_param( 'preset_id' ) );
 
-		if ( $preset_id > 0 && ! current_user_can( 'edit_post', $preset_id ) ) {
+		if (
+			$preset_id > 0
+			&& (
+				! current_user_can( Capabilities::REFRESH_PRESETS )
+				|| ! current_user_can( 'edit_post', $preset_id )
+			)
+		) {
 			return new WP_Error(
 				'tpeu_preset_forbidden',
 				esc_html__( 'Du darfst dieses Preset nicht aktualisieren.', 'turnierplan-eu' ),

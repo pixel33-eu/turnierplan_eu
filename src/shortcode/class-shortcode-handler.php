@@ -12,6 +12,7 @@ namespace TurnierplanEU\WordPress\Shortcode;
 use TurnierplanEU\WordPress\Config\ConfigException;
 use TurnierplanEU\WordPress\Config\ShortcodeConfigMapper;
 use TurnierplanEU\WordPress\Render\EmbedRenderer;
+use TurnierplanEU\WordPress\Preset\PresetResolver;
 
 /**
  * Maps the documented allowlist into the shared renderer and always returns.
@@ -19,7 +20,10 @@ use TurnierplanEU\WordPress\Render\EmbedRenderer;
 final class ShortcodeHandler {
 
 	/** Creates the shortcode handler. */
-	public function __construct( private readonly EmbedRenderer $renderer ) {
+	public function __construct(
+		private readonly EmbedRenderer $renderer,
+		private readonly PresetResolver $presets
+	) {
 	}
 
 	/** Registers the shortcode during WordPress initialization. */
@@ -58,7 +62,12 @@ final class ShortcodeHandler {
 		}
 
 		if ( $selection->is_preset() ) {
-			return $this->renderer->render_preset_unavailable();
+			$preset_id = $selection->get_preset_id();
+			$preset    = null === $preset_id ? null : $this->presets->resolve_published( $preset_id );
+
+			return null === $preset
+				? $this->renderer->render_preset_unavailable()
+				: $this->renderer->render( $preset->get_config(), $preset->get_title() );
 		}
 
 		$config = $selection->get_config();

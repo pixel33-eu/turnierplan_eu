@@ -73,6 +73,19 @@ const reconciled = state.reconcileMetadata(config, metadata);
 assert.equal(reconciled.tournamentRef, "trn_canonical");
 assert.equal(reconciled.showBranding, true, "required branding should win");
 
+const firstPreset = { id: 4, config: { tournamentRef: "first" } };
+const secondPreset = { id: 9, config: { tournamentRef: "second" } };
+assert.equal(
+  state.inlineConfigForPreset([firstPreset, secondPreset], 9, config),
+  secondPreset.config,
+  "switching to inline should copy the exact selected preset",
+);
+assert.equal(
+  state.inlineConfigForPreset([firstPreset, secondPreset], 99, config),
+  config,
+  "a missing preset must not fall back to a different preset",
+);
+
 let reduced = state.metadataReducer(state.initialMetadataState, { type: "loading" });
 assert.equal(reduced.status, "loading");
 reduced = state.metadataReducer(reduced, {

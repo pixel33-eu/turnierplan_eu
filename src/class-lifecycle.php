@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace TurnierplanEU\WordPress;
 
+use TurnierplanEU\WordPress\Preset\Capabilities;
+
 /**
  * Owns the plugin lifecycle hooks.
  */
@@ -41,6 +43,7 @@ final class Lifecycle {
 		}
 
 		update_option( 'tpeu_plugin_version', TPEU_VERSION, false );
+		Capabilities::install();
 	}
 
 	/**

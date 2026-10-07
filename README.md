@@ -3,7 +3,7 @@
 Turnierpläne, Tabellen und Ergebnisse von [Turnierplan.eu](https://www.turnierplan.eu/) direkt in WordPress einbetten – ohne Ergebnisse doppelt zu pflegen und ohne eigenes HTML schreiben zu müssen.
 
 > [!IMPORTANT]
-> Das WordPress-Plugin besitzt ein aktivierbares und geprüftes Entwicklungsgrundgerüst, ein gemeinsames Konfigurationsmodell, die Einstellungen und Dienstfreigabe, eine geschützte Metadatenverbindung für den Editor, den gemeinsamen Renderer und Shortcode sowie den dynamischen Gutenberg-Block mit direkter Vorschau. Die getrennte Website enthält außerdem die zusätzliche Embed-API, den öffentlichen Metadaten-Endpunkt sowie eigenständige Tabellen- und Spielplanansichten. Wiederverwendbare Presets folgen im nächsten Roadmap-Block; ein produktionsreifes Release gibt es noch nicht. Die technische Produktspezifikation liegt in [`WORDPRESS.md`](./WORDPRESS.md).
+> Das WordPress-Plugin besitzt ein aktivierbares und geprüftes Entwicklungsgrundgerüst, ein gemeinsames Konfigurationsmodell, die Einstellungen und Dienstfreigabe, eine geschützte Metadatenverbindung für den Editor, den gemeinsamen Renderer und Shortcode, den dynamischen Gutenberg-Block mit direkter Vorschau sowie geschützte wiederverwendbare Presets. Die getrennte Website enthält außerdem die zusätzliche Embed-API, den öffentlichen Metadaten-Endpunkt sowie eigenständige Tabellen- und Spielplanansichten. Ein produktionsreifes Release gibt es noch nicht. Die technische Produktspezifikation liegt in [`WORDPRESS.md`](./WORDPRESS.md).
 
 ## Ziel des Projekts
 
@@ -112,7 +112,7 @@ Die [Entwicklungsroadmap in 15 Blöcken](./WORDPRESS-ROADMAP.md) enthält für j
 - [x] 09 – Einstellungen, Dienstfreigabe und Metadaten-Proxy
 - [x] 10 – Gemeinsamer Renderer und Shortcode
 - [x] 11 – Gutenberg-Block und direkte Vorschau
-- [ ] 12 – Wiederverwendbare Presets und Verwaltungsoberfläche
+- [x] 12 – Wiederverwendbare Presets und Verwaltungsoberfläche
 - [ ] 13 – Bedienqualität, Barrierefreiheit und Sprachen
 - [ ] 14 – Lebenszyklus, Multisite und Gesamtprüfung
 - [ ] 15 – Dokumentation, Release und WordPress.org
@@ -166,6 +166,7 @@ Die konkreten Entwicklungsbefehle, Laufzeitgrenzen und Prüfungen stehen in [`DE
 - [Umsetzung und Abnahme von Block 9](./docs/block-09/IMPLEMENTATION.md)
 - [Umsetzung und Abnahme von Block 10](./docs/block-10/IMPLEMENTATION.md)
 - [Umsetzung und Abnahme von Block 11](./docs/block-11/IMPLEMENTATION.md)
+- [Umsetzung und Abnahme von Block 12](./docs/block-12/IMPLEMENTATION.md)
 - [Abhängigkeiten und Lizenzen](./docs/block-02/DEPENDENCIES.md)
 - [Turnierplan.eu](https://www.turnierplan.eu/)
 - [WordPress Block Editor Handbook](https://developer.wordpress.org/block-editor/)

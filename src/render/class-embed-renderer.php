@@ -133,7 +133,7 @@ final class EmbedRenderer {
 		);
 	}
 
-	/** Returns the temporary state used until preset resolution is implemented. */
+	/** Returns the safe state for a missing, invalid, or unpublished preset. */
 	public function render_preset_unavailable(): string {
 		return $this->render_state(
 			__( 'Diese gespeicherte Turniereinbettung ist noch nicht verfügbar.', 'turnierplan-eu' ),

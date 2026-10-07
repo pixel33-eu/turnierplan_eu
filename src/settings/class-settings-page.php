@@ -12,6 +12,7 @@ namespace TurnierplanEU\WordPress\Settings;
 use TurnierplanEU\WordPress\Cache\MetadataCache;
 use TurnierplanEU\WordPress\Config\ServiceConfiguration;
 use TurnierplanEU\WordPress\Remote\MetadataGateway;
+use TurnierplanEU\WordPress\Preset\Capabilities;
 
 /**
  * Provides service approval, setup defaults, revocation, and a deliberate test.
@@ -34,6 +35,12 @@ final class SettingsPage {
 		add_action( 'admin_menu', array( $this, 'add_page' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_post_tpeu_connection_test', array( $this, 'handle_connection_test' ) );
+		add_filter( 'option_page_capability_tpeu_settings_group', array( $this, 'settings_capability' ) );
+	}
+
+	/** Returns the dedicated capability used by the Settings API. */
+	public function settings_capability(): string {
+		return Capabilities::MANAGE_SETTINGS;
 	}
 
 	/** Adds the page below the WordPress Settings menu. */
@@ -41,7 +48,7 @@ final class SettingsPage {
 		add_options_page(
 			esc_html__( 'Turnierplan.eu', 'turnierplan-eu' ),
 			esc_html__( 'Turnierplan.eu', 'turnierplan-eu' ),
-			'manage_options',
+			Capabilities::MANAGE_SETTINGS,
 			self::PAGE_SLUG,
 			array( $this, 'render_page' )
 		);
@@ -96,7 +103,7 @@ final class SettingsPage {
 
 	/** Renders the complete settings and connection-test screen. */
 	public function render_page(): void {
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( Capabilities::MANAGE_SETTINGS ) ) {
 			return;
 		}
 
@@ -225,7 +232,7 @@ final class SettingsPage {
 
 	/** Handles the nonce-protected manual connection test. */
 	public function handle_connection_test(): void {
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( Capabilities::MANAGE_SETTINGS ) ) {
 			wp_die( esc_html__( 'Du darfst diese Verbindung nicht testen.', 'turnierplan-eu' ), '', array( 'response' => 403 ) );
 		}
 

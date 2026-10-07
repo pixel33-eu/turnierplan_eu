@@ -135,6 +135,12 @@ export function reconcileMetadata(config, metadata) {
 	return next;
 }
 
+export function inlineConfigForPreset(presets, presetId, fallbackConfig) {
+	const selected = presets.find(({ id }) => id === presetId);
+
+	return selected?.config ?? fallbackConfig;
+}
+
 export function createMetadataLoader(apiFetch, AbortControllerClass) {
 	const Controller =
 		AbortControllerClass ?? globalThis.AbortController ?? null;

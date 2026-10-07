@@ -4,6 +4,7 @@ import {
 	configurationWarnings,
 	createMetadataLoader,
 	initialMetadataState,
+	inlineConfigForPreset,
 	metadataReducer,
 	participantsForGroup,
 	reconcileMetadata,
@@ -150,6 +151,8 @@ function Edit({ attributes, setAttributes }) {
 	const [showExample, setShowExample] = useState(false);
 	const [previewDevice, setPreviewDevice] = useState('desktop');
 	const [configWarnings, setConfigWarnings] = useState([]);
+	const [presets, setPresets] = useState([]);
+	const [presetError, setPresetError] = useState(null);
 	const loader = useRef(null);
 	const autoLoaded = useRef(false);
 	const debouncedConfig = useDebouncedValue(config, 250);
@@ -168,6 +171,20 @@ function Edit({ attributes, setAttributes }) {
 	}, [attributes.initialized, config, setAttributes]);
 
 	useEffect(() => () => loader.current?.cancel(), []);
+
+	useEffect(() => {
+		let active = true;
+		apiFetch({ path: '/turnierplan-eu/v1/presets' })
+			.then((response) => {
+				if (active) {
+					setPresets(Array.isArray(response?.presets) ? response.presets : []);
+				}
+			})
+			.catch((error) => active && setPresetError(error));
+		return () => {
+			active = false;
+		};
+	}, []);
 
 	const updateConfig = useCallback(
 		(patch) => setAttributes({ config: { ...config, ...patch } }),
@@ -225,6 +242,7 @@ function Edit({ attributes, setAttributes }) {
 	useEffect(() => {
 		if (
 			!autoLoaded.current &&
+			(attributes.presetId ?? 0) === 0 &&
 			attributes.initialized &&
 			config.schemaVersion === 1 &&
 			config.tournamentRef !== '' &&
@@ -234,6 +252,24 @@ function Edit({ attributes, setAttributes }) {
 			loadMetadata(config.tournamentRef, config.language, config);
 		}
 	}, [attributes.initialized, config, loadMetadata]);
+
+	const selectPreset = (value) => {
+		const presetId = Number.parseInt(value, 10);
+
+		if (presetId > 0) {
+			setAttributes({ initialized: true, presetId });
+			dispatch({ type: 'reset' });
+			return;
+		}
+
+		const copiedConfig = inlineConfigForPreset(
+			presets,
+			attributes.presetId,
+			config
+		);
+		setAttributes({ config: copiedConfig, initialized: true, presetId: 0 });
+		setReferenceInput(copiedConfig.tournamentRef ?? '');
+	};
 
 	const tournament = state.metadata?.tournament ?? null;
 	const schemaSupported = config.schemaVersion === 1;
@@ -367,8 +403,45 @@ function Edit({ attributes, setAttributes }) {
 		</PanelBody>
 	);
 
+	const presetPanel = (
+		<PanelBody title={__('Wiederverwendbares Preset', 'turnierplan-eu')}>
+			<SelectControl
+				label={__('Quelle', 'turnierplan-eu')}
+				value={String(attributes.presetId ?? 0)}
+				options={[
+					{ label: __('Inline-Konfiguration', 'turnierplan-eu'), value: '0' },
+					...presets.map(({ id, title }) => ({ label: title, value: String(id) })),
+				]}
+				onChange={selectPreset}
+			/>
+			{presetError !== null && (
+				<Notice status="warning" isDismissible={false}>
+					{__('Die Preset-Liste konnte nicht geladen werden.', 'turnierplan-eu')}
+				</Notice>
+			)}
+			{(attributes.presetId ?? 0) > 0 && (
+				<p>{__('Änderungen am Preset gelten automatisch für alle Verwendungsstellen. Beim Wechsel zu Inline werden die aktuellen Werte einmalig kopiert.', 'turnierplan-eu')}</p>
+			)}
+		</PanelBody>
+	);
+
+	if ((attributes.presetId ?? 0) > 0) {
+		return (
+			<>
+				<InspectorControls>{presetPanel}</InspectorControls>
+				<div {...blockProps}>
+					<ServerSideRender
+						block="turnierplan-eu/embed"
+						attributes={{ presetId: attributes.presetId, initialized: true }}
+					/>
+				</div>
+			</>
+		);
+	}
+
 	const inspector = (
 		<InspectorControls>
+			{presetPanel}
 			{connectPanel}
 			<PanelBody title={__('Darstellung', 'turnierplan-eu')}>
 				<SelectControl

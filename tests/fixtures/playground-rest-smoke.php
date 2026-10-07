@@ -22,6 +22,8 @@ if (
 	! isset( $tpeu_routes['/turnierplan-eu/v1/metadata/(?P<reference>[A-Za-z0-9_-]{1,104})'] )
 	|| ! isset( $tpeu_routes['/turnierplan-eu/v1/metadata/resolve'] )
 	|| ! isset( $tpeu_routes['/turnierplan-eu/v1/cache/refresh'] )
+	|| ! isset( $tpeu_routes['/turnierplan-eu/v1/presets'] )
+	|| ! isset( $tpeu_routes['/turnierplan-eu/v1/presets/(?P<id>[1-9][0-9]*)'] )
 ) {
 	throw new RuntimeException( 'Turnierplan.eu REST routes were not registered.' );
 }
@@ -32,6 +34,18 @@ $tpeu_guest_response = $tpeu_server->dispatch( $tpeu_guest_request );
 
 if ( 403 !== $tpeu_guest_response->get_status() ) {
 	throw new RuntimeException( 'Guest metadata proxy request was not denied.' );
+}
+
+$tpeu_guest_presets = $tpeu_server->dispatch( new WP_REST_Request( 'GET', '/turnierplan-eu/v1/presets' ) );
+
+if ( 403 !== $tpeu_guest_presets->get_status() ) {
+	throw new RuntimeException( 'Guest preset listing was not denied.' );
+}
+
+$tpeu_guest_core_presets = $tpeu_server->dispatch( new WP_REST_Request( 'GET', '/wp/v2/turnierplan-embeds' ) );
+
+if ( $tpeu_guest_core_presets->get_status() < 400 ) {
+	throw new RuntimeException( 'Guest core REST preset listing was exposed.' );
 }
 
 $tpeu_admin = get_user_by( 'login', 'admin' );
@@ -46,6 +60,32 @@ $tpeu_admin_response = $tpeu_server->dispatch( $tpeu_admin_request );
 
 if ( 403 !== $tpeu_admin_response->get_status() ) {
 	throw new RuntimeException( 'Nonce-less administrator metadata request was not denied.' );
+}
+
+$tpeu_admin_presets_without_nonce = $tpeu_server->dispatch( new WP_REST_Request( 'GET', '/turnierplan-eu/v1/presets' ) );
+
+if ( 403 !== $tpeu_admin_presets_without_nonce->get_status() ) {
+	throw new RuntimeException( 'Nonce-less administrator preset listing was not denied.' );
+}
+
+foreach (
+	array(
+		'administrator' => array( true, true, true, true ),
+		'editor'        => array( true, true, false, true ),
+		'author'        => array( true, true, false, false ),
+	) as $tpeu_role_name => $tpeu_expected_caps
+) {
+	$tpeu_role = get_role( $tpeu_role_name );
+
+	if (
+		null === $tpeu_role
+		|| $tpeu_role->has_cap( TurnierplanEU\WordPress\Preset\Capabilities::USE_PRESETS ) !== $tpeu_expected_caps[0]
+		|| $tpeu_role->has_cap( 'create_tpeu_embeds' ) !== $tpeu_expected_caps[1]
+		|| $tpeu_role->has_cap( TurnierplanEU\WordPress\Preset\Capabilities::MANAGE_SETTINGS ) !== $tpeu_expected_caps[2]
+		|| $tpeu_role->has_cap( 'edit_others_tpeu_embeds' ) !== $tpeu_expected_caps[3]
+	) {
+		throw new RuntimeException( 'Preset role capability matrix is incorrect for ' . esc_html( $tpeu_role_name ) . '.' );
+	}
 }
 
 if ( ( new TurnierplanEU\WordPress\Settings\SettingsRepository() )->is_service_enabled() ) {
@@ -113,6 +153,89 @@ update_option(
 	),
 	false
 );
+
+$tpeu_preset_id = wp_insert_post(
+	array(
+		'post_type'   => TurnierplanEU\WordPress\Preset\PresetRepository::POST_TYPE,
+		'post_status' => 'publish',
+		'post_title'  => 'Vereinsmeisterschaft',
+		'post_author' => $tpeu_admin->ID,
+	),
+	true
+);
+
+if ( is_wp_error( $tpeu_preset_id ) ) {
+	throw new RuntimeException( 'Published preset fixture could not be created.' );
+}
+
+$tpeu_preset_config = TurnierplanEU\WordPress\Config\EmbedConfig::from_array(
+	array(
+		'tournamentRef' => '123',
+		'view'          => 'standings',
+	)
+)->to_array();
+update_post_meta( $tpeu_preset_id, TurnierplanEU\WordPress\Preset\PresetRepository::META_KEY, $tpeu_preset_config );
+
+$tpeu_preset_list_request = new WP_REST_Request( 'GET', '/turnierplan-eu/v1/presets' );
+$tpeu_preset_list_request->set_header( 'X-WP-Nonce', wp_create_nonce( 'wp_rest' ) );
+$tpeu_preset_list_response = $tpeu_server->dispatch( $tpeu_preset_list_request );
+$tpeu_preset_list_data     = $tpeu_preset_list_response->get_data();
+
+if (
+	200 !== $tpeu_preset_list_response->get_status()
+	|| ! is_array( $tpeu_preset_list_data )
+	|| ! isset( $tpeu_preset_list_data['presets'][0]['id'] )
+	|| $tpeu_preset_id !== $tpeu_preset_list_data['presets'][0]['id']
+	|| isset( $tpeu_preset_list_data['presets'][0]['author'] )
+) {
+	throw new RuntimeException( 'Protected preset selector response is incomplete or exposes author data.' );
+}
+
+$tpeu_preset_shortcode = sprintf( '[turnierplan preset="%d"]', $tpeu_preset_id );
+$tpeu_preset_html      = do_shortcode( $tpeu_preset_shortcode );
+$tpeu_preset_block     = render_block(
+	array(
+		'blockName' => 'turnierplan-eu/embed',
+		'attrs'     => array( 'presetId' => $tpeu_preset_id ),
+	)
+);
+
+if (
+	! str_contains( $tpeu_preset_html, '/embed/v1/tournaments/123' )
+	|| ! str_contains( $tpeu_preset_block, '/embed/v1/tournaments/123' )
+) {
+	throw new RuntimeException( 'Published preset shortcode or block did not resolve its exact configuration.' );
+}
+
+$tpeu_preset_config['tournamentRef'] = '456';
+update_post_meta( $tpeu_preset_id, TurnierplanEU\WordPress\Preset\PresetRepository::META_KEY, $tpeu_preset_config );
+
+if ( ! str_contains( do_shortcode( $tpeu_preset_shortcode ), '/embed/v1/tournaments/456' ) ) {
+	throw new RuntimeException( 'Preset changes did not reach existing shortcode use.' );
+}
+
+wp_update_post(
+	array(
+		'ID'          => $tpeu_preset_id,
+		'post_status' => 'draft',
+	)
+);
+$tpeu_unpublished_html = do_shortcode( $tpeu_preset_shortcode );
+$tpeu_missing_html     = do_shortcode( '[turnierplan preset="999999999"]' );
+$tpeu_draft_list       = $tpeu_server->dispatch( $tpeu_preset_list_request )->get_data();
+
+if (
+	str_contains( $tpeu_unpublished_html, '<iframe ' )
+	|| str_contains( $tpeu_missing_html, '<iframe ' )
+	|| ! str_contains( $tpeu_unpublished_html, 'tpeu-embed--unavailable' )
+	|| ! str_contains( $tpeu_missing_html, 'tpeu-embed--unavailable' )
+	|| ! is_array( $tpeu_draft_list )
+	|| array() !== $tpeu_draft_list['presets']
+) {
+	throw new RuntimeException( 'Missing or unpublished preset did not use the safe exact-ID fallback.' );
+}
+
+wp_delete_post( $tpeu_preset_id, true );
 
 $tpeu_shortcode     = '[turnierplan tournament="123" view="matches" min_height="300" unknown="https://evil.example"]';
 $tpeu_http_requests = 0;

@@ -19,6 +19,11 @@ use TurnierplanEU\WordPress\Remote\MetadataGateway;
 use TurnierplanEU\WordPress\Remote\MetadataResponseValidator;
 use TurnierplanEU\WordPress\Remote\TrustedMetadataUrl;
 use TurnierplanEU\WordPress\Remote\WordPressHttpTransport;
+use TurnierplanEU\WordPress\Preset\Capabilities;
+use TurnierplanEU\WordPress\Preset\PresetAdmin;
+use TurnierplanEU\WordPress\Preset\PresetPostType;
+use TurnierplanEU\WordPress\Preset\PresetRepository;
+use TurnierplanEU\WordPress\Preset\PresetRestController;
 use TurnierplanEU\WordPress\Rest\MetadataController;
 use TurnierplanEU\WordPress\Rest\UserRateLimiter;
 use TurnierplanEU\WordPress\Render\EmbedRenderer;
@@ -79,7 +84,12 @@ final class Plugin {
 			$this->version
 		);
 		$gateway   = new MetadataGateway( $settings, $cache, $client );
+		$presets   = new PresetRepository();
 
+		( new Capabilities() )->register();
+		( new PresetPostType() )->register();
+		( new PresetAdmin( $settings, TPEU_PLUGIN_FILE, $this->version ) )->register();
+		( new PresetRestController( $presets ) )->register();
 		( new SettingsPage( $settings, $cache, $gateway, $service ) )->register();
 		( new PrivacyPolicy() )->register();
 		( new MetadataController( $gateway, new UserRateLimiter() ) )->register();
@@ -93,8 +103,8 @@ final class Plugin {
 			new WordPressFrontendAssets( TPEU_PLUGIN_FILE, $this->version )
 		);
 
-		( new ShortcodeHandler( $renderer ) )->register();
-		( new EmbedBlock( $renderer, $settings, TPEU_PLUGIN_FILE, $this->version ) )->register();
+		( new ShortcodeHandler( $renderer, $presets ) )->register();
+		( new EmbedBlock( $renderer, $presets, $settings, TPEU_PLUGIN_FILE, $this->version ) )->register();
 
 		/**
 		 * Fires after the Turnierplan.eu runtime has passed its requirement checks.

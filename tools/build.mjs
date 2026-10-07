@@ -22,6 +22,12 @@ const options = {
 			'src',
 			'block-editor.jsx'
 		),
+		'preset-editor': path.join(
+			repositoryRoot,
+			'assets',
+			'src',
+			'preset-editor.jsx'
+		),
 	},
 	bundle: true,
 	format: 'iife',
@@ -43,6 +49,11 @@ await writeFile(
 await writeFile(
 	path.join(outputDirectory, 'block-editor.asset.php'),
 	`<?php return array( 'dependencies' => array( 'wp-api-fetch', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wp-server-side-render' ), 'version' => '${version}' );\n`,
+	'utf8'
+);
+await writeFile(
+	path.join(outputDirectory, 'preset-editor.asset.php'),
+	`<?php return array( 'dependencies' => array( 'wp-api-fetch', 'wp-components', 'wp-element', 'wp-i18n', 'wp-server-side-render' ), 'version' => '${version}' );\n`,
 	'utf8'
 );
 
