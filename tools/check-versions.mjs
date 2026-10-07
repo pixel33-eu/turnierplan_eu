@@ -16,6 +16,7 @@ const pluginFile = await readText('turnierplan-eu.php');
 const readme = await readText('readme.txt');
 const packageJson = JSON.parse(await readText('package.json'));
 const composerJson = JSON.parse(await readText('composer.json'));
+const embedBlock = JSON.parse(await readText('blocks/embed/block.json'));
 const requirementsFile = await readText('src/class-requirements.php');
 
 const sources = {
@@ -24,6 +25,7 @@ const sources = {
 		/define\(\s*'TPEU_VERSION',\s*'([^']+)'\s*\)/
 	)?.[1],
 	'package.json': packageJson.version,
+	'embed block.json': embedBlock.version,
 	'readme stable tag': readme.match(/^Stable tag:\s+(.+)$/m)?.[1].trim(),
 };
 

@@ -14,9 +14,19 @@ const version = (
 	await readFile(path.join(repositoryRoot, 'VERSION'), 'utf8')
 ).trim();
 const options = {
-	entryPoints: [path.join(repositoryRoot, 'assets', 'src', 'index.js')],
+	entryPoints: {
+		index: path.join(repositoryRoot, 'assets', 'src', 'index.js'),
+		'block-editor': path.join(
+			repositoryRoot,
+			'assets',
+			'src',
+			'block-editor.jsx'
+		),
+	},
 	bundle: true,
 	format: 'iife',
+	jsxFactory: 'wp.element.createElement',
+	jsxFragment: 'wp.element.Fragment',
 	minify: !watch,
 	outdir: outputDirectory,
 	platform: 'browser',
@@ -28,6 +38,11 @@ await mkdir(outputDirectory, { recursive: true });
 await writeFile(
 	path.join(outputDirectory, 'index.asset.php'),
 	`<?php return array( 'dependencies' => array(), 'version' => '${version}' );\n`,
+	'utf8'
+);
+await writeFile(
+	path.join(outputDirectory, 'block-editor.asset.php'),
+	`<?php return array( 'dependencies' => array( 'wp-api-fetch', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wp-server-side-render' ), 'version' => '${version}' );\n`,
 	'utf8'
 );
 

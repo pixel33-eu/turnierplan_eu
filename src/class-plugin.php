@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace TurnierplanEU\WordPress;
 
+use TurnierplanEU\WordPress\Block\EmbedBlock;
 use TurnierplanEU\WordPress\Cache\MetadataCache;
 use TurnierplanEU\WordPress\Cache\WordPressCacheStore;
 use TurnierplanEU\WordPress\Config\EmbedUrlBuilder;
@@ -93,6 +94,7 @@ final class Plugin {
 		);
 
 		( new ShortcodeHandler( $renderer ) )->register();
+		( new EmbedBlock( $renderer, $settings, TPEU_PLUGIN_FILE, $this->version ) )->register();
 
 		/**
 		 * Fires after the Turnierplan.eu runtime has passed its requirement checks.

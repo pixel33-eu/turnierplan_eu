@@ -82,6 +82,26 @@ final class MetadataController {
 				),
 			)
 		);
+
+		register_rest_route(
+			self::NAMESPACE,
+			'/metadata/resolve',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'get_metadata' ),
+				'permission_callback' => array( $this, 'can_read_metadata' ),
+				'args'                => array(
+					'reference' => array(
+						'required'          => true,
+						'validate_callback' => array( $this, 'validate_reference' ),
+					),
+					'language'  => array(
+						'default'           => 'auto',
+						'validate_callback' => array( $this, 'validate_language' ),
+					),
+				),
+			)
+		);
 	}
 
 	/** Checks permission, nonce, and rate limit for metadata reads. */

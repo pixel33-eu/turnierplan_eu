@@ -20,6 +20,7 @@ $tpeu_routes = $tpeu_server->get_routes();
 
 if (
 	! isset( $tpeu_routes['/turnierplan-eu/v1/metadata/(?P<reference>[A-Za-z0-9_-]{1,104})'] )
+	|| ! isset( $tpeu_routes['/turnierplan-eu/v1/metadata/resolve'] )
 	|| ! isset( $tpeu_routes['/turnierplan-eu/v1/cache/refresh'] )
 ) {
 	throw new RuntimeException( 'Turnierplan.eu REST routes were not registered.' );
@@ -51,8 +52,47 @@ if ( ( new TurnierplanEU\WordPress\Settings\SettingsRepository() )->is_service_e
 	throw new RuntimeException( 'The external service was enabled without administrator approval.' );
 }
 
+$tpeu_resolve_request = new WP_REST_Request( 'POST', '/turnierplan-eu/v1/metadata/resolve' );
+$tpeu_resolve_request->set_header( 'X-WP-Nonce', wp_create_nonce( 'wp_rest' ) );
+$tpeu_resolve_request->set_body_params(
+	array(
+		'reference' => 'https://www.turnierplan.eu/t/sommer-cup-2026',
+		'language'  => 'de',
+	)
+);
+$tpeu_resolve_response = $tpeu_server->dispatch( $tpeu_resolve_request );
+
+if ( 403 !== $tpeu_resolve_response->get_status() ) {
+	throw new RuntimeException( 'The protected resolver did not accept a service URL before applying service approval.' );
+}
+
+$tpeu_foreign_request = new WP_REST_Request( 'POST', '/turnierplan-eu/v1/metadata/resolve' );
+$tpeu_foreign_request->set_header( 'X-WP-Nonce', wp_create_nonce( 'wp_rest' ) );
+$tpeu_foreign_request->set_body_params(
+	array(
+		'reference' => 'https://evil.example/t/123',
+		'language'  => 'de',
+	)
+);
+$tpeu_foreign_response = $tpeu_server->dispatch( $tpeu_foreign_request );
+
+if ( 400 !== $tpeu_foreign_response->get_status() ) {
+	throw new RuntimeException( 'The protected resolver accepted a foreign tournament URL.' );
+}
+
 if ( ! shortcode_exists( 'turnierplan' ) ) {
 	throw new RuntimeException( 'The Turnierplan.eu shortcode was not registered.' );
+}
+
+$tpeu_block_type = WP_Block_Type_Registry::get_instance()->get_registered( 'turnierplan-eu/embed' );
+
+if (
+	null === $tpeu_block_type
+	|| 2 !== count( $tpeu_block_type->get_variations() )
+	|| ! wp_script_is( 'tpeu-block-editor', 'registered' )
+	|| ! wp_style_is( 'tpeu-block-editor', 'registered' )
+) {
+	throw new RuntimeException( 'The metadata-defined dynamic block was not registered completely.' );
 }
 
 $tpeu_https_home = static function ( string $url ): string {
@@ -85,6 +125,17 @@ $tpeu_http_guard    = static function ( mixed $preempt ) use ( &$tpeu_http_reque
 add_filter( 'pre_http_request', $tpeu_http_guard );
 $tpeu_first_html  = do_shortcode( $tpeu_shortcode );
 $tpeu_second_html = do_shortcode( $tpeu_shortcode );
+$tpeu_block_html  = render_block(
+	array(
+		'blockName' => 'turnierplan-eu/embed',
+		'attrs'     => array(
+			'config' => array(
+				'tournamentRef' => '123',
+				'view'          => 'standings',
+			),
+		),
+	)
+);
 remove_filter( 'pre_http_request', $tpeu_http_guard );
 
 if (
@@ -104,6 +155,19 @@ if (
 
 if ( 0 !== $tpeu_http_requests ) {
 	throw new RuntimeException( 'Normal frontend rendering triggered a WordPress HTTP request.' );
+}
+
+if (
+	! str_contains( $tpeu_block_html, '<iframe ' )
+	|| ! str_contains( $tpeu_block_html, '/embed/v1/tournaments/123' )
+	|| '' !== render_block(
+		array(
+			'blockName' => 'turnierplan-eu/embed',
+			'attrs'     => array(),
+		)
+	)
+) {
+	throw new RuntimeException( 'The dynamic block did not delegate configured and empty states correctly.' );
 }
 
 preg_match( '/data-tpeu-instance="([^"]+)"/', $tpeu_first_html, $tpeu_first_instance );

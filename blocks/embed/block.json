@@ -1,0 +1,105 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "turnierplan-eu/embed",
+  "version": "0.1.0",
+  "title": "Turnierplan.eu",
+  "category": "widgets",
+  "icon": "chart-bar",
+  "description": "Öffentliche Turniertabellen und Spielpläne von Turnierplan.eu einbetten.",
+  "keywords": ["Turnier", "Tabelle", "Spielplan"],
+  "textdomain": "turnierplan-eu",
+  "attributes": {
+    "presetId": {
+      "type": "integer",
+      "default": 0
+    },
+    "initialized": {
+      "type": "boolean",
+      "default": false
+    },
+    "config": {
+      "type": "object",
+      "default": {
+        "schemaVersion": 1,
+        "tournamentRef": "",
+        "view": "standings",
+        "language": "auto",
+        "group": null,
+        "participant": null,
+        "matchFrom": null,
+        "matchTo": null,
+        "dateFrom": null,
+        "dateTo": null,
+        "theme": "auto",
+        "density": "comfortable",
+        "accentColor": null,
+        "showBranding": true,
+        "openLinksInNewTab": true,
+        "minHeight": 240,
+        "maxHeight": 4000,
+        "showTeamLogos": true,
+        "showPlayed": true,
+        "showWinsDrawsLosses": true,
+        "showScoreBalance": true,
+        "showPoints": true,
+        "enableGroupNavigation": true,
+        "showMatchNumber": true,
+        "showDate": "auto",
+        "showTime": true,
+        "showField": true,
+        "showGroup": true,
+        "showRound": true,
+        "showReferee": true,
+        "showLiveState": true,
+        "showExtraTime": true,
+        "showPenaltyResult": true
+      }
+    }
+  },
+  "supports": {
+    "html": false,
+    "inserter": true,
+    "multiple": true,
+    "reusable": true
+  },
+  "editorScript": "tpeu-block-editor",
+  "editorStyle": "tpeu-block-editor",
+  "variations": [
+    {
+      "name": "standings",
+      "title": "Turniertabelle",
+      "description": "Rangliste oder Tabelle eines öffentlichen Turniers anzeigen.",
+      "icon": "list-view",
+      "attributes": {
+        "config": {
+          "schemaVersion": 1,
+          "tournamentRef": "",
+          "view": "standings",
+          "language": "auto",
+          "theme": "auto",
+          "density": "comfortable"
+        }
+      },
+      "isDefault": true,
+      "scope": ["block", "inserter", "transform"]
+    },
+    {
+      "name": "matches",
+      "title": "Spielplan",
+      "description": "Spiele, Ergebnisse und Termine eines öffentlichen Turniers anzeigen.",
+      "icon": "calendar-alt",
+      "attributes": {
+        "config": {
+          "schemaVersion": 1,
+          "tournamentRef": "",
+          "view": "matches",
+          "language": "auto",
+          "theme": "auto",
+          "density": "comfortable"
+        }
+      },
+      "scope": ["block", "inserter", "transform"]
+    }
+  ]
+}
