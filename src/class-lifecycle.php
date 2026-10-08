@@ -34,7 +34,7 @@ final class Lifecycle {
 
 			wp_die(
 				esc_html( Requirements::get_error_message( $failures ) ),
-				esc_html__( 'Plugin-Aktivierung fehlgeschlagen', 'turnierplan-eu' ),
+				esc_html__( 'Plugin activation failed', 'turnierplan-eu' ),
 				array(
 					'back_link' => true,
 					'response'  => 500,

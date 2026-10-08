@@ -56,7 +56,7 @@ final class Requirements {
 		if ( isset( $failures['php'] ) ) {
 			$messages[] = sprintf(
 				/* translators: 1: required PHP version, 2: current PHP version. */
-				__( 'Turnierplan.eu benötigt PHP %1$s oder neuer. Installiert ist PHP %2$s.', 'turnierplan-eu' ),
+				__( 'Turnierplan.eu requires PHP %1$s or later. PHP %2$s is installed.', 'turnierplan-eu' ),
 				$failures['php']['required'],
 				$failures['php']['current']
 			);
@@ -65,7 +65,7 @@ final class Requirements {
 		if ( isset( $failures['wordpress'] ) ) {
 			$messages[] = sprintf(
 				/* translators: 1: required WordPress version, 2: current WordPress version. */
-				__( 'Turnierplan.eu benötigt WordPress %1$s oder neuer. Installiert ist WordPress %2$s.', 'turnierplan-eu' ),
+				__( 'Turnierplan.eu requires WordPress %1$s or later. WordPress %2$s is installed.', 'turnierplan-eu' ),
 				$failures['wordpress']['required'],
 				$failures['wordpress']['current']
 			);

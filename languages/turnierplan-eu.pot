@@ -1,0 +1,675 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Turnierplan.eu 0.1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/pixel33-eu/turnierplan_eu/issues\n"
+"POT-Creation-Date: 2026-10-08 00:00+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Turnierplan.eu translation build\n"
+
+msgid "%1$s: %2$s"
+msgstr ""
+
+msgid "%s – Copy"
+msgstr ""
+
+msgid "A valid tournament must be connected before publishing."
+msgstr ""
+
+msgid "Accent color"
+msgstr ""
+
+msgid "Accent color (e.g. #2255AA)"
+msgstr ""
+
+msgid "Activating the plugin alone does not establish a connection. Approval applies to this WordPress installation and can be revoked at any time."
+msgstr ""
+
+msgid "Add embed"
+msgstr ""
+
+msgid "Additional filters"
+msgstr ""
+
+msgid "Advanced"
+msgstr ""
+
+msgid "All groups"
+msgstr ""
+
+msgid "All participants"
+msgstr ""
+
+msgid "Appearance"
+msgstr ""
+
+msgid "Automatic"
+msgstr ""
+
+msgid "Built into the plugin and not editable by users or REST requests."
+msgstr ""
+
+msgid "Cancelled"
+msgstr ""
+
+msgid "Changes to the preset automatically apply everywhere it is used. Switching to inline copies the current values once."
+msgstr ""
+
+msgid "Close example"
+msgstr ""
+
+msgid "Color scheme"
+msgstr ""
+
+msgid "Comfortable"
+msgstr ""
+
+msgid "Compact"
+msgstr ""
+
+msgid "Completed"
+msgstr ""
+
+msgid "Configure embed"
+msgstr ""
+
+msgid "Connect tournament"
+msgstr ""
+
+msgid "Connection"
+msgstr ""
+
+msgid "Connection successful. The metadata was validated and stored."
+msgstr ""
+
+msgid "Copy shortcode"
+msgstr ""
+
+msgid "Correct the configuration before publishing."
+msgstr ""
+
+msgid "Dark"
+msgstr ""
+
+msgid "Data transfer and page caches"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Decision details"
+msgstr ""
+
+msgid "Defaults for new embeds"
+msgstr ""
+
+msgid "Density"
+msgstr ""
+
+msgid "Desktop"
+msgstr ""
+
+msgid "Disabled. No remote requests are made and new frames remain blocked."
+msgstr ""
+
+msgid "Display matches, results, and dates of a public tournament."
+msgstr ""
+
+msgid "Display the rankings or standings of a public tournament."
+msgstr ""
+
+msgid "Displayed information"
+msgstr ""
+
+msgid "Duplicate as new draft"
+msgstr ""
+
+msgid "Edit embed"
+msgstr ""
+
+msgid "Embed"
+msgstr ""
+
+msgid "Embed configuration"
+msgstr ""
+
+msgid "Embed public tournament standings and schedules from Turnierplan.eu."
+msgstr ""
+
+msgid "Embeds"
+msgstr ""
+
+msgid "Embeds public tournament schedules, standings, and results from Turnierplan.eu in WordPress."
+msgstr ""
+
+msgid "Enable group navigation"
+msgstr ""
+
+msgid "Enabled. Editor requests and new embeds may use Turnierplan.eu."
+msgstr ""
+
+msgid "End date"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "Enter a public tournament ID, slug, or Turnierplan.eu URL."
+msgstr ""
+
+msgid "Enter a tournament reference."
+msgstr ""
+
+msgid "Example Club North"
+msgstr ""
+
+msgid "Example Club South"
+msgstr ""
+
+msgid "External service"
+msgstr ""
+
+msgid "Extra time"
+msgstr ""
+
+msgid "Field or court"
+msgstr ""
+
+msgid "First match number"
+msgstr ""
+
+msgid "German"
+msgstr ""
+
+msgid "Goal, set, or point balance"
+msgstr ""
+
+msgid "Group"
+msgstr ""
+
+msgid "Group ID (optional)"
+msgstr ""
+
+msgid "Group navigation"
+msgstr ""
+
+msgid "Hide"
+msgstr ""
+
+msgid "I allow use of the external Turnierplan.eu service for public tournament content."
+msgstr ""
+
+msgid "In the WordPress dashboard, the server retrieves small metadata responses for configuration and preview. Turnierplan.eu processes the WordPress server's IP address, the time, the requested tournament reference, and standard technical HTTP data. The plugin does not send WordPress login details or cookies."
+msgstr ""
+
+msgid "Inline configuration"
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Last match number"
+msgstr ""
+
+msgid "Light"
+msgstr ""
+
+msgid "Live"
+msgstr ""
+
+msgid "Live status"
+msgstr ""
+
+msgid "Loading is taking longer than expected. The tournament link remains available."
+msgstr ""
+
+msgid "Loading tournament view…"
+msgstr ""
+
+msgid "Local example: tournament standings"
+msgstr ""
+
+msgid "Match number"
+msgstr ""
+
+msgid "Matches played"
+msgstr ""
+
+msgid "Maximum height"
+msgstr ""
+
+msgid "Metadata for the editor and connection test is retrieved by the WordPress server. Published frames are loaded directly in the visitor's browser. The Turnierplan.eu privacy information applies in each case."
+msgstr ""
+
+msgid "Metadata updated: %s"
+msgstr ""
+
+msgid "Minimum height"
+msgstr ""
+
+msgid "Mobile"
+msgstr ""
+
+msgid "New embed"
+msgstr ""
+
+msgid "No content is currently available for this selection."
+msgstr ""
+
+msgid "No embeds found in the Trash."
+msgstr ""
+
+msgid "No embeds found."
+msgstr ""
+
+msgid "On published pages, the visitor's browser loads the tournament frame directly from Turnierplan.eu. This may process the visitor's IP address, referrer and browser data, and the requested tournament view. More information is available in the Turnierplan.eu privacy policy."
+msgstr ""
+
+msgid "Open full tournament"
+msgstr ""
+
+msgid "Open full tournament on Turnierplan.eu"
+msgstr ""
+
+msgid "Open links in a new tab"
+msgstr ""
+
+msgid "Open tournament on Turnierplan.eu"
+msgstr ""
+
+msgid "Participant"
+msgstr ""
+
+msgid "Participant ID (optional)"
+msgstr ""
+
+msgid "Played"
+msgstr ""
+
+msgid "Plugin activation failed"
+msgstr ""
+
+msgid "Points"
+msgstr ""
+
+msgid "Preview"
+msgstr ""
+
+msgid "Privacy at Turnierplan.eu"
+msgstr ""
+
+msgid "Rank"
+msgstr ""
+
+msgid "Referee"
+msgstr ""
+
+msgid "Refresh connection"
+msgstr ""
+
+msgid "Remove plugin data on deletion"
+msgstr ""
+
+msgid "Reset configuration"
+msgstr ""
+
+msgid "Reusable preset"
+msgstr ""
+
+msgid "Round"
+msgstr ""
+
+msgid "Save settings"
+msgstr ""
+
+msgid "Save the service approval first."
+msgstr ""
+
+msgid "Schedule"
+msgstr ""
+
+msgid "Service URL"
+msgstr ""
+
+msgid "Shortcode"
+msgstr ""
+
+msgid "Shortcode copied"
+msgstr ""
+
+msgid "Show"
+msgstr ""
+
+msgid "Show branding"
+msgstr ""
+
+msgid "Show date"
+msgstr ""
+
+msgid "Show decision details"
+msgstr ""
+
+msgid "Show extra time"
+msgstr ""
+
+msgid "Show field or court"
+msgstr ""
+
+msgid "Show group"
+msgstr ""
+
+msgid "Show live status"
+msgstr ""
+
+msgid "Show match number"
+msgstr ""
+
+msgid "Show matches played"
+msgstr ""
+
+msgid "Show points"
+msgstr ""
+
+msgid "Show referee"
+msgstr ""
+
+msgid "Show round"
+msgstr ""
+
+msgid "Show score balance"
+msgstr ""
+
+msgid "Show team logos"
+msgstr ""
+
+msgid "Show time"
+msgstr ""
+
+msgid "Show Turnierplan.eu branding"
+msgstr ""
+
+msgid "Show wins, draws, and losses"
+msgstr ""
+
+msgid "Source"
+msgstr ""
+
+msgid "Standings"
+msgstr ""
+
+msgid "Start date"
+msgstr ""
+
+msgid "Status:"
+msgstr ""
+
+msgid "Status: %s"
+msgstr ""
+
+msgid "Stored data"
+msgstr ""
+
+msgid "Tablet"
+msgstr ""
+
+msgid "Team"
+msgstr ""
+
+msgid "Team logos"
+msgstr ""
+
+msgid "Terms of use"
+msgstr ""
+
+msgid "Test connection"
+msgstr ""
+
+msgid "Test connection now"
+msgstr ""
+
+msgid "The actual uninstall cleanup will be enabled with the lifecycle work in Block 14. Until then, this choice is only stored."
+msgstr ""
+
+msgid "The configuration was invalid. The preset was saved as a draft."
+msgstr ""
+
+msgid "The connection test failed with an unexpected service error."
+msgstr ""
+
+msgid "The connection test timed out."
+msgstr ""
+
+msgid "The displayed data could not be updated completely."
+msgstr ""
+
+msgid "The embed configuration is invalid or incomplete."
+msgstr ""
+
+msgid "The external service has not been enabled yet."
+msgstr ""
+
+msgid "The external service is not enabled for this website."
+msgstr ""
+
+msgid "The external service must first be enabled under Settings → Turnierplan.eu."
+msgstr ""
+
+msgid "The last successful response is shown because Turnierplan.eu is temporarily unavailable."
+msgstr ""
+
+msgid "The metadata could not be loaded."
+msgstr ""
+
+msgid "The metadata request timed out."
+msgstr ""
+
+msgid "The metadata response exceeds the size limit."
+msgstr ""
+
+msgid "The metadata response has an unsupported format."
+msgstr ""
+
+msgid "The new draft could not be opened."
+msgstr ""
+
+msgid "The preset could not be duplicated."
+msgstr ""
+
+msgid "The preset does not contain a valid configuration."
+msgstr ""
+
+msgid "The preset is unavailable."
+msgstr ""
+
+msgid "The preset is unpublished or unavailable."
+msgstr ""
+
+msgid "The preset list could not be loaded."
+msgstr ""
+
+msgid "The preview appears here after a valid tournament reference is entered."
+msgstr ""
+
+msgid "The previously selected view is unavailable. An available view was selected."
+msgstr ""
+
+msgid "The response does not match the supported metadata schema."
+msgstr ""
+
+msgid "The response exceeded the permitted size."
+msgstr ""
+
+msgid "The saved group is no longer available and was reset to all groups."
+msgstr ""
+
+msgid "The saved participant is no longer available and was reset."
+msgstr ""
+
+msgid "The secure connection to Turnierplan.eu failed."
+msgstr ""
+
+msgid "The secure HTTPS connection could not be established."
+msgstr ""
+
+msgid "The security check has expired. Reload the editor."
+msgstr ""
+
+msgid "The service did not return a JSON response."
+msgstr ""
+
+msgid "The service returned invalid JSON."
+msgstr ""
+
+msgid "The service was unavailable. An older validated response is still available."
+msgstr ""
+
+msgid "The shortcode could not be copied."
+msgstr ""
+
+msgid "The test starts a server request only after submission and requires saved service approval."
+msgstr ""
+
+msgid "The tournament has ended and remains publicly available."
+msgstr ""
+
+msgid "The tournament metadata could not be loaded."
+msgstr ""
+
+msgid "The tournament reference or language is invalid."
+msgstr ""
+
+msgid "The tournament view contains invalid or incomplete settings."
+msgstr ""
+
+msgid "The tournament view could not be loaded because its settings are invalid."
+msgstr ""
+
+msgid "The tournament view is currently disabled on this website."
+msgstr ""
+
+msgid "The tournament view is currently unavailable."
+msgstr ""
+
+msgid "The tournament view requires a secure HTTPS address for the WordPress website."
+msgstr ""
+
+msgid "The tournament was not found or is not public."
+msgstr ""
+
+msgid "The tournament was not found or is not publicly available."
+msgstr ""
+
+msgid "This configuration version is unsupported and must be reset."
+msgstr ""
+
+msgid "This example does not load external data."
+msgstr ""
+
+msgid "This saved tournament embed is currently unavailable."
+msgstr ""
+
+msgid "This website embeds public tournament information from Turnierplan.eu when the feature has been approved by an administrator and used in content."
+msgstr ""
+
+msgid "Time"
+msgstr ""
+
+msgid "Too many metadata requests. Wait a moment."
+msgstr ""
+
+msgid "Too many requests. Try again later."
+msgstr ""
+
+msgid "Tournament"
+msgstr ""
+
+msgid "Tournament %s"
+msgstr ""
+
+msgid "Tournament ID, slug, or URL"
+msgstr ""
+
+msgid "Tournament reference"
+msgstr ""
+
+msgid "Tournament schedule"
+msgstr ""
+
+msgid "Tournament standings"
+msgstr ""
+
+msgid "Tournament view loaded."
+msgstr ""
+
+msgid "Turnierplan"
+msgstr ""
+
+msgid "Turnierplan embeds"
+msgstr ""
+
+msgid "Turnierplan.eu"
+msgstr ""
+
+msgid "Turnierplan.eu – Embed tournaments"
+msgstr ""
+
+msgid "Turnierplan.eu did not return a JSON response."
+msgstr ""
+
+msgid "Turnierplan.eu is temporarily limiting requests."
+msgstr ""
+
+msgid "Turnierplan.eu is temporarily unavailable."
+msgstr ""
+
+msgid "Turnierplan.eu requires PHP %1$s or later. PHP %2$s is installed."
+msgstr ""
+
+msgid "Turnierplan.eu requires WordPress %1$s or later. WordPress %2$s is installed."
+msgstr ""
+
+msgid "Turnierplan.eu returned invalid JSON."
+msgstr ""
+
+msgid "Uninstallation"
+msgstr ""
+
+msgid "Upcoming"
+msgstr ""
+
+msgid "Updating tournament…"
+msgstr ""
+
+msgid "Versioned and validated Turnierplan.eu configuration."
+msgstr ""
+
+msgid "View"
+msgstr ""
+
+msgid "View example"
+msgstr ""
+
+msgid "When access is revoked, the plugin clears its metadata cache and creates no new frames or requests. HTML already stored by a page or CDN cache must also be cleared in that cache solution."
+msgstr ""
+
+msgid "When connecting, the WordPress server retrieves public metadata from Turnierplan.eu."
+msgstr ""
+
+msgid "Wins, draws, and losses"
+msgstr ""
+
+msgid "You are not allowed to duplicate this preset."
+msgstr ""
+
+msgid "You are not allowed to refresh this preset."
+msgstr ""
+
+msgid "You are not allowed to retrieve tournament metadata."
+msgstr ""
+
+msgid "You are not allowed to test this connection."
+msgstr ""
+
+msgid "You are not allowed to use Turnierplan presets."
+msgstr ""

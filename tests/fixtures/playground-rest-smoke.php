@@ -264,13 +264,14 @@ remove_filter( 'pre_http_request', $tpeu_http_guard );
 if (
 	! str_contains( $tpeu_first_html, '<iframe ' )
 	|| ! str_contains( $tpeu_first_html, 'width="100%"' )
-	|| ! str_contains( $tpeu_first_html, 'title="Spielplan: Turnier 123"' )
+	|| ! str_contains( $tpeu_first_html, 'title="Schedule: Tournament 123"' )
 	|| ! str_contains( $tpeu_first_html, 'loading="lazy"' )
 	|| ! str_contains( $tpeu_first_html, 'referrerpolicy="strict-origin-when-cross-origin"' )
 	|| ! str_contains( $tpeu_first_html, 'sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"' )
 	|| ! str_contains( $tpeu_first_html, 'https://www.turnierplan.eu/embed/v1/tournaments/123' )
+	|| ! str_contains( $tpeu_first_html, 'lang=en' )
 	|| ! str_contains( $tpeu_first_html, 'parent_origin=https%3A%2F%2Fverein.example' )
-	|| ! str_contains( $tpeu_first_html, 'Turnier vollständig auf Turnierplan.eu öffnen' )
+	|| ! str_contains( $tpeu_first_html, 'Open full tournament on Turnierplan.eu' )
 	|| str_contains( $tpeu_first_html, 'evil.example' )
 ) {
 	throw new RuntimeException( 'The shortcode did not render the secured shared iframe markup.' );
@@ -330,3 +331,14 @@ if (
 }
 
 remove_filter( 'home_url', $tpeu_https_home );
+
+unload_textdomain( 'turnierplan-eu' );
+$tpeu_german_catalog = dirname( __DIR__, 2 ) . '/languages/turnierplan-eu-de_DE.mo';
+
+if (
+	! load_textdomain( 'turnierplan-eu', $tpeu_german_catalog )
+	|| 'Tabelle' !== __( 'Standings', 'turnierplan-eu' )
+	|| 'Spielplan' !== __( 'Schedule', 'turnierplan-eu' )
+) {
+	throw new RuntimeException( 'The bundled German translation catalog was not loaded completely.' );
+}

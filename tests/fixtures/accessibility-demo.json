@@ -1,0 +1,23 @@
+{
+  "synthetic": true,
+  "viewports": [320, 375, 768, 1440],
+  "scenarios": {
+    "long-content": {
+      "tournament": "Internationaler Freundschaftspokal der Beispielvereine 2026",
+      "participants": [
+        {
+          "name": "Sportgemeinschaft Beispielstadt Nord-West mit sehr langem Vereinsnamen",
+          "logo": null
+        },
+        {
+          "name": "Athletic Club Musterhausen Jugendabteilung",
+          "logo": "synthetic-shield.svg"
+        }
+      ]
+    },
+    "empty-standings": {
+      "tournament": "Leeres Beispielturnier",
+      "participants": []
+    }
+  }
+}

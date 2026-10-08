@@ -113,7 +113,7 @@ Die [Entwicklungsroadmap in 15 Blöcken](./WORDPRESS-ROADMAP.md) enthält für j
 - [x] 10 – Gemeinsamer Renderer und Shortcode
 - [x] 11 – Gutenberg-Block und direkte Vorschau
 - [x] 12 – Wiederverwendbare Presets und Verwaltungsoberfläche
-- [ ] 13 – Bedienqualität, Barrierefreiheit und Sprachen
+- [x] 13 – Bedienqualität, Barrierefreiheit und Sprachen
 - [ ] 14 – Lebenszyklus, Multisite und Gesamtprüfung
 - [ ] 15 – Dokumentation, Release und WordPress.org
 
@@ -130,6 +130,8 @@ Sicherheitsprobleme bitte nicht als öffentliches Issue mit ausnutzbaren Details
 ## Barrierefreiheit
 
 Die Bedienoberfläche soll vollständig per Tastatur nutzbar sein und WordPress-Komponenten mit verständlichen Beschriftungen verwenden. Die eingebettete Ansicht benötigt eine sinnvolle Iframe-Beschriftung, sichtbare Fokuszustände, ausreichende Kontraste und eine brauchbare Darstellung auf kleinen Bildschirmen.
+
+Block 13 liefert englische Gettext-Originale mit einem vollständigen deutschen PHP-/JavaScript-Katalog, getrennte WordPress- und Ausgabesprache, fokussierte Fehler, zugängliche Kopiermeldungen und reproduzierbare Browserprüfungen bei 320, 375, 768 und 1440 Pixeln. Der Nachweis steht in [`docs/block-13/IMPLEMENTATION.md`](./docs/block-13/IMPLEMENTATION.md).
 
 ## Eigene Produktentwicklung
 

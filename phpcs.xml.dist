@@ -42,6 +42,7 @@
 		<exclude-pattern>tests/*</exclude-pattern>
 		<!-- The runtime autoloader maps CamelCase class names to readable hyphenated files. -->
 		<exclude-pattern>src/config/*</exclude-pattern>
+		<exclude-pattern>src/localization/*</exclude-pattern>
 		<exclude-pattern>src/cache/*</exclude-pattern>
 		<exclude-pattern>src/remote/*</exclude-pattern>
 		<exclude-pattern>src/rest/*</exclude-pattern>

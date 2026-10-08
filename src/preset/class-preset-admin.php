@@ -38,7 +38,7 @@ final class PresetAdmin {
 	public function add_editor(): void {
 		add_meta_box(
 			'tpeu-preset-editor',
-			esc_html__( 'Einbettung konfigurieren', 'turnierplan-eu' ),
+			esc_html__( 'Configure embed', 'turnierplan-eu' ),
 			array( $this, 'render_editor' ),
 			PresetRepository::POST_TYPE,
 			'normal',
@@ -59,7 +59,7 @@ final class PresetAdmin {
 		<?php if ( $post->ID > 0 && 'auto-draft' !== $post->post_status ) : ?>
 			<p><label for="tpeu-preset-shortcode"><strong><?php echo esc_html__( 'Shortcode', 'turnierplan-eu' ); ?></strong></label></p>
 			<p><input id="tpeu-preset-shortcode" class="large-text code" type="text" readonly value="<?php echo esc_attr( sprintf( '[turnierplan preset="%d"]', $post->ID ) ); ?>"></p>
-			<p><a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=tpeu_duplicate_preset&preset_id=' . $post->ID ), 'tpeu_duplicate_preset_' . $post->ID ) ); ?>"><?php echo esc_html__( 'Als neuen Entwurf duplizieren', 'turnierplan-eu' ); ?></a></p>
+			<p><a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=tpeu_duplicate_preset&preset_id=' . $post->ID ), 'tpeu_duplicate_preset_' . $post->ID ) ); ?>"><?php echo esc_html__( 'Duplicate as new draft', 'turnierplan-eu' ); ?></a></p>
 		<?php endif; ?>
 		<?php
 	}
@@ -73,7 +73,7 @@ final class PresetAdmin {
 			|| ! current_user_can( 'edit_post', $preset_id )
 			|| ! current_user_can( 'create_tpeu_embeds' )
 		) {
-			wp_die( esc_html__( 'Du darfst dieses Preset nicht duplizieren.', 'turnierplan-eu' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You are not allowed to duplicate this preset.', 'turnierplan-eu' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'tpeu_duplicate_preset_' . $preset_id );
@@ -81,13 +81,13 @@ final class PresetAdmin {
 		$config = get_post_meta( $preset_id, PresetRepository::META_KEY, true );
 
 		if ( ! $source instanceof WP_Post || PresetRepository::POST_TYPE !== $source->post_type || ! is_array( $config ) ) {
-			wp_die( esc_html__( 'Das Preset ist nicht verfügbar.', 'turnierplan-eu' ), '', array( 'response' => 404 ) );
+			wp_die( esc_html__( 'The preset is unavailable.', 'turnierplan-eu' ), '', array( 'response' => 404 ) );
 		}
 
 		try {
 			$config = EmbedConfig::from_array( $config )->to_array();
 		} catch ( ConfigException ) {
-			wp_die( esc_html__( 'Das Preset enthält keine gültige Konfiguration.', 'turnierplan-eu' ), '', array( 'response' => 400 ) );
+			wp_die( esc_html__( 'The preset does not contain a valid configuration.', 'turnierplan-eu' ), '', array( 'response' => 400 ) );
 		}
 
 		$copy_id = wp_insert_post(
@@ -96,7 +96,7 @@ final class PresetAdmin {
 				'post_status' => 'draft',
 				'post_title'  => sprintf(
 					/* translators: %s: source preset title. */
-					esc_html__( '%s – Kopie', 'turnierplan-eu' ),
+					esc_html__( '%s – Copy', 'turnierplan-eu' ),
 					$source->post_title
 				),
 			),
@@ -104,14 +104,14 @@ final class PresetAdmin {
 		);
 
 		if ( is_wp_error( $copy_id ) ) {
-			wp_die( esc_html__( 'Das Preset konnte nicht dupliziert werden.', 'turnierplan-eu' ), '', array( 'response' => 500 ) );
+			wp_die( esc_html__( 'The preset could not be duplicated.', 'turnierplan-eu' ), '', array( 'response' => 500 ) );
 		}
 
 		update_post_meta( $copy_id, PresetRepository::META_KEY, $config );
 		$edit_link = get_edit_post_link( $copy_id, 'raw' );
 
 		if ( ! is_string( $edit_link ) ) {
-			wp_die( esc_html__( 'Der neue Entwurf konnte nicht geöffnet werden.', 'turnierplan-eu' ), '', array( 'response' => 500 ) );
+			wp_die( esc_html__( 'The new draft could not be opened.', 'turnierplan-eu' ), '', array( 'response' => 500 ) );
 		}
 
 		wp_safe_redirect( $edit_link );
@@ -138,7 +138,11 @@ final class PresetAdmin {
 			$asset['version'],
 			true
 		);
-		wp_set_script_translations( 'tpeu-preset-editor', 'turnierplan-eu' );
+		wp_set_script_translations(
+			'tpeu-preset-editor',
+			'turnierplan-eu',
+			plugin_dir_path( $this->plugin_file ) . 'languages'
+		);
 		wp_add_inline_script(
 			'tpeu-preset-editor',
 			'window.TurnierplanEUPresetSettings = ' . wp_json_encode(

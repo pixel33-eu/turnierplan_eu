@@ -37,7 +37,7 @@ final class PresetPostType {
 		if ( ! current_user_can( Capabilities::USE_PRESETS ) ) {
 			return new WP_Error(
 				'tpeu_presets_forbidden',
-				esc_html__( 'Du darfst keine Turnierplan-Presets verwenden.', 'turnierplan-eu' ),
+				esc_html__( 'You are not allowed to use Turnierplan presets.', 'turnierplan-eu' ),
 				array( 'status' => 403 )
 			);
 		}
@@ -47,7 +47,7 @@ final class PresetPostType {
 		if ( null === $nonce || '' === $nonce || ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
 			return new WP_Error(
 				'tpeu_invalid_nonce',
-				esc_html__( 'Die Sicherheitsprüfung ist abgelaufen. Bitte lade den Editor neu.', 'turnierplan-eu' ),
+				esc_html__( 'The security check has expired. Reload the editor.', 'turnierplan-eu' ),
 				array( 'status' => 403 )
 			);
 		}
@@ -61,15 +61,15 @@ final class PresetPostType {
 			PresetRepository::POST_TYPE,
 			array(
 				'labels'              => array(
-					'name'               => esc_html__( 'Turnierplan-Einbettungen', 'turnierplan-eu' ),
-					'singular_name'      => esc_html__( 'Einbettung', 'turnierplan-eu' ),
+					'name'               => esc_html__( 'Turnierplan embeds', 'turnierplan-eu' ),
+					'singular_name'      => esc_html__( 'Embed', 'turnierplan-eu' ),
 					'menu_name'          => esc_html__( 'Turnierplan', 'turnierplan-eu' ),
-					'all_items'          => esc_html__( 'Einbettungen', 'turnierplan-eu' ),
-					'add_new_item'       => esc_html__( 'Einbettung hinzufügen', 'turnierplan-eu' ),
-					'edit_item'          => esc_html__( 'Einbettung bearbeiten', 'turnierplan-eu' ),
-					'new_item'           => esc_html__( 'Neue Einbettung', 'turnierplan-eu' ),
-					'not_found'          => esc_html__( 'Keine Einbettungen gefunden.', 'turnierplan-eu' ),
-					'not_found_in_trash' => esc_html__( 'Keine Einbettungen im Papierkorb gefunden.', 'turnierplan-eu' ),
+					'all_items'          => esc_html__( 'Embeds', 'turnierplan-eu' ),
+					'add_new_item'       => esc_html__( 'Add embed', 'turnierplan-eu' ),
+					'edit_item'          => esc_html__( 'Edit embed', 'turnierplan-eu' ),
+					'new_item'           => esc_html__( 'New embed', 'turnierplan-eu' ),
+					'not_found'          => esc_html__( 'No embeds found.', 'turnierplan-eu' ),
+					'not_found_in_trash' => esc_html__( 'No embeds found in the Trash.', 'turnierplan-eu' ),
 				),
 				'public'              => false,
 				'publicly_queryable'  => false,
@@ -95,8 +95,8 @@ final class PresetPostType {
 			PresetRepository::POST_TYPE,
 			PresetRepository::META_KEY,
 			array(
-				'label'             => esc_html__( 'Einbettungskonfiguration', 'turnierplan-eu' ),
-				'description'       => esc_html__( 'Versionierte und validierte Turnierplan.eu-Konfiguration.', 'turnierplan-eu' ),
+				'label'             => esc_html__( 'Embed configuration', 'turnierplan-eu' ),
+				'description'       => esc_html__( 'Versioned and validated Turnierplan.eu configuration.', 'turnierplan-eu' ),
 				'type'              => 'object',
 				'single'            => true,
 				'default'           => array(),
@@ -156,7 +156,7 @@ final class PresetPostType {
 			} catch ( ConfigException ) {
 				return new WP_Error(
 					'tpeu_invalid_preset_config',
-					esc_html__( 'Die Einbettungskonfiguration ist ungültig oder unvollständig.', 'turnierplan-eu' ),
+					esc_html__( 'The embed configuration is invalid or incomplete.', 'turnierplan-eu' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -169,7 +169,7 @@ final class PresetPostType {
 			if ( array() === $this->sanitize_config( $stored ) ) {
 				return new WP_Error(
 					'tpeu_missing_preset_config',
-					esc_html__( 'Vor dem Veröffentlichen muss ein gültiges Turnier verbunden werden.', 'turnierplan-eu' ),
+					esc_html__( 'A valid tournament must be connected before publishing.', 'turnierplan-eu' ),
 					array( 'status' => 400 )
 				);
 			}

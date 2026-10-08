@@ -6,8 +6,8 @@
   "title": "Turnierplan.eu",
   "category": "widgets",
   "icon": "chart-bar",
-  "description": "Öffentliche Turniertabellen und Spielpläne von Turnierplan.eu einbetten.",
-  "keywords": ["Turnier", "Tabelle", "Spielplan"],
+  "description": "Embed public tournament standings and schedules from Turnierplan.eu.",
+  "keywords": ["Tournament", "Standings", "Schedule"],
   "textdomain": "turnierplan-eu",
   "attributes": {
     "presetId": {
@@ -68,8 +68,8 @@
   "variations": [
     {
       "name": "standings",
-      "title": "Turniertabelle",
-      "description": "Rangliste oder Tabelle eines öffentlichen Turniers anzeigen.",
+      "title": "Tournament standings",
+      "description": "Display the rankings or standings of a public tournament.",
       "icon": "list-view",
       "attributes": {
         "config": {
@@ -86,8 +86,8 @@
     },
     {
       "name": "matches",
-      "title": "Spielplan",
-      "description": "Spiele, Ergebnisse und Termine eines öffentlichen Turniers anzeigen.",
+      "title": "Tournament schedule",
+      "description": "Display matches, results, and dates of a public tournament.",
       "icon": "calendar-alt",
       "attributes": {
         "config": {

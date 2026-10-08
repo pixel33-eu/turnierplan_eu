@@ -14,6 +14,7 @@ use TurnierplanEU\WordPress\Config\EmbedConfig;
 use TurnierplanEU\WordPress\Config\EmbedUrlBuilder;
 use TurnierplanEU\WordPress\Config\ServiceConfiguration;
 use TurnierplanEU\WordPress\Settings\ServiceApproval;
+use TurnierplanEU\WordPress\Localization\SiteLanguageResolver;
 
 /**
  * Is the only runtime component allowed to create iframe markup.
@@ -30,7 +31,8 @@ final class EmbedRenderer {
 		private readonly ServiceConfiguration $service,
 		private readonly ParentOriginProvider $parent_origin,
 		private readonly InstanceIdGenerator $instance_ids,
-		private readonly FrontendAssetLoader $assets
+		private readonly FrontendAssetLoader $assets,
+		private readonly SiteLanguageResolver $languages
 	) {
 	}
 
@@ -51,7 +53,7 @@ final class EmbedRenderer {
 
 		if ( ! $this->approval->is_service_enabled() ) {
 			return $this->render_state(
-				__( 'Die Turnieransicht ist auf dieser Website derzeit nicht aktiviert.', 'turnierplan-eu' ),
+				__( 'The tournament view is currently disabled on this website.', 'turnierplan-eu' ),
 				$public_url
 			);
 		}
@@ -60,17 +62,17 @@ final class EmbedRenderer {
 
 		if ( null === $origin ) {
 			return $this->render_state(
-				__( 'Die Turnieransicht benötigt eine sichere HTTPS-Adresse der WordPress-Website.', 'turnierplan-eu' ),
+				__( 'The tournament view requires a secure HTTPS address for the WordPress website.', 'turnierplan-eu' ),
 				$public_url
 			);
 		}
 
 		try {
 			$instance  = $this->instance_ids->generate();
-			$frame_url = $this->url_builder->frame_url( $config, $instance, $origin );
+			$frame_url = $this->url_builder->frame_url( $this->languages->apply( $config ), $instance, $origin );
 		} catch ( ConfigException ) {
 			return $this->render_state(
-				__( 'Die Turnieransicht konnte wegen ungültiger Einstellungen nicht geladen werden.', 'turnierplan-eu' ),
+				__( 'The tournament view could not be loaded because its settings are invalid.', 'turnierplan-eu' ),
 				$public_url
 			);
 		}
@@ -80,12 +82,12 @@ final class EmbedRenderer {
 		$values       = $config->to_array();
 		$view         = (string) $values['view'];
 		$view_label   = 'matches' === $view
-			? __( 'Spielplan', 'turnierplan-eu' )
-			: __( 'Turniertabelle', 'turnierplan-eu' );
+			? __( 'Schedule', 'turnierplan-eu' )
+			: __( 'Standings', 'turnierplan-eu' );
 		$display_name = null !== $tournament_title && '' !== trim( $tournament_title )
 			? trim( $tournament_title )
 			/* translators: %s: public tournament reference. */
-			: sprintf( __( 'Turnier %s', 'turnierplan-eu' ), $reference );
+			: sprintf( __( 'Tournament %s', 'turnierplan-eu' ), $reference );
 		/* translators: 1: embed view name, 2: tournament title or reference. */
 		$title      = sprintf( __( '%1$s: %2$s', 'turnierplan-eu' ), $view_label, $display_name );
 		$target     = true === $values['openLinksInNewTab'] ? ' target="_blank" rel="noopener noreferrer"' : '';
@@ -109,26 +111,26 @@ final class EmbedRenderer {
 			esc_attr( $this->service->get_origin() ),
 			$min_height,
 			$max_height,
-			esc_html__( 'Turnieransicht wird geladen …', 'turnierplan-eu' ),
-			esc_html__( 'Turnieransicht ist geladen.', 'turnierplan-eu' ),
-			esc_html__( 'Für diese Auswahl sind derzeit keine Inhalte vorhanden.', 'turnierplan-eu' ),
-			esc_html__( 'Die angezeigten Daten konnten nicht vollständig aktualisiert werden.', 'turnierplan-eu' ),
-			esc_html__( 'Die Turnieransicht ist derzeit nicht verfügbar.', 'turnierplan-eu' ),
-			esc_html__( 'Das Laden dauert länger als erwartet. Der Turnierlink bleibt verfügbar.', 'turnierplan-eu' ),
+			esc_html__( 'Loading tournament view…', 'turnierplan-eu' ),
+			esc_html__( 'Tournament view loaded.', 'turnierplan-eu' ),
+			esc_html__( 'No content is currently available for this selection.', 'turnierplan-eu' ),
+			esc_html__( 'The displayed data could not be updated completely.', 'turnierplan-eu' ),
+			esc_html__( 'The tournament view is currently unavailable.', 'turnierplan-eu' ),
+			esc_html__( 'Loading is taking longer than expected. The tournament link remains available.', 'turnierplan-eu' ),
 			esc_url( $frame_url ),
 			esc_attr( $title ),
 			esc_attr( self::SANDBOX ),
 			esc_attr( self::ALLOW ),
 			esc_url( $public_url ),
 			$target,
-			esc_html__( 'Turnier vollständig auf Turnierplan.eu öffnen', 'turnierplan-eu' )
+			esc_html__( 'Open full tournament on Turnierplan.eu', 'turnierplan-eu' )
 		);
 	}
 
 	/** Returns a safe invalid-shortcode state without loading assets. */
 	public function render_invalid(): string {
 		return $this->render_state(
-			__( 'Die Turnieransicht enthält ungültige oder unvollständige Einstellungen.', 'turnierplan-eu' ),
+			__( 'The tournament view contains invalid or incomplete settings.', 'turnierplan-eu' ),
 			null
 		);
 	}
@@ -136,7 +138,7 @@ final class EmbedRenderer {
 	/** Returns the safe state for a missing, invalid, or unpublished preset. */
 	public function render_preset_unavailable(): string {
 		return $this->render_state(
-			__( 'Diese gespeicherte Turniereinbettung ist noch nicht verfügbar.', 'turnierplan-eu' ),
+			__( 'This saved tournament embed is currently unavailable.', 'turnierplan-eu' ),
 			null
 		);
 	}
@@ -158,7 +160,7 @@ final class EmbedRenderer {
 			$link = sprintf(
 				' <a href="%1$s">%2$s</a>',
 				esc_url( $public_url ),
-				esc_html__( 'Turnier auf Turnierplan.eu öffnen', 'turnierplan-eu' )
+				esc_html__( 'Open tournament on Turnierplan.eu', 'turnierplan-eu' )
 			);
 		}
 

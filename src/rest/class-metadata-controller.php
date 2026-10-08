@@ -15,6 +15,7 @@ use TurnierplanEU\WordPress\Config\TournamentReference;
 use TurnierplanEU\WordPress\Remote\MetadataGateway;
 use TurnierplanEU\WordPress\Remote\MetadataResult;
 use TurnierplanEU\WordPress\Preset\Capabilities;
+use TurnierplanEU\WordPress\Localization\SiteLanguageResolver;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -29,7 +30,8 @@ final class MetadataController {
 	/** Creates the protected metadata controller. */
 	public function __construct(
 		private readonly MetadataGateway $gateway,
-		private readonly UserRateLimiter $limiter
+		private readonly UserRateLimiter $limiter,
+		private readonly SiteLanguageResolver $languages
 	) {
 	}
 
@@ -129,7 +131,7 @@ final class MetadataController {
 		) {
 			return new WP_Error(
 				'tpeu_preset_forbidden',
-				esc_html__( 'Du darfst dieses Preset nicht aktualisieren.', 'turnierplan-eu' ),
+				esc_html__( 'You are not allowed to refresh this preset.', 'turnierplan-eu' ),
 				array( 'status' => 403 )
 			);
 		}
@@ -141,7 +143,7 @@ final class MetadataController {
 	public function get_metadata( WP_REST_Request $request ): WP_REST_Response|WP_Error {
 		$result = $this->gateway->get(
 			$request->get_param( 'reference' ),
-			(string) $request->get_param( 'language' )
+			$this->languages->resolve( (string) $request->get_param( 'language' ) )
 		);
 
 		return $this->prepare_response( $result );
@@ -151,7 +153,7 @@ final class MetadataController {
 	public function refresh_metadata( WP_REST_Request $request ): WP_REST_Response|WP_Error {
 		$result = $this->gateway->get(
 			$request->get_param( 'reference' ),
-			(string) $request->get_param( 'language' ),
+			$this->languages->resolve( (string) $request->get_param( 'language' ) ),
 			true
 		);
 
@@ -188,7 +190,7 @@ final class MetadataController {
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			return new WP_Error(
 				'tpeu_rest_forbidden',
-				esc_html__( 'Du darfst keine Turniermetadaten abrufen.', 'turnierplan-eu' ),
+				esc_html__( 'You are not allowed to retrieve tournament metadata.', 'turnierplan-eu' ),
 				array( 'status' => 403 )
 			);
 		}
@@ -198,7 +200,7 @@ final class MetadataController {
 		if ( null === $nonce || '' === $nonce || ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
 			return new WP_Error(
 				'tpeu_invalid_nonce',
-				esc_html__( 'Die Sicherheitsprüfung ist abgelaufen. Bitte lade den Editor neu.', 'turnierplan-eu' ),
+				esc_html__( 'The security check has expired. Reload the editor.', 'turnierplan-eu' ),
 				array( 'status' => 403 )
 			);
 		}
@@ -206,7 +208,7 @@ final class MetadataController {
 		if ( ! $this->limiter->consume( get_current_user_id(), $bucket, $limit ) ) {
 			return new WP_Error(
 				'tpeu_user_rate_limited',
-				esc_html__( 'Zu viele Metadatenanfragen. Bitte warte kurz.', 'turnierplan-eu' ),
+				esc_html__( 'Too many metadata requests. Wait a moment.', 'turnierplan-eu' ),
 				array(
 					'status'      => 429,
 					'retry_after' => 60,
@@ -234,19 +236,19 @@ final class MetadataController {
 
 		$code  = $result->get_code();
 		$map   = array(
-			'service_not_enabled'     => array( 403, esc_html__( 'Der externe Dienst wurde für diese Website nicht freigegeben.', 'turnierplan-eu' ) ),
-			'invalid_reference'       => array( 400, esc_html__( 'Die Turnierreferenz oder Sprache ist ungültig.', 'turnierplan-eu' ) ),
-			'tournament_not_found'    => array( 404, esc_html__( 'Das Turnier wurde nicht gefunden oder ist nicht öffentlich.', 'turnierplan-eu' ) ),
-			'rate_limited'            => array( 429, esc_html__( 'Turnierplan.eu begrenzt die Anfragen vorübergehend.', 'turnierplan-eu' ) ),
-			'temporarily_unavailable' => array( 503, esc_html__( 'Turnierplan.eu ist vorübergehend nicht verfügbar.', 'turnierplan-eu' ) ),
-			'timeout'                 => array( 504, esc_html__( 'Der Metadatenabruf hat das Zeitlimit erreicht.', 'turnierplan-eu' ) ),
-			'transport_error'         => array( 502, esc_html__( 'Die sichere Verbindung zu Turnierplan.eu ist fehlgeschlagen.', 'turnierplan-eu' ) ),
-			'invalid_content_type'    => array( 502, esc_html__( 'Turnierplan.eu hat keine JSON-Antwort geliefert.', 'turnierplan-eu' ) ),
-			'invalid_json'            => array( 502, esc_html__( 'Turnierplan.eu hat ungültiges JSON geliefert.', 'turnierplan-eu' ) ),
-			'invalid_schema'          => array( 502, esc_html__( 'Die Metadatenantwort hat ein nicht unterstütztes Format.', 'turnierplan-eu' ) ),
-			'response_too_large'      => array( 502, esc_html__( 'Die Metadatenantwort überschreitet das Größenlimit.', 'turnierplan-eu' ) ),
+			'service_not_enabled'     => array( 403, esc_html__( 'The external service is not enabled for this website.', 'turnierplan-eu' ) ),
+			'invalid_reference'       => array( 400, esc_html__( 'The tournament reference or language is invalid.', 'turnierplan-eu' ) ),
+			'tournament_not_found'    => array( 404, esc_html__( 'The tournament was not found or is not public.', 'turnierplan-eu' ) ),
+			'rate_limited'            => array( 429, esc_html__( 'Turnierplan.eu is temporarily limiting requests.', 'turnierplan-eu' ) ),
+			'temporarily_unavailable' => array( 503, esc_html__( 'Turnierplan.eu is temporarily unavailable.', 'turnierplan-eu' ) ),
+			'timeout'                 => array( 504, esc_html__( 'The metadata request timed out.', 'turnierplan-eu' ) ),
+			'transport_error'         => array( 502, esc_html__( 'The secure connection to Turnierplan.eu failed.', 'turnierplan-eu' ) ),
+			'invalid_content_type'    => array( 502, esc_html__( 'Turnierplan.eu did not return a JSON response.', 'turnierplan-eu' ) ),
+			'invalid_json'            => array( 502, esc_html__( 'Turnierplan.eu returned invalid JSON.', 'turnierplan-eu' ) ),
+			'invalid_schema'          => array( 502, esc_html__( 'The metadata response has an unsupported format.', 'turnierplan-eu' ) ),
+			'response_too_large'      => array( 502, esc_html__( 'The metadata response exceeds the size limit.', 'turnierplan-eu' ) ),
 		);
-		$error = $map[ $code ] ?? array( 502, esc_html__( 'Die Metadaten konnten nicht geladen werden.', 'turnierplan-eu' ) );
+		$error = $map[ $code ] ?? array( 502, esc_html__( 'The metadata could not be loaded.', 'turnierplan-eu' ) );
 		$data  = array( 'status' => $error[0] );
 
 		if ( null !== $result->get_retry_after() ) {

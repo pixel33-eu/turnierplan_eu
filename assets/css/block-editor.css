@@ -1,7 +1,16 @@
 .tpeu-block-editor {
+	box-sizing: border-box;
+	inline-size: 100%;
+	max-inline-size: 100%;
 	padding: 1rem;
 	border: 1px solid #dcdcde;
 	background: #fff;
+}
+
+.tpeu-block-editor *,
+.tpeu-block-editor *::before,
+.tpeu-block-editor *::after {
+	box-sizing: inherit;
 }
 
 .tpeu-block-editor__actions,
@@ -57,10 +66,18 @@
 
 .tpeu-block-editor__example {
 	inline-size: 100%;
+	max-inline-size: 100%;
 	margin-block-start: 1rem;
 	padding: 1rem;
 	border: 1px solid #dcdcde;
 	background: #f6f7f7;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+.tpeu-block-editor [tabindex="-1"]:focus {
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
 }
 
 .tpeu-block-editor__example-title {

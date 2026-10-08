@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:       Turnierplan.eu – Turniere einbetten
+ * Plugin Name:       Turnierplan.eu – Embed tournaments
  * Plugin URI:        https://www.turnierplan.eu/
- * Description:       Bindet öffentliche Turnierpläne, Tabellen und Ergebnisse von Turnierplan.eu in WordPress ein.
+ * Description:       Embeds public tournament schedules, standings, and results from Turnierplan.eu in WordPress.
  * Version:           0.1.0
  * Requires at least: 6.5
  * Requires PHP:      8.3

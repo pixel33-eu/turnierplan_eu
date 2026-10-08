@@ -1,0 +1,168 @@
+{
+  "translation-revision-date": "2026-10-08 00:00+0200",
+  "generator": "Turnierplan.eu translation build",
+  "source": "assets/src/preset-editor.jsx",
+  "domain": "messages",
+  "locale_data": {
+    "messages": {
+      "": {
+        "domain": "messages",
+        "lang": "de_DE",
+        "plural-forms": "nplurals=2; plural=(n != 1);"
+      },
+      "Accent color (e.g. #2255AA)": [
+        "Akzentfarbe (z. B. #2255AA)"
+      ],
+      "Automatic": [
+        "Automatisch"
+      ],
+      "Color scheme": [
+        "Farbschema"
+      ],
+      "Comfortable": [
+        "Komfortabel"
+      ],
+      "Compact": [
+        "Kompakt"
+      ],
+      "Copy shortcode": [
+        "Shortcode kopieren"
+      ],
+      "Correct the configuration before publishing.": [
+        "Bitte korrigiere die Konfiguration, bevor du veröffentlichst."
+      ],
+      "Dark": [
+        "Dunkel"
+      ],
+      "Density": [
+        "Dichte"
+      ],
+      "Enable group navigation": [
+        "Gruppennavigation erlauben"
+      ],
+      "End date": [
+        "Datum bis"
+      ],
+      "English": [
+        "Englisch"
+      ],
+      "First match number": [
+        "Spielnummer von"
+      ],
+      "German": [
+        "Deutsch"
+      ],
+      "Group ID (optional)": [
+        "Gruppen-ID (optional)"
+      ],
+      "Hide": [
+        "Ausblenden"
+      ],
+      "Language": [
+        "Sprache"
+      ],
+      "Last match number": [
+        "Spielnummer bis"
+      ],
+      "Light": [
+        "Hell"
+      ],
+      "Maximum height": [
+        "Maximalhöhe"
+      ],
+      "Minimum height": [
+        "Mindesthöhe"
+      ],
+      "Open links in a new tab": [
+        "Links in neuem Tab öffnen"
+      ],
+      "Participant ID (optional)": [
+        "Teilnehmer-ID (optional)"
+      ],
+      "Preview": [
+        "Vorschau"
+      ],
+      "Schedule": [
+        "Spielplan"
+      ],
+      "Shortcode copied": [
+        "Shortcode kopiert"
+      ],
+      "Show": [
+        "Anzeigen"
+      ],
+      "Show branding": [
+        "Branding anzeigen"
+      ],
+      "Show date": [
+        "Datum anzeigen"
+      ],
+      "Show decision details": [
+        "Entscheidungsdetails anzeigen"
+      ],
+      "Show extra time": [
+        "Verlängerung anzeigen"
+      ],
+      "Show field or court": [
+        "Feld oder Platz anzeigen"
+      ],
+      "Show group": [
+        "Gruppe anzeigen"
+      ],
+      "Show live status": [
+        "Live-Status anzeigen"
+      ],
+      "Show match number": [
+        "Spielnummer anzeigen"
+      ],
+      "Show matches played": [
+        "Gespielte Partien anzeigen"
+      ],
+      "Show points": [
+        "Punkte anzeigen"
+      ],
+      "Show referee": [
+        "Schiedsrichter anzeigen"
+      ],
+      "Show round": [
+        "Runde anzeigen"
+      ],
+      "Show score balance": [
+        "Bilanz anzeigen"
+      ],
+      "Show team logos": [
+        "Teamlogos anzeigen"
+      ],
+      "Show time": [
+        "Uhrzeit anzeigen"
+      ],
+      "Show wins, draws, and losses": [
+        "Siege, Remis und Niederlagen anzeigen"
+      ],
+      "Standings": [
+        "Tabelle"
+      ],
+      "Start date": [
+        "Datum von"
+      ],
+      "The configuration was invalid. The preset was saved as a draft.": [
+        "Die Konfiguration war ungültig. Das Preset wurde als Entwurf gespeichert."
+      ],
+      "The external service has not been enabled yet.": [
+        "Der externe Dienst ist noch nicht freigegeben."
+      ],
+      "The preview appears here after a valid tournament reference is entered.": [
+        "Nach einer gültigen Turnierreferenz erscheint hier die Vorschau."
+      ],
+      "The shortcode could not be copied.": [
+        "Der Shortcode konnte nicht kopiert werden."
+      ],
+      "Tournament ID, slug, or URL": [
+        "Turnier-ID, Slug oder URL"
+      ],
+      "View": [
+        "Ansicht"
+      ]
+    }
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "translation-revision-date": "2026-10-08 00:00+0200",
+  "generator": "Turnierplan.eu translation build",
+  "source": "assets/src/block-editor.jsx",
+  "domain": "messages",
+  "locale_data": {
+    "messages": {
+      "": {
+        "domain": "messages",
+        "lang": "de_DE",
+        "plural-forms": "nplurals=2; plural=(n != 1);"
+      },
+      "Accent color": [
+        "Akzentfarbe"
+      ],
+      "Additional filters": [
+        "Weitere Filter"
+      ],
+      "Advanced": [
+        "Erweitert"
+      ],
+      "All groups": [
+        "Alle Gruppen"
+      ],
+      "All participants": [
+        "Alle Teilnehmer"
+      ],
+      "Appearance": [
+        "Darstellung"
+      ],
+      "Automatic": [
+        "Automatisch"
+      ],
+      "Cancelled": [
+        "Abgesagt"
+      ],
+      "Changes to the preset automatically apply everywhere it is used. Switching to inline copies the current values once.": [
+        "Änderungen am Preset gelten automatisch für alle Verwendungsstellen. Beim Wechsel zu Inline werden die aktuellen Werte einmalig kopiert."
+      ],
+      "Close example": [
+        "Beispiel schließen"
+      ],
+      "Color scheme": [
+        "Farbschema"
+      ],
+      "Comfortable": [
+        "Komfortabel"
+      ],
+      "Compact": [
+        "Kompakt"
+      ],
+      "Completed": [
+        "Beendet"
+      ],
+      "Connect tournament": [
+        "Turnier verbinden"
+      ],
+      "Dark": [
+        "Dunkel"
+      ],
+      "Date": [
+        "Datum"
+      ],
+      "Decision details": [
+        "Entscheidungsdetails"
+      ],
+      "Density": [
+        "Dichte"
+      ],
+      "Desktop": [
+        "Desktop"
+      ],
+      "Displayed information": [
+        "Angezeigte Informationen"
+      ],
+      "End date": [
+        "Datum bis"
+      ],
+      "Enter a public tournament ID, slug, or Turnierplan.eu URL.": [
+        "Gib eine öffentliche Turnier-ID, einen Slug oder eine Turnierplan.eu-URL ein."
+      ],
+      "Enter a tournament reference.": [
+        "Bitte gib eine Turnierreferenz ein."
+      ],
+      "Example Club North": [
+        "Beispielverein Nord"
+      ],
+      "Example Club South": [
+        "Beispielverein Süd"
+      ],
+      "Extra time": [
+        "Verlängerung"
+      ],
+      "Field or court": [
+        "Feld oder Platz"
+      ],
+      "First match number": [
+        "Spielnummer von"
+      ],
+      "Goal, set, or point balance": [
+        "Tor-, Satz- oder Punktebilanz"
+      ],
+      "Group": [
+        "Gruppe"
+      ],
+      "Group navigation": [
+        "Gruppennavigation"
+      ],
+      "Hide": [
+        "Ausblenden"
+      ],
+      "Inline configuration": [
+        "Inline-Konfiguration"
+      ],
+      "Language": [
+        "Sprache"
+      ],
+      "Last match number": [
+        "Spielnummer bis"
+      ],
+      "Light": [
+        "Hell"
+      ],
+      "Live": [
+        "Live"
+      ],
+      "Live status": [
+        "Live-Status"
+      ],
+      "Local example: tournament standings": [
+        "Lokales Beispiel: Turniertabelle"
+      ],
+      "Match number": [
+        "Spielnummer"
+      ],
+      "Matches played": [
+        "Gespielte Partien"
+      ],
+      "Maximum height": [
+        "Maximalhöhe"
+      ],
+      "Metadata updated: %s": [
+        "Metadaten aktualisiert: %s"
+      ],
+      "Minimum height": [
+        "Mindesthöhe"
+      ],
+      "Mobile": [
+        "Mobil"
+      ],
+      "Open full tournament": [
+        "Vollständiges Turnier öffnen"
+      ],
+      "Open links in a new tab": [
+        "Links in neuem Tab öffnen"
+      ],
+      "Participant": [
+        "Teilnehmer"
+      ],
+      "Played": [
+        "Spiele"
+      ],
+      "Points": [
+        "Punkte"
+      ],
+      "Rank": [
+        "Platz"
+      ],
+      "Referee": [
+        "Schiedsrichter"
+      ],
+      "Refresh connection": [
+        "Verbindung aktualisieren"
+      ],
+      "Reset configuration": [
+        "Konfiguration zurücksetzen"
+      ],
+      "Reusable preset": [
+        "Wiederverwendbares Preset"
+      ],
+      "Round": [
+        "Runde"
+      ],
+      "Schedule": [
+        "Spielplan"
+      ],
+      "Show": [
+        "Anzeigen"
+      ],
+      "Show date": [
+        "Datum anzeigen"
+      ],
+      "Show Turnierplan.eu branding": [
+        "Turnierplan.eu-Branding anzeigen"
+      ],
+      "Source": [
+        "Quelle"
+      ],
+      "Standings": [
+        "Tabelle"
+      ],
+      "Start date": [
+        "Datum von"
+      ],
+      "Status: %s": [
+        "Status: %s"
+      ],
+      "Tablet": [
+        "Tablet"
+      ],
+      "Team": [
+        "Team"
+      ],
+      "Team logos": [
+        "Teamlogos"
+      ],
+      "The external service must first be enabled under Settings → Turnierplan.eu.": [
+        "Der externe Dienst muss zuerst unter Einstellungen → Turnierplan.eu freigegeben werden."
+      ],
+      "The last successful response is shown because Turnierplan.eu is temporarily unavailable.": [
+        "Die letzte erfolgreiche Antwort wird angezeigt, weil Turnierplan.eu vorübergehend nicht erreichbar ist."
+      ],
+      "The preset list could not be loaded.": [
+        "Die Preset-Liste konnte nicht geladen werden."
+      ],
+      "The previously selected view is unavailable. An available view was selected.": [
+        "Die zuvor gewählte Ansicht ist nicht verfügbar. Eine verfügbare Ansicht wurde ausgewählt."
+      ],
+      "The saved group is no longer available and was reset to all groups.": [
+        "Die gespeicherte Gruppe ist nicht mehr verfügbar und wurde auf alle Gruppen zurückgesetzt."
+      ],
+      "The saved participant is no longer available and was reset.": [
+        "Der gespeicherte Teilnehmer ist nicht mehr verfügbar und wurde zurückgesetzt."
+      ],
+      "The tournament has ended and remains publicly available.": [
+        "Das Turnier ist beendet und weiterhin öffentlich verfügbar."
+      ],
+      "The tournament metadata could not be loaded.": [
+        "Die Turniermetadaten konnten nicht geladen werden."
+      ],
+      "This configuration version is unsupported and must be reset.": [
+        "Diese Konfigurationsversion wird nicht unterstützt und muss zurückgesetzt werden."
+      ],
+      "This example does not load external data.": [
+        "Dieses Beispiel lädt keine externen Daten."
+      ],
+      "Time": [
+        "Uhrzeit"
+      ],
+      "Tournament": [
+        "Turnier"
+      ],
+      "Tournament ID, slug, or URL": [
+        "Turnier-ID, Slug oder URL"
+      ],
+      "Turnierplan.eu": [
+        "Turnierplan.eu"
+      ],
+      "Upcoming": [
+        "Bevorstehend"
+      ],
+      "Updating tournament…": [
+        "Turnier wird aktualisiert …"
+      ],
+      "View": [
+        "Ansicht"
+      ],
+      "View example": [
+        "Beispiel ansehen"
+      ],
+      "When connecting, the WordPress server retrieves public metadata from Turnierplan.eu.": [
+        "Beim Verbinden ruft der WordPress-Server öffentliche Metadaten von Turnierplan.eu ab."
+      ],
+      "Wins, draws, and losses": [
+        "Siege, Remis und Niederlagen"
+      ]
+    }
+  }
+}

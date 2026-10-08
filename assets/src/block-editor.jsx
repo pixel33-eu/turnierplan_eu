@@ -3,6 +3,7 @@ import {
 	changeView,
 	configurationWarnings,
 	createMetadataLoader,
+	formatMetadataTimestamp,
 	initialMetadataState,
 	inlineConfigForPreset,
 	metadataReducer,
@@ -52,43 +53,50 @@ const previewWidths = Object.freeze({
 });
 
 const optionFields = Object.freeze({
-	date: { field: 'showDate', label: __('Datum', 'turnierplan-eu') },
+	date: { field: 'showDate', label: __('Date', 'turnierplan-eu') },
 	extra_time: {
 		field: 'showExtraTime',
-		label: __('Verlängerung', 'turnierplan-eu'),
+		label: __('Extra time', 'turnierplan-eu'),
 	},
-	field: { field: 'showField', label: __('Feld oder Platz', 'turnierplan-eu') },
-	group: { field: 'showGroup', label: __('Gruppe', 'turnierplan-eu') },
+	field: { field: 'showField', label: __('Field or court', 'turnierplan-eu') },
+	group: { field: 'showGroup', label: __('Group', 'turnierplan-eu') },
 	group_navigation: {
 		field: 'enableGroupNavigation',
-		label: __('Gruppennavigation', 'turnierplan-eu'),
+		label: __('Group navigation', 'turnierplan-eu'),
 	},
 	live_state: {
 		field: 'showLiveState',
-		label: __('Live-Status', 'turnierplan-eu'),
+		label: __('Live status', 'turnierplan-eu'),
 	},
 	match_number: {
 		field: 'showMatchNumber',
-		label: __('Spielnummer', 'turnierplan-eu'),
+		label: __('Match number', 'turnierplan-eu'),
 	},
 	penalty_result: {
 		field: 'showPenaltyResult',
-		label: __('Entscheidungsdetails', 'turnierplan-eu'),
+		label: __('Decision details', 'turnierplan-eu'),
 	},
-	played: { field: 'showPlayed', label: __('Gespielte Partien', 'turnierplan-eu') },
-	points: { field: 'showPoints', label: __('Punkte', 'turnierplan-eu') },
-	referee: { field: 'showReferee', label: __('Schiedsrichter', 'turnierplan-eu') },
-	round: { field: 'showRound', label: __('Runde', 'turnierplan-eu') },
+	played: { field: 'showPlayed', label: __('Matches played', 'turnierplan-eu') },
+	points: { field: 'showPoints', label: __('Points', 'turnierplan-eu') },
+	referee: { field: 'showReferee', label: __('Referee', 'turnierplan-eu') },
+	round: { field: 'showRound', label: __('Round', 'turnierplan-eu') },
 	score_balance: {
 		field: 'showScoreBalance',
-		label: __('Tor-, Satz- oder Punktebilanz', 'turnierplan-eu'),
+		label: __('Goal, set, or point balance', 'turnierplan-eu'),
 	},
-	team_logos: { field: 'showTeamLogos', label: __('Teamlogos', 'turnierplan-eu') },
-	time: { field: 'showTime', label: __('Uhrzeit', 'turnierplan-eu') },
+	team_logos: { field: 'showTeamLogos', label: __('Team logos', 'turnierplan-eu') },
+	time: { field: 'showTime', label: __('Time', 'turnierplan-eu') },
 	wins_draws_losses: {
 		field: 'showWinsDrawsLosses',
-		label: __('Siege, Remis und Niederlagen', 'turnierplan-eu'),
+		label: __('Wins, draws, and losses', 'turnierplan-eu'),
 	},
+});
+
+const tournamentStateLabels = Object.freeze({
+	cancelled: __('Cancelled', 'turnierplan-eu'),
+	completed: __('Completed', 'turnierplan-eu'),
+	live: __('Live', 'turnierplan-eu'),
+	upcoming: __('Upcoming', 'turnierplan-eu'),
 });
 
 const useDebouncedValue = (value, delay) => {
@@ -105,40 +113,40 @@ const useDebouncedValue = (value, delay) => {
 const LocalExample = () => (
 	<div className="tpeu-block-editor__example">
 		<p className="tpeu-block-editor__example-title">
-			{__('Lokales Beispiel: Turniertabelle', 'turnierplan-eu')}
+			{__('Local example: tournament standings', 'turnierplan-eu')}
 		</p>
 		<table>
 			<thead>
 				<tr>
-					<th>{__('Platz', 'turnierplan-eu')}</th>
+					<th>{__('Rank', 'turnierplan-eu')}</th>
 					<th>{__('Team', 'turnierplan-eu')}</th>
-					<th>{__('Spiele', 'turnierplan-eu')}</th>
-					<th>{__('Punkte', 'turnierplan-eu')}</th>
+					<th>{__('Played', 'turnierplan-eu')}</th>
+					<th>{__('Points', 'turnierplan-eu')}</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>1</td>
-					<td>{__('Beispielverein Nord', 'turnierplan-eu')}</td>
+					<td>{__('Example Club North', 'turnierplan-eu')}</td>
 					<td>3</td>
 					<td>7</td>
 				</tr>
 				<tr>
 					<td>2</td>
-					<td>{__('Beispielverein Süd', 'turnierplan-eu')}</td>
+					<td>{__('Example Club South', 'turnierplan-eu')}</td>
 					<td>3</td>
 					<td>5</td>
 				</tr>
 			</tbody>
 		</table>
-		<p>{__('Dieses Beispiel lädt keine externen Daten.', 'turnierplan-eu')}</p>
+		<p>{__('This example does not load external data.', 'turnierplan-eu')}</p>
 	</div>
 );
 
 const errorMessage = (error) =>
 	typeof error?.message === 'string' && error.message !== ''
 		? error.message
-		: __('Die Turniermetadaten konnten nicht geladen werden.', 'turnierplan-eu');
+		: __('The tournament metadata could not be loaded.', 'turnierplan-eu');
 
 function Edit({ attributes, setAttributes }) {
 	const config = useMemo(
@@ -155,6 +163,7 @@ function Edit({ attributes, setAttributes }) {
 	const [presetError, setPresetError] = useState(null);
 	const loader = useRef(null);
 	const autoLoaded = useRef(false);
+	const errorFocus = useRef(null);
 	const debouncedConfig = useDebouncedValue(config, 250);
 
 	if (loader.current === null) {
@@ -171,6 +180,12 @@ function Edit({ attributes, setAttributes }) {
 	}, [attributes.initialized, config, setAttributes]);
 
 	useEffect(() => () => loader.current?.cancel(), []);
+
+	useEffect(() => {
+		if (state.status === 'error') {
+			errorFocus.current?.focus();
+		}
+	}, [state.status]);
 
 	useEffect(() => {
 		let active = true;
@@ -201,7 +216,7 @@ function Edit({ attributes, setAttributes }) {
 
 			if (value === '') {
 				dispatch({
-					error: new Error(__('Bitte gib eine Turnierreferenz ein.', 'turnierplan-eu')),
+					error: new Error(__('Enter a tournament reference.', 'turnierplan-eu')),
 					type: 'error',
 				});
 				return;
@@ -358,13 +373,13 @@ function Edit({ attributes, setAttributes }) {
 	]).map(({ id }) => ({
 		label:
 			id === 'matches'
-				? __('Spielplan', 'turnierplan-eu')
-				: __('Turniertabelle', 'turnierplan-eu'),
+				? __('Schedule', 'turnierplan-eu')
+				: __('Standings', 'turnierplan-eu'),
 		value: id,
 	}));
 
 	const languageOptions = [
-		{ label: __('Automatisch', 'turnierplan-eu'), value: 'auto' },
+		{ label: __('Automatic', 'turnierplan-eu'), value: 'auto' },
 		...(state.metadata?.supported_languages ?? []).map((language) => ({
 			label: language,
 			value: language,
@@ -375,9 +390,9 @@ function Edit({ attributes, setAttributes }) {
 	);
 
 	const connectPanel = (
-		<PanelBody title={__('Turnier', 'turnierplan-eu')} initialOpen>
+		<PanelBody title={__('Tournament', 'turnierplan-eu')} initialOpen>
 			<TextControl
-				label={__('Turnier-ID, Slug oder URL', 'turnierplan-eu')}
+				label={__('Tournament ID, slug, or URL', 'turnierplan-eu')}
 				value={referenceInput}
 				onChange={setReferenceInput}
 			/>
@@ -391,11 +406,11 @@ function Edit({ attributes, setAttributes }) {
 				onClick={() => loadMetadata()}
 			>
 				{state.metadata === null
-					? __('Turnier verbinden', 'turnierplan-eu')
-					: __('Verbindung aktualisieren', 'turnierplan-eu')}
+					? __('Connect tournament', 'turnierplan-eu')
+					: __('Refresh connection', 'turnierplan-eu')}
 			</Button>
 			<SelectControl
-				label={__('Sprache', 'turnierplan-eu')}
+				label={__('Language', 'turnierplan-eu')}
 				value={config.language}
 				options={languageOptions}
 				onChange={languageChanged}
@@ -404,23 +419,23 @@ function Edit({ attributes, setAttributes }) {
 	);
 
 	const presetPanel = (
-		<PanelBody title={__('Wiederverwendbares Preset', 'turnierplan-eu')}>
+		<PanelBody title={__('Reusable preset', 'turnierplan-eu')}>
 			<SelectControl
-				label={__('Quelle', 'turnierplan-eu')}
+				label={__('Source', 'turnierplan-eu')}
 				value={String(attributes.presetId ?? 0)}
 				options={[
-					{ label: __('Inline-Konfiguration', 'turnierplan-eu'), value: '0' },
+					{ label: __('Inline configuration', 'turnierplan-eu'), value: '0' },
 					...presets.map(({ id, title }) => ({ label: title, value: String(id) })),
 				]}
 				onChange={selectPreset}
 			/>
 			{presetError !== null && (
 				<Notice status="warning" isDismissible={false}>
-					{__('Die Preset-Liste konnte nicht geladen werden.', 'turnierplan-eu')}
+					{__('The preset list could not be loaded.', 'turnierplan-eu')}
 				</Notice>
 			)}
 			{(attributes.presetId ?? 0) > 0 && (
-				<p>{__('Änderungen am Preset gelten automatisch für alle Verwendungsstellen. Beim Wechsel zu Inline werden die aktuellen Werte einmalig kopiert.', 'turnierplan-eu')}</p>
+				<p>{__('Changes to the preset automatically apply everywhere it is used. Switching to inline copies the current values once.', 'turnierplan-eu')}</p>
 			)}
 		</PanelBody>
 	);
@@ -443,28 +458,29 @@ function Edit({ attributes, setAttributes }) {
 		<InspectorControls>
 			{presetPanel}
 			{connectPanel}
-			<PanelBody title={__('Darstellung', 'turnierplan-eu')}>
+			<PanelBody title={__('Appearance', 'turnierplan-eu')}>
 				<SelectControl
-					label={__('Farbschema', 'turnierplan-eu')}
+					label={__('Color scheme', 'turnierplan-eu')}
 					value={config.theme}
 					options={[
-						{ label: __('Automatisch', 'turnierplan-eu'), value: 'auto' },
-						{ label: __('Hell', 'turnierplan-eu'), value: 'light' },
-						{ label: __('Dunkel', 'turnierplan-eu'), value: 'dark' },
+						{ label: __('Automatic', 'turnierplan-eu'), value: 'auto' },
+						{ label: __('Light', 'turnierplan-eu'), value: 'light' },
+						{ label: __('Dark', 'turnierplan-eu'), value: 'dark' },
 					]}
 					onChange={(theme) => updateConfig({ theme })}
 				/>
 				<SelectControl
-					label={__('Dichte', 'turnierplan-eu')}
+					label={__('Density', 'turnierplan-eu')}
 					value={config.density}
 					options={[
-						{ label: __('Komfortabel', 'turnierplan-eu'), value: 'comfortable' },
-						{ label: __('Kompakt', 'turnierplan-eu'), value: 'compact' },
+						{ label: __('Comfortable', 'turnierplan-eu'), value: 'comfortable' },
+						{ label: __('Compact', 'turnierplan-eu'), value: 'compact' },
 					]}
 					onChange={(density) => updateConfig({ density })}
 				/>
-				<p>{__('Akzentfarbe', 'turnierplan-eu')}</p>
+				<p>{__('Accent color', 'turnierplan-eu')}</p>
 				<ColorPalette
+					aria-label={__('Accent color', 'turnierplan-eu')}
 					clearable
 					value={config.accentColor ?? undefined}
 					onChange={(accentColor) =>
@@ -473,7 +489,7 @@ function Edit({ attributes, setAttributes }) {
 				/>
 			</PanelBody>
 			{activeView !== null && (
-				<PanelBody title={__('Angezeigte Informationen', 'turnierplan-eu')}>
+				<PanelBody title={__('Displayed information', 'turnierplan-eu')}>
 					{activeView.options.map((option) => {
 						const definition = optionFields[option];
 
@@ -494,12 +510,12 @@ function Edit({ attributes, setAttributes }) {
 					})}
 					{activeView.options.includes('date') && (
 						<SelectControl
-							label={__('Datum anzeigen', 'turnierplan-eu')}
+							label={__('Show date', 'turnierplan-eu')}
 							value={config.showDate}
 							options={[
-								{ label: __('Automatisch', 'turnierplan-eu'), value: 'auto' },
-								{ label: __('Anzeigen', 'turnierplan-eu'), value: 'show' },
-								{ label: __('Ausblenden', 'turnierplan-eu'), value: 'hide' },
+								{ label: __('Automatic', 'turnierplan-eu'), value: 'auto' },
+								{ label: __('Show', 'turnierplan-eu'), value: 'show' },
+								{ label: __('Hide', 'turnierplan-eu'), value: 'hide' },
 							]}
 							onChange={(showDate) => updateConfig({ showDate })}
 						/>
@@ -508,17 +524,17 @@ function Edit({ attributes, setAttributes }) {
 			)}
 			{activeView !== null &&
 				(filters.has('match_number_range') || filters.has('date_range')) && (
-					<PanelBody title={__('Weitere Filter', 'turnierplan-eu')}>
+					<PanelBody title={__('Additional filters', 'turnierplan-eu')}>
 						{filters.has('match_number_range') && (
 							<>
 								<TextControl
-									label={__('Spielnummer von', 'turnierplan-eu')}
+									label={__('First match number', 'turnierplan-eu')}
 									type="number"
 									value={config.matchFrom ?? ''}
 									onChange={(value) => setInteger('matchFrom', value, 'matchTo')}
 								/>
 								<TextControl
-									label={__('Spielnummer bis', 'turnierplan-eu')}
+									label={__('Last match number', 'turnierplan-eu')}
 									type="number"
 									value={config.matchTo ?? ''}
 									onChange={(value) => setInteger('matchTo', value, 'matchFrom')}
@@ -528,13 +544,13 @@ function Edit({ attributes, setAttributes }) {
 						{filters.has('date_range') && (
 							<>
 								<TextControl
-									label={__('Datum von', 'turnierplan-eu')}
+									label={__('Start date', 'turnierplan-eu')}
 									type="date"
 									value={config.dateFrom ?? ''}
 									onChange={(value) => setDate('dateFrom', value, 'dateTo')}
 								/>
 								<TextControl
-									label={__('Datum bis', 'turnierplan-eu')}
+									label={__('End date', 'turnierplan-eu')}
 									type="date"
 									value={config.dateTo ?? ''}
 									onChange={(value) => setDate('dateTo', value, 'dateFrom')}
@@ -543,9 +559,9 @@ function Edit({ attributes, setAttributes }) {
 						)}
 					</PanelBody>
 				)}
-			<PanelBody title={__('Erweitert', 'turnierplan-eu')} initialOpen={false}>
+			<PanelBody title={__('Advanced', 'turnierplan-eu')} initialOpen={false}>
 				<RangeControl
-					label={__('Mindesthöhe', 'turnierplan-eu')}
+					label={__('Minimum height', 'turnierplan-eu')}
 					min={160}
 					max={2000}
 					value={config.minHeight}
@@ -559,7 +575,7 @@ function Edit({ attributes, setAttributes }) {
 					}}
 				/>
 				<RangeControl
-					label={__('Maximalhöhe', 'turnierplan-eu')}
+					label={__('Maximum height', 'turnierplan-eu')}
 					min={300}
 					max={8000}
 					value={config.maxHeight}
@@ -573,13 +589,13 @@ function Edit({ attributes, setAttributes }) {
 					}}
 				/>
 				<ToggleControl
-					label={__('Links in neuem Tab öffnen', 'turnierplan-eu')}
+					label={__('Open links in a new tab', 'turnierplan-eu')}
 					checked={config.openLinksInNewTab}
 					onChange={(openLinksInNewTab) => updateConfig({ openLinksInNewTab })}
 				/>
 				{state.metadata?.branding.policy === 'optional' && (
 					<ToggleControl
-						label={__('Turnierplan.eu-Branding anzeigen', 'turnierplan-eu')}
+						label={__('Show Turnierplan.eu branding', 'turnierplan-eu')}
 						checked={config.showBranding}
 						onChange={(showBranding) => updateConfig({ showBranding })}
 					/>
@@ -597,12 +613,12 @@ function Edit({ attributes, setAttributes }) {
 						icon="chart-bar"
 						label={__('Turnierplan.eu', 'turnierplan-eu')}
 						instructions={__(
-							'Gib eine öffentliche Turnier-ID, einen Slug oder eine Turnierplan.eu-URL ein.',
+							'Enter a public tournament ID, slug, or Turnierplan.eu URL.',
 							'turnierplan-eu'
 						)}
 					>
 						<TextControl
-							label={__('Turnier-ID, Slug oder URL', 'turnierplan-eu')}
+							label={__('Tournament ID, slug, or URL', 'turnierplan-eu')}
 							value={referenceInput}
 							onChange={setReferenceInput}
 						/>
@@ -617,41 +633,43 @@ function Edit({ attributes, setAttributes }) {
 								onClick={() => loadMetadata()}
 							>
 								{state.status === 'loading' && <Spinner />}
-								{__('Turnier verbinden', 'turnierplan-eu')}
+								{__('Connect tournament', 'turnierplan-eu')}
 							</Button>
 							<Button
 								variant="tertiary"
 								onClick={() => setShowExample((visible) => !visible)}
 							>
 								{showExample
-									? __('Beispiel schließen', 'turnierplan-eu')
-									: __('Beispiel ansehen', 'turnierplan-eu')}
+									? __('Close example', 'turnierplan-eu')
+									: __('View example', 'turnierplan-eu')}
 							</Button>
 						</div>
 						<p className="tpeu-block-editor__service-note">
 							{__(
-								'Beim Verbinden ruft der WordPress-Server öffentliche Metadaten von Turnierplan.eu ab.',
+								'When connecting, the WordPress server retrieves public metadata from Turnierplan.eu.',
 								'turnierplan-eu'
 							)}
 						</p>
 						{!editorSettings.serviceEnabled && (
 							<Notice status="warning" isDismissible={false}>
 								{__(
-									'Der externe Dienst muss zuerst unter Einstellungen → Turnierplan.eu freigegeben werden.',
+									'The external service must first be enabled under Settings → Turnierplan.eu.',
 									'turnierplan-eu'
 								)}
 							</Notice>
 						)}
 						{state.status === 'error' && (
-							<Notice status="error" isDismissible={false}>
-								{errorMessage(state.error)}
-							</Notice>
+							<div ref={errorFocus} tabIndex="-1">
+								<Notice status="error" isDismissible={false}>
+									{errorMessage(state.error)}
+								</Notice>
+							</div>
 						)}
 						{!schemaSupported && (
 							<Notice status="error" isDismissible={false}>
 								<p>
 									{__(
-										'Diese Konfigurationsversion wird nicht unterstützt und muss zurückgesetzt werden.',
+										'This configuration version is unsupported and must be reset.',
 										'turnierplan-eu'
 									)}
 								</p>
@@ -667,7 +685,7 @@ function Edit({ attributes, setAttributes }) {
 										dispatch({ type: 'reset' });
 									}}
 								>
-									{__('Konfiguration zurücksetzen', 'turnierplan-eu')}
+									{__('Reset configuration', 'turnierplan-eu')}
 								</Button>
 							</Notice>
 						)}
@@ -702,7 +720,7 @@ function Edit({ attributes, setAttributes }) {
 						>
 							{{
 								desktop: __('Desktop', 'turnierplan-eu'),
-								mobile: __('Mobil', 'turnierplan-eu'),
+								mobile: __('Mobile', 'turnierplan-eu'),
 								tablet: __('Tablet', 'turnierplan-eu'),
 							}[device]}
 						</ToolbarButton>
@@ -717,27 +735,27 @@ function Edit({ attributes, setAttributes }) {
 							{sprintf(
 								/* translators: %s: tournament state. */
 								__('Status: %s', 'turnierplan-eu'),
-								tournament.state
+								tournamentStateLabels[tournament.state] ?? tournament.state
 							)}
 						</p>
 					</div>
 					<ExternalLink href={tournament.public_url}>
-						{__('Vollständiges Turnier öffnen', 'turnierplan-eu')}
+						{__('Open full tournament', 'turnierplan-eu')}
 					</ExternalLink>
 				</div>
 				<div className="tpeu-block-editor__controls">
 					<SelectControl
-						label={__('Ansicht', 'turnierplan-eu')}
+						label={__('View', 'turnierplan-eu')}
 						value={config.view}
 						options={viewOptions}
 						onChange={setView}
 					/>
 					{filters.has('group') && (
 						<SelectControl
-							label={__('Gruppe', 'turnierplan-eu')}
+							label={__('Group', 'turnierplan-eu')}
 							value={config.group ?? ''}
 							options={[
-								{ label: __('Alle Gruppen', 'turnierplan-eu'), value: '' },
+								{ label: __('All groups', 'turnierplan-eu'), value: '' },
 								...state.metadata.groups.map(({ id, label }) => ({
 									label,
 									value: id,
@@ -748,10 +766,10 @@ function Edit({ attributes, setAttributes }) {
 					)}
 					{filters.has('participant') && (
 						<SelectControl
-							label={__('Teilnehmer', 'turnierplan-eu')}
+							label={__('Participant', 'turnierplan-eu')}
 							value={config.participant ?? ''}
 							options={[
-								{ label: __('Alle Teilnehmer', 'turnierplan-eu'), value: '' },
+								{ label: __('All participants', 'turnierplan-eu'), value: '' },
 								...availableParticipants.map(({ id, label }) => ({
 									label,
 									value: id,
@@ -763,7 +781,7 @@ function Edit({ attributes, setAttributes }) {
 						/>
 					)}
 					<SelectControl
-						label={__('Sprache', 'turnierplan-eu')}
+						label={__('Language', 'turnierplan-eu')}
 						value={config.language}
 						options={languageOptions}
 						onChange={languageChanged}
@@ -773,7 +791,7 @@ function Edit({ attributes, setAttributes }) {
 					{configWarnings.includes('view') && (
 						<Notice status="warning" isDismissible={false}>
 							{__(
-								'Die zuvor gewählte Ansicht ist nicht verfügbar. Eine verfügbare Ansicht wurde ausgewählt.',
+								'The previously selected view is unavailable. An available view was selected.',
 								'turnierplan-eu'
 							)}
 						</Notice>
@@ -781,7 +799,7 @@ function Edit({ attributes, setAttributes }) {
 					{configWarnings.includes('group') && (
 						<Notice status="warning" isDismissible={false}>
 							{__(
-								'Die gespeicherte Gruppe ist nicht mehr verfügbar und wurde auf alle Gruppen zurückgesetzt.',
+								'The saved group is no longer available and was reset to all groups.',
 								'turnierplan-eu'
 							)}
 						</Notice>
@@ -789,40 +807,45 @@ function Edit({ attributes, setAttributes }) {
 					{configWarnings.includes('participant') && (
 						<Notice status="warning" isDismissible={false}>
 							{__(
-								'Der gespeicherte Teilnehmer ist nicht mehr verfügbar und wurde zurückgesetzt.',
+								'The saved participant is no longer available and was reset.',
 								'turnierplan-eu'
 							)}
 						</Notice>
 					)}
 					{(state.status === 'loading' || state.status === 'refreshing') && (
-						<><Spinner /> {__('Turnier wird aktualisiert …', 'turnierplan-eu')}</>
+						<><Spinner /> {__('Updating tournament…', 'turnierplan-eu')}</>
 					)}
 					{state.status === 'stale' && (
 						<Notice status="warning" isDismissible={false}>
 							{__(
-								'Die letzte erfolgreiche Antwort wird angezeigt, weil Turnierplan.eu vorübergehend nicht erreichbar ist.',
+								'The last successful response is shown because Turnierplan.eu is temporarily unavailable.',
 								'turnierplan-eu'
 							)}
 						</Notice>
 					)}
 					{state.status === 'error' && (
-						<Notice status="error" isDismissible={false}>
-							{errorMessage(state.error)}
-						</Notice>
+						<div ref={errorFocus} tabIndex="-1">
+							<Notice status="error" isDismissible={false}>
+								{errorMessage(state.error)}
+							</Notice>
+						</div>
 					)}
 					{tournament.state === 'completed' && (
 						<Notice status="info" isDismissible={false}>
 							{__(
-								'Das Turnier ist beendet und weiterhin öffentlich verfügbar.',
+								'The tournament has ended and remains publicly available.',
 								'turnierplan-eu'
 							)}
 						</Notice>
 					)}
 					<small>
 						{sprintf(
-							/* translators: %s: ISO timestamp supplied by Turnierplan.eu. */
-							__('Metadaten aktualisiert: %s', 'turnierplan-eu'),
-							tournament.updated_at
+							/* translators: %s: localized metadata update date and time. */
+							__('Metadata updated: %s', 'turnierplan-eu'),
+							formatMetadataTimestamp(
+								tournament.updated_at,
+								document.documentElement.lang || undefined
+							)
 						)}
 					</small>
 				</div>

@@ -14,6 +14,7 @@ use TurnierplanEU\WordPress\Cache\MetadataCache;
 use TurnierplanEU\WordPress\Cache\WordPressCacheStore;
 use TurnierplanEU\WordPress\Config\EmbedUrlBuilder;
 use TurnierplanEU\WordPress\Config\ServiceConfiguration;
+use TurnierplanEU\WordPress\Localization\SiteLanguageResolver;
 use TurnierplanEU\WordPress\Remote\MetadataClient;
 use TurnierplanEU\WordPress\Remote\MetadataGateway;
 use TurnierplanEU\WordPress\Remote\MetadataResponseValidator;
@@ -71,6 +72,12 @@ final class Plugin {
 	 * @return void
 	 */
 	public function announce_loaded(): void {
+		load_plugin_textdomain(
+			'turnierplan-eu',
+			false,
+			dirname( plugin_basename( TPEU_PLUGIN_FILE ) ) . '/languages'
+		);
+
 		$service   = ServiceConfiguration::production();
 		$builder   = new EmbedUrlBuilder( $service );
 		$validator = new MetadataResponseValidator();
@@ -85,14 +92,15 @@ final class Plugin {
 		);
 		$gateway   = new MetadataGateway( $settings, $cache, $client );
 		$presets   = new PresetRepository();
+		$languages = new SiteLanguageResolver();
 
 		( new Capabilities() )->register();
 		( new PresetPostType() )->register();
 		( new PresetAdmin( $settings, TPEU_PLUGIN_FILE, $this->version ) )->register();
 		( new PresetRestController( $presets ) )->register();
-		( new SettingsPage( $settings, $cache, $gateway, $service ) )->register();
+		( new SettingsPage( $settings, $cache, $gateway, $service, $languages ) )->register();
 		( new PrivacyPolicy() )->register();
-		( new MetadataController( $gateway, new UserRateLimiter() ) )->register();
+		( new MetadataController( $gateway, new UserRateLimiter(), $languages ) )->register();
 
 		$renderer = new EmbedRenderer(
 			$settings,
@@ -100,7 +108,8 @@ final class Plugin {
 			$service,
 			new WordPressParentOrigin(),
 			new WordPressInstanceIdGenerator(),
-			new WordPressFrontendAssets( TPEU_PLUGIN_FILE, $this->version )
+			new WordPressFrontendAssets( TPEU_PLUGIN_FILE, $this->version ),
+			$languages
 		);
 
 		( new ShortcodeHandler( $renderer, $presets ) )->register();

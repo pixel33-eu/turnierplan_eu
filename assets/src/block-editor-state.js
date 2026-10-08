@@ -141,6 +141,19 @@ export function inlineConfigForPreset(presets, presetId, fallbackConfig) {
 	return selected?.config ?? fallbackConfig;
 }
 
+export function formatMetadataTimestamp(value, locale) {
+	const date = new Date(value);
+
+	if (Number.isNaN(date.getTime())) {
+		return value;
+	}
+
+	return new Intl.DateTimeFormat(locale, {
+		dateStyle: 'medium',
+		timeStyle: 'short',
+	}).format(date);
+}
+
 export function createMetadataLoader(apiFetch, AbortControllerClass) {
 	const Controller =
 		AbortControllerClass ?? globalThis.AbortController ?? null;

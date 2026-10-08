@@ -15,6 +15,7 @@
 	display: block;
 	inline-size: 100%;
 	max-inline-size: 100%;
+	min-inline-size: 0;
 	min-block-size: 160px;
 	border: 0;
 	background: transparent;
@@ -24,6 +25,7 @@
 .tpeu-embed__fallback {
 	margin-block: 0.75rem;
 	font: inherit;
+	overflow-wrap: anywhere;
 }
 
 .tpeu-embed[data-tpeu-status="ready"] .tpeu-embed__status {
@@ -43,10 +45,18 @@
 	text-underline-offset: 0.15em;
 }
 
+.tpeu-embed__fallback a:focus-visible,
+.tpeu-embed--unavailable a:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 3px;
+}
+
 .tpeu-embed--unavailable {
+	max-inline-size: 100%;
 	padding: 1rem;
 	border: 1px solid currentColor;
 	border-radius: 0.25rem;
+	overflow-wrap: anywhere;
 }
 
 @media (prefers-reduced-motion: reduce) {

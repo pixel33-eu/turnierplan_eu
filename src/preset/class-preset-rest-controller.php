@@ -62,7 +62,7 @@ final class PresetRestController {
 		if ( ! current_user_can( Capabilities::USE_PRESETS ) ) {
 			return new WP_Error(
 				'tpeu_presets_forbidden',
-				esc_html__( 'Du darfst keine Turnierplan-Presets verwenden.', 'turnierplan-eu' ),
+				esc_html__( 'You are not allowed to use Turnierplan presets.', 'turnierplan-eu' ),
 				array( 'status' => 403 )
 			);
 		}
@@ -72,7 +72,7 @@ final class PresetRestController {
 		if ( null === $nonce || '' === $nonce || ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
 			return new WP_Error(
 				'tpeu_invalid_nonce',
-				esc_html__( 'Die Sicherheitsprüfung ist abgelaufen. Bitte lade den Editor neu.', 'turnierplan-eu' ),
+				esc_html__( 'The security check has expired. Reload the editor.', 'turnierplan-eu' ),
 				array( 'status' => 403 )
 			);
 		}
@@ -123,7 +123,7 @@ final class PresetRestController {
 		if ( null === $preset ) {
 			return new WP_Error(
 				'tpeu_preset_not_found',
-				esc_html__( 'Das Preset ist nicht veröffentlicht oder nicht verfügbar.', 'turnierplan-eu' ),
+				esc_html__( 'The preset is unpublished or unavailable.', 'turnierplan-eu' ),
 				array( 'status' => 404 )
 			);
 		}

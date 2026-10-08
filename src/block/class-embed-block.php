@@ -94,7 +94,11 @@ final class EmbedBlock {
 			$asset['version'],
 			true
 		);
-		wp_set_script_translations( 'tpeu-block-editor', 'turnierplan-eu' );
+		wp_set_script_translations(
+			'tpeu-block-editor',
+			'turnierplan-eu',
+			plugin_dir_path( $this->plugin_file ) . 'languages'
+		);
 		wp_add_inline_script(
 			'tpeu-block-editor',
 			'window.TurnierplanEUBlockSettings = ' . wp_json_encode(

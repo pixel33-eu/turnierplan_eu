@@ -85,6 +85,12 @@ assert.equal(
   config,
   "a missing preset must not fall back to a different preset",
 );
+assert.match(
+  state.formatMetadataTimestamp("2026-10-08T12:30:00Z", "en-GB"),
+  /2026/,
+  "metadata timestamps should use a localized date and time formatter",
+);
+assert.equal(state.formatMetadataTimestamp("invalid", "en-GB"), "invalid");
 
 let reduced = state.metadataReducer(state.initialMetadataState, { type: "loading" });
 assert.equal(reduced.status, "loading");

@@ -1,7 +1,26 @@
 .tpeu-preset-editor {
+	box-sizing: border-box;
+	inline-size: 100%;
+	max-inline-size: 100%;
 	display: grid;
 	grid-template-columns: minmax(280px, 1fr) minmax(320px, 1fr);
 	gap: 24px;
+}
+
+.tpeu-preset-editor *,
+.tpeu-preset-editor *::before,
+.tpeu-preset-editor *::after {
+	box-sizing: inherit;
+}
+
+.tpeu-preset-editor__configuration {
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+.tpeu-preset-editor [tabindex="-1"]:focus {
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
 }
 
 .tpeu-preset-editor__row,

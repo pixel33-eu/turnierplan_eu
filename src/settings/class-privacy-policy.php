@@ -26,15 +26,15 @@ final class PrivacyPolicy {
 		}
 
 		$content = '<p>'
-			. esc_html__( 'Diese Website bindet öffentliche Turnierinformationen von Turnierplan.eu ein, wenn die Funktion administrativ freigegeben und in einem Inhalt verwendet wurde.', 'turnierplan-eu' )
+			. esc_html__( 'This website embeds public tournament information from Turnierplan.eu when the feature has been approved by an administrator and used in content.', 'turnierplan-eu' )
 			. '</p><p>'
-			. esc_html__( 'Im WordPress-Backend ruft der Server kleine Metadatenantworten zur Konfiguration und Vorschau ab. Dabei verarbeitet Turnierplan.eu insbesondere die IP-Adresse des WordPress-Servers, Zeitpunkt, angeforderte Turnierreferenz und übliche technische HTTP-Daten. Das Plugin sendet dabei keine WordPress-Anmeldedaten oder Cookies.', 'turnierplan-eu' )
+			. esc_html__( 'In the WordPress dashboard, the server retrieves small metadata responses for configuration and preview. Turnierplan.eu processes the WordPress server\'s IP address, the time, the requested tournament reference, and standard technical HTTP data. The plugin does not send WordPress login details or cookies.', 'turnierplan-eu' )
 			. '</p><p>'
-			. esc_html__( 'Auf veröffentlichten Seiten lädt der Browser des Besuchers den Turnier-Frame direkt von Turnierplan.eu. Dabei können insbesondere die IP-Adresse des Besuchers, Referrer- und Browserdaten sowie die angeforderte Turnieransicht verarbeitet werden. Weitere Informationen stehen in der Datenschutzerklärung von Turnierplan.eu.', 'turnierplan-eu' )
+			. esc_html__( 'On published pages, the visitor\'s browser loads the tournament frame directly from Turnierplan.eu. This may process the visitor\'s IP address, referrer and browser data, and the requested tournament view. More information is available in the Turnierplan.eu privacy policy.', 'turnierplan-eu' )
 			. '</p>';
 
 		wp_add_privacy_policy_content(
-			esc_html__( 'Turnierplan.eu – Turniere einbetten', 'turnierplan-eu' ),
+			esc_html__( 'Turnierplan.eu – Embed tournaments', 'turnierplan-eu' ),
 			wp_kses_post( wpautop( $content, false ) )
 		);
 	}
