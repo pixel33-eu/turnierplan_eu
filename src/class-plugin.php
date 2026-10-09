@@ -74,12 +74,6 @@ final class Plugin {
 	public function announce_loaded(): void {
 		Lifecycle::maybe_upgrade();
 
-		load_plugin_textdomain(
-			'turnierplan-eu',
-			false,
-			dirname( plugin_basename( TPEU_PLUGIN_FILE ) ) . '/languages'
-		);
-
 		$service   = ServiceConfiguration::production();
 		$builder   = new EmbedUrlBuilder( $service );
 		$validator = new MetadataResponseValidator();

@@ -4,7 +4,7 @@ Stand: 8. Oktober 2026
 
 ## Übersetzungen
 
-Alle PHP-, Einstellungs-, Preset- und Gutenberg-Texte verwenden englische Originaltexte mit der Textdomain `turnierplan-eu`. Das Plugin lädt seinen lokalen Katalog aus `languages/`. Der reproduzierbare Build in `tools/build-translations.mjs` erzeugt aus dem geprüften deutschen PO-Katalog:
+Alle PHP-, Einstellungs-, Preset- und Gutenberg-Texte verwenden englische Originaltexte mit der Textdomain `turnierplan-eu`. WordPress lädt veröffentlichte Sprachpakete Just-in-Time anhand der Textdomain; das Plugin ruft `load_plugin_textdomain()` deshalb nicht selbst auf. Der reproduzierbare Build in `tools/build-translations.mjs` erzeugt aus dem geprüften deutschen PO-Katalog:
 
 - `turnierplan-eu.pot` für alle 222 englischen Originaltexte;
 - `turnierplan-eu-de_DE.mo` für PHP;
