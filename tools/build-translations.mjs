@@ -6,8 +6,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const languageDirectory = path.join(root, 'languages');
 const poPath = path.join(languageDirectory, 'turnierplan-eu-de_DE.po');
-const gettextPattern =
-	/(?:__|esc_html__|translate)\(\s*'((?:\\.|[^'])*)'/gu;
+const gettextPattern = /(?:__|esc_html__|translate)\(\s*'((?:\\.|[^'])*)'/gu;
 
 const walk = async (directory, extensions) => {
 	const files = [];
