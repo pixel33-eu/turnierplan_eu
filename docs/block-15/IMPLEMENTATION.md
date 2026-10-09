@@ -26,6 +26,8 @@ Für ein öffentliches Release prüft der zusätzliche Aufruf
 
 einen sauberen Arbeitsbaum und den exakten Git-Tag v1.0.0. Das ordnet das Paket eindeutig dem lesbaren Quellstand und den eingecheckten Buildwerkzeugen zu.
 
+Ein eigener Tag-Workflow führt vor jeder GitHub-Veröffentlichung `composer check`, `npm run check`, den strikten Tag-Build und die SHA-256-Prüfung aus. Erst danach erstellt er mit dem GitHub-eigenen Token das Release und hängt ZIP, Prüfsumme und Manifest an. Die öffentlichen Release-Notizen liegen versioniert unter `docs/block-15/RELEASE-NOTES-1.0.0.md`.
+
 ## Versionsvertrag
 
 VERSION ist die maßgebliche Releaseversion. npm run check:versions gleicht damit ab:

@@ -1,0 +1,68 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Verify and publish
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: none
+          tools: composer:v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "20.19.0"
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          composer install --no-interaction --prefer-dist --no-progress
+          npm ci
+
+      - name: Run PHP checks
+        run: composer check
+
+      - name: Run Node.js checks
+        run: npm run check
+
+      - name: Build exact tagged artifacts
+        run: node tools/build-release.mjs --require-tag
+
+      - name: Verify archive checksum
+        shell: bash
+        run: |
+          version="$(cat VERSION)"
+          cd dist
+          sha256sum --check "turnierplan-eu-${version}.zip.sha256"
+
+      - name: Publish GitHub release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version="$(cat VERSION)"
+          gh release create "$GITHUB_REF_NAME" \
+            "dist/turnierplan-eu-${version}.zip" \
+            "dist/turnierplan-eu-${version}.zip.sha256" \
+            "dist/turnierplan-eu-${version}.manifest.json" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "Turnierplan.eu WordPress plugin ${version}" \
+            --notes-file "docs/block-15/RELEASE-NOTES-${version}.md" \
+            --verify-tag
