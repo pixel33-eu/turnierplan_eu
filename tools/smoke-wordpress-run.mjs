@@ -18,8 +18,17 @@ const blueprint = path.join(
 	repositoryRoot,
 	'tests',
 	'fixtures',
-	'playground-smoke-blueprint.json'
+	process.env.TPEU_SMOKE_BLUEPRINT ?? 'playground-smoke-blueprint.json'
 );
+const requestedPhp = process.env.TPEU_SMOKE_PHP ?? '8.3';
+const requestedWordPress =
+	process.env.TPEU_SMOKE_WORDPRESS ??
+	'https://wordpress.org/wordpress-6.5.zip';
+const expectedPhpPrefix = `PHP/${process.env.TPEU_SMOKE_EXPECTED_PHP ?? requestedPhp}.`;
+const expectedWordPressClass =
+	process.env.TPEU_SMOKE_EXPECTED_WP_CLASS ?? 'version-6-5';
+const environmentLabel =
+	process.env.TPEU_SMOKE_LABEL ?? 'WordPress 6.5, PHP 8.3, block theme';
 const requestedPort = Number.parseInt(
 	process.env.TPEU_SMOKE_PORT ?? '8890',
 	10
@@ -41,9 +50,9 @@ const child = spawn(
 		'--port',
 		String(requestedPort),
 		'--php',
-		'8.3',
+		requestedPhp,
 		'--wp',
-		'https://wordpress.org/wordpress-6.5.zip',
+		requestedWordPress,
 		'--blueprint',
 		blueprint,
 		'--mount-dir',
@@ -157,20 +166,29 @@ try {
 		);
 	}
 
-	if (!pluginPage.php?.startsWith('PHP/8.3.')) {
-		throw new Error(`Expected PHP 8.3, received ${pluginPage.php}.`);
+	if (!pluginPage.php?.startsWith(expectedPhpPrefix)) {
+		throw new Error(
+			`Expected ${expectedPhpPrefix}, received ${pluginPage.php}.`
+		);
 	}
 
-	if (!/\bversion-6-5\b/.test(pluginPage.body)) {
-		throw new Error('The smoke environment is not running WordPress 6.5.');
+	if (!new RegExp(`\\b${expectedWordPressClass}\\b`).test(pluginPage.body)) {
+		throw new Error(
+			`The smoke environment is missing body class ${expectedWordPressClass}.`
+		);
 	}
 
 	if (
-		!/<tr class="active"[^>]+data-plugin="turnierplan-eu\/turnierplan-eu\.php"/.test(
+		!/<tr class="[^"]*\bactive\b[^"]*"[^>]+data-plugin="turnierplan-eu\/turnierplan-eu\.php"/.test(
 			pluginPage.body
 		)
 	) {
-		throw new Error('The Turnierplan.eu plugin is not active.');
+		const pluginRow = pluginPage.body.match(
+			/<tr[^>]+data-plugin="turnierplan-eu\/turnierplan-eu\.php"[^>]*>/
+		)?.[0];
+		throw new Error(
+			`The Turnierplan.eu plugin is not active. Found row: ${pluginRow ?? 'none'}`
+		);
 	}
 
 	if (!/Version 0\.1\.0/.test(pluginPage.body)) {
@@ -230,7 +248,7 @@ try {
 	}
 
 	process.stdout.write(
-		'WordPress smoke test passed: WordPress 6.5, PHP 8.3, plugin active, settings rendered, REST permissions verified.\n'
+		`WordPress smoke test passed: ${environmentLabel}, plugin active, settings rendered, REST permissions verified.\n`
 	);
 } finally {
 	stopChild();

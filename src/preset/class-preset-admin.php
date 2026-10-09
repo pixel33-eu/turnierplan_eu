@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace TurnierplanEU\WordPress\Preset;
 
+use TurnierplanEU\WordPress\Cache\TransientRegistry;
 use TurnierplanEU\WordPress\Config\ConfigException;
 use TurnierplanEU\WordPress\Config\EmbedConfig;
 use TurnierplanEU\WordPress\Settings\SettingsRepository;
@@ -187,7 +188,7 @@ final class PresetAdmin {
 			update_post_meta( $post_id, PresetRepository::META_KEY, $config->to_array() );
 		} catch ( ConfigException ) {
 			delete_post_meta( $post_id, PresetRepository::META_KEY );
-			set_transient( 'tpeu_preset_error_' . get_current_user_id(), 1, 60 );
+			TransientRegistry::set( 'tpeu_preset_error_' . get_current_user_id(), 1, 60 );
 
 			if ( 'publish' === $post->post_status ) {
 				remove_action( 'save_post_' . PresetRepository::POST_TYPE, array( $this, 'save' ), 10 );
@@ -208,7 +209,7 @@ final class PresetAdmin {
 			PresetRepository::POST_TYPE === get_post_type( $post_id )
 			&& get_transient( 'tpeu_preset_error_' . get_current_user_id() )
 		) {
-			delete_transient( 'tpeu_preset_error_' . get_current_user_id() );
+			TransientRegistry::delete( 'tpeu_preset_error_' . get_current_user_id() );
 			return add_query_arg( 'tpeu_preset_error', '1', $location );
 		}
 

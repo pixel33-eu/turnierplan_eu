@@ -10,7 +10,7 @@ Dieses Repository enthält ausschließlich das eigenständig entwickelte WordPre
 - npm 10.8 oder neuer
 - für die Docker-Laufzeit von `wp-env`: Docker Desktop
 
-Die standardmäßige lokale Laufzeit verwendet WordPress Playground und benötigt kein Docker. Sie startet die jeweils aktuelle WordPress-Version mit PHP 8.3. Die automatisierte Smoke-Prüfung und die Docker-Konfiguration prüfen zusätzlich die festgelegte Untergrenze WordPress 6.5 mit PHP 8.3.
+Die standardmäßige lokale Laufzeit verwendet WordPress Playground und benötigt kein Docker. Die automatisierte Matrix prüft die festgelegte Untergrenze WordPress 6.5 mit PHP 8.3 sowie WordPress 7.0.7 mit PHP 8.5. Die aktuelle Zielversion wird vor einem Release erneut gegen WordPress.org geprüft.
 
 ## Ersteinrichtung
 
@@ -59,7 +59,9 @@ Das umfasst WordPress Coding Standards, statische Analyse auf Stufe 8 und PHPUni
 npm run check
 ```
 
-Die Node-Prüfkette startet dabei kurzzeitig eine isolierte WordPress-Playground-Instanz auf Port 8890. `npm run test:wordpress` kontrolliert WordPress 6.5, PHP 8.3, die aktive Plugin-Zeile, den gespeicherten Versionswert und das Ausbleiben eines PHP-Fatal-Errors. Die Instanz wird nach der Prüfung beendet.
+Die Node-Prüfkette startet kurzzeitig isolierte WordPress-Playground-Instanzen. `npm run test:wordpress` kontrolliert WordPress 6.5, PHP 8.3 und ein Block-Theme. `npm run test:wordpress:current` wiederholt den Lauf mit WordPress 7.0.7, PHP 8.5 und einem klassischen Theme. `npm run test:wordpress:lifecycle` prüft Aktivierung, Upgrade, Deaktivierung und beide Deinstallationsentscheidungen. `npm run test:wordpress:multisite` prüft Netzaktivierung, später angelegte Sites, Cachetrennung und sitebezogene Löschung. Die Instanzen werden nach jeder Prüfung beendet.
+
+Der offizielle Plugin Check läuft in GitHub Actions über `wordpress/plugin-check-action@v1`. Der lokale WordPress-Playground-CLI-Prozess 3.1.53 konnte Plugin Check 2.1.0 unter Windows nicht zuverlässig beenden; deshalb wird ein lokaler WASM-Abbruch nicht als Plugin-Check-Ergebnis gewertet.
 
 Der Build landet in `build/` und wird nicht eingecheckt. `VERSION` ist die maßgebliche Versionsdatei; `npm run check:versions` prüft die notwendigen statischen Angaben im Plugin-Header, in `readme.txt`, in `package.json` und in der PHP-Konstante.
 

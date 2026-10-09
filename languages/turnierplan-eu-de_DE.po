@@ -422,8 +422,8 @@ msgstr "Verbindung testen"
 msgid "Test connection now"
 msgstr "Verbindung jetzt testen"
 
-msgid "The actual uninstall cleanup will be enabled with the lifecycle work in Block 14. Until then, this choice is only stored."
-msgstr "Die eigentliche Deinstallationsbereinigung wird mit dem Lebenszyklus in Block 14 aktiviert. Bis dahin wird diese Entscheidung nur gespeichert."
+msgid "When enabled, deleting the plugin permanently removes its presets, settings, cache entries, capabilities, and scheduled events from this site."
+msgstr "Wenn diese Option aktiviert ist, werden beim Löschen des Plugins seine Presets, Einstellungen, Cache-Einträge, Berechtigungen und geplanten Ereignisse dieser Website dauerhaft entfernt."
 
 msgid "The configuration was invalid. The preset was saved as a draft."
 msgstr "Die Konfiguration war ungültig. Das Preset wurde als Entwurf gespeichert."

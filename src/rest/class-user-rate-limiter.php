@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace TurnierplanEU\WordPress\Rest;
 
+use TurnierplanEU\WordPress\Cache\TransientRegistry;
+
 /**
  * Bounds authenticated users without exposing a public proxy.
  */
@@ -28,7 +30,7 @@ final class UserRateLimiter {
 			return false;
 		}
 
-		set_transient( $key, $count + 1, MINUTE_IN_SECONDS );
+		TransientRegistry::set( $key, $count + 1, MINUTE_IN_SECONDS );
 
 		return true;
 	}

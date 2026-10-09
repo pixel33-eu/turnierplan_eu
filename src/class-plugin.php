@@ -72,6 +72,8 @@ final class Plugin {
 	 * @return void
 	 */
 	public function announce_loaded(): void {
+		Lifecycle::maybe_upgrade();
+
 		load_plugin_textdomain(
 			'turnierplan-eu',
 			false,

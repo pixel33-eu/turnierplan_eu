@@ -24,6 +24,7 @@ final class Bootstrap {
 	public static function boot( string $plugin_file, string $version ): void {
 		register_activation_hook( $plugin_file, array( Lifecycle::class, 'activate' ) );
 		register_deactivation_hook( $plugin_file, array( Lifecycle::class, 'deactivate' ) );
+		add_action( 'wp_initialize_site', array( Lifecycle::class, 'initialize_site' ), 100 );
 
 		$wordpress_version = isset( $GLOBALS['wp_version'] ) ? (string) $GLOBALS['wp_version'] : '0';
 		$failures          = Requirements::unmet_requirements( PHP_VERSION, $wordpress_version );

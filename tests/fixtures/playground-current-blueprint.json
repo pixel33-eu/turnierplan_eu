@@ -1,8 +1,8 @@
 {
   "$schema": "https://playground.wordpress.net/blueprint-schema.json",
   "preferredVersions": {
-    "php": "8.3",
-    "wp": "6.5"
+    "php": "8.5",
+    "wp": "7.0.7"
   },
   "landingPage": "/wp-admin/plugins.php",
   "steps": [
@@ -13,7 +13,18 @@
     },
     {
       "step": "activatePlugin",
-      "pluginPath": "/wordpress/wp-content/plugins/turnierplan-eu"
+      "pluginPath": "turnierplan-eu/turnierplan-eu.php"
+    },
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "wordpress.org/themes",
+        "slug": "twentytwentyone"
+      },
+      "options": {
+        "activate": true,
+        "onError": "throw"
+      }
     },
     {
       "step": "defineWpConfigConsts",
@@ -23,7 +34,7 @@
         "WP_DEBUG_LOG": true,
         "SCRIPT_DEBUG": true,
         "WP_ENVIRONMENT_TYPE": "local",
-        "TPEU_TEST_EXPECTED_THEME_KIND": "block"
+        "TPEU_TEST_EXPECTED_THEME_KIND": "classic"
       }
     },
     {

@@ -14,6 +14,14 @@ if ( ! is_readable( $tpeu_wordpress_loader ) ) {
 }
 
 require_once $tpeu_wordpress_loader;
+require_once __DIR__ . '/playground-state.php';
+
+if (
+	defined( 'TPEU_TEST_EXPECTED_THEME_KIND' )
+	&& ( 'block' === TPEU_TEST_EXPECTED_THEME_KIND ) !== wp_is_block_theme()
+) {
+	throw new RuntimeException( 'The requested block or classic theme fixture is not active.' );
+}
 
 $tpeu_server = rest_get_server();
 $tpeu_routes = $tpeu_server->get_routes();

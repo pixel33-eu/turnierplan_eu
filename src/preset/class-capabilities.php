@@ -45,6 +45,13 @@ final class Capabilities {
 		update_option( self::VERSION_OPTION, self::VERSION, false );
 	}
 
+	/** Removes only capabilities granted by this plugin from built-in roles. */
+	public static function remove(): void {
+		self::revoke( get_role( 'administrator' ), self::administrator_capabilities() );
+		self::revoke( get_role( 'editor' ), self::editor_capabilities() );
+		self::revoke( get_role( 'author' ), self::author_capabilities() );
+	}
+
 	/**
 	 * Returns explicit post type capability names.
 	 *
@@ -82,6 +89,22 @@ final class Capabilities {
 
 		foreach ( $capabilities as $capability ) {
 			$role->add_cap( $capability );
+		}
+	}
+
+	/**
+	 * Revokes a set from a role when that role exists.
+	 *
+	 * @param WP_Role|null $role         Target role.
+	 * @param list<string> $capabilities Capabilities to revoke.
+	 */
+	private static function revoke( ?WP_Role $role, array $capabilities ): void {
+		if ( null === $role ) {
+			return;
+		}
+
+		foreach ( $capabilities as $capability ) {
+			$role->remove_cap( $capability );
 		}
 	}
 

@@ -228,7 +228,7 @@ final class SettingsPage {
 			<input type="checkbox" name="<?php echo esc_attr( SettingsRepository::OPTION_NAME ); ?>[delete_data]" value="1" <?php checked( $settings['delete_data'] ); ?>>
 			<?php echo esc_html__( 'Remove plugin data on deletion', 'turnierplan-eu' ); ?>
 		</label>
-		<p class="description"><?php echo esc_html__( 'The actual uninstall cleanup will be enabled with the lifecycle work in Block 14. Until then, this choice is only stored.', 'turnierplan-eu' ); ?></p>
+		<p class="description"><?php echo esc_html__( 'When enabled, deleting the plugin permanently removes its presets, settings, cache entries, capabilities, and scheduled events from this site.', 'turnierplan-eu' ); ?></p>
 		<?php
 	}
 

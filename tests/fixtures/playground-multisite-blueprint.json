@@ -1,0 +1,16 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "preferredVersions": {
+    "php": "8.3",
+    "wp": "6.5"
+  },
+  "steps": [
+    {
+      "step": "enableMultisite"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require '/wordpress/wp-content/plugins/turnierplan-eu/tests/fixtures/playground-multisite-smoke.php';"
+    }
+  ]
+}

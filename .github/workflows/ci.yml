@@ -59,3 +59,20 @@ jobs:
 
       - name: Run Node.js checks and build
         run: npm run check
+
+  plugin-check:
+    name: Plugin Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run official WordPress Plugin Check
+        uses: wordpress/plugin-check-action@v1
+        with:
+          exclude-directories: |
+            node_modules
+            vendor
+            tests
+            tools
+            docs

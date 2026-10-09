@@ -428,9 +428,6 @@ msgstr ""
 msgid "Test connection now"
 msgstr ""
 
-msgid "The actual uninstall cleanup will be enabled with the lifecycle work in Block 14. Until then, this choice is only stored."
-msgstr ""
-
 msgid "The configuration was invalid. The preset was saved as a draft."
 msgstr ""
 
@@ -654,6 +651,9 @@ msgid "When access is revoked, the plugin clears its metadata cache and creates 
 msgstr ""
 
 msgid "When connecting, the WordPress server retrieves public metadata from Turnierplan.eu."
+msgstr ""
+
+msgid "When enabled, deleting the plugin permanently removes its presets, settings, cache entries, capabilities, and scheduled events from this site."
 msgstr ""
 
 msgid "Wins, draws, and losses"

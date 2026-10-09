@@ -1,0 +1,17 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "preferredVersions": {
+    "php": "8.3",
+    "wp": "6.5"
+  },
+  "steps": [
+    {
+      "step": "activatePlugin",
+      "pluginPath": "/wordpress/wp-content/plugins/turnierplan-eu"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require '/wordpress/wp-content/plugins/turnierplan-eu/tests/fixtures/playground-lifecycle-smoke.php';"
+    }
+  ]
+}

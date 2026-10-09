@@ -40,9 +40,9 @@
     "typescript": "5.9.2"
   },
   "scripts": {
-    "analyse": "npm run check:versions && npm run check:translations && npm run test:contracts && npm run test:accessibility && npm run test:browser-protocol && npm run test:frontend && npm run test:block-editor && npm run test:config",
+    "analyse": "npm run check:versions && npm run check:translations && npm run test:contracts && npm run test:lifecycle && npm run test:accessibility && npm run test:browser-protocol && npm run test:frontend && npm run test:block-editor && npm run test:config",
     "build": "node tools/build-translations.mjs && node tools/build.mjs",
-    "check": "npm run check:engines && npm run lint && npm run analyse && npm run build && npm run check:licenses && npm run test:wordpress",
+    "check": "npm run check:engines && npm run lint && npm run analyse && npm run build && npm run check:licenses && npm run test:wordpress && npm run test:wordpress:current && npm run test:wordpress:lifecycle && npm run test:wordpress:multisite",
     "check:engines": "node tools/check-engines.mjs",
     "check:licenses": "node tools/check-licenses.mjs",
     "check:translations": "node tools/build-translations.mjs",
@@ -58,9 +58,13 @@
     "test:accessibility": "node tests/accessibility-contract.test.mjs",
     "test:browser-protocol": "node tests/embed-parent.test.mjs",
     "test:frontend": "node tests/embed-frontend.test.mjs",
+    "test:lifecycle": "node tests/lifecycle-contract.test.mjs",
     "test:responsive-browser": "node tools/check-responsive-browser.mjs",
     "test:block-editor": "node tests/block-editor-state.test.mjs",
     "test:config": "node tests/embed-config.test.mjs",
-    "test:wordpress": "node tools/smoke-wordpress.mjs"
+    "test:wordpress": "node tools/smoke-wordpress.mjs",
+    "test:wordpress:current": "node tools/smoke-wordpress-current.mjs",
+    "test:wordpress:lifecycle": "node tools/smoke-wordpress-lifecycle.mjs",
+    "test:wordpress:multisite": "node tools/smoke-wordpress-multisite.mjs"
   }
 }

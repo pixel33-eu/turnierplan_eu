@@ -25,7 +25,7 @@ final class WordPressCacheStore implements CacheStore {
 	/** Stores and indexes one transient value. */
 	public function set( string $key, mixed $value, int $ttl ): void {
 		$name = self::PREFIX . $key;
-		set_transient( $name, $value, $ttl );
+		TransientRegistry::set( $name, $value, $ttl );
 
 		$keys = get_option( self::INDEX_OPTION, array() );
 		$keys = is_array( $keys ) ? array_values( array_filter( $keys, 'is_string' ) ) : array();
@@ -39,7 +39,7 @@ final class WordPressCacheStore implements CacheStore {
 	/** Deletes and untracks one transient value. */
 	public function delete( string $key ): void {
 		$name = self::PREFIX . $key;
-		delete_transient( $name );
+		TransientRegistry::delete( $name );
 
 		$keys = get_option( self::INDEX_OPTION, array() );
 
@@ -56,7 +56,7 @@ final class WordPressCacheStore implements CacheStore {
 		if ( is_array( $keys ) ) {
 			foreach ( $keys as $name ) {
 				if ( is_string( $name ) && str_starts_with( $name, self::PREFIX ) ) {
-					delete_transient( $name );
+					TransientRegistry::delete( $name );
 				}
 			}
 		}
