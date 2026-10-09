@@ -33,6 +33,15 @@ const mismatches = Object.entries(sources).filter(
 	([, candidate]) => candidate !== version
 );
 
+const escapedVersion = version.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&');
+const changelogHeading = new RegExp(`^= ${escapedVersion} =$`, 'mu');
+
+if (!changelogHeading.test(readme)) {
+	throw new Error(
+		`readme.txt is missing the current changelog heading "= ${version} =".`
+	);
+}
+
 if (mismatches.length > 0) {
 	for (const [source, candidate] of mismatches) {
 		process.stderr.write(

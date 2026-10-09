@@ -8,7 +8,7 @@ Die lokale Implementierung und die reproduzierbaren Einzelinstallations-, Upgrad
 
 1. Die Browsersteuerung kann die tatsächlichen HTTP-Anfrageheader eines Cross-Origin-Iframes nicht anzeigen. Der abschließende Nachweis, dass die beiden Frame-Anfragen keinen `Cookie`-Header enthalten, muss deshalb einmal direkt in Chrome DevTools erfolgen. Kriterium 9 aus §19 ist bis dahin ausdrücklich **nicht vollständig bestanden**.
 
-Die Release-ZIP und der automatische Versionsgleichlauf aus den Kriterien 14 und 18 gehören entsprechend der Roadmap zu Block 15. Der Roadmap-Haken für Block 14 bleibt bis zur realen Browsermessung offen.
+Die Release-ZIP und der automatische Versionsgleichlauf aus den Kriterien 14 und 18 sind in Block 15 umgesetzt. Der Roadmap-Haken für Block 14 bleibt bis zur realen Browsermessung offen.
 
 ## Reale HTTPS-Browserprüfung
 
@@ -69,7 +69,7 @@ Damit ist das Verhalten für bestehende und später angelegte Sites reproduzierb
 | Bereich | Ergebnis |
 | --- | --- |
 | Mindestumgebung | WordPress 6.5.13, PHP 8.3, Standard-Block-Theme: bestanden. |
-| Aktuelle Zielumgebung | WordPress 7.0.7, PHP 8.5, klassisches Twenty Twenty-One: bestanden. |
+| Aktuelle Zielumgebung | WordPress 7.1.3, PHP 8.5, klassisches Twenty Twenty-One: bestanden. |
 | Classic Editor | Shortcode wird im WordPress-Integrationstest ohne Block-Editor gerendert: bestanden. |
 | Multisite | Netzaktivierung, neue Site, Cachetrennung und Löschregeln: bestanden. |
 | Viewports | Echter Chromium bei 320, 375, 768 und 1440 Pixeln: bestanden in Block 13. |
@@ -97,11 +97,11 @@ Die aktuelle WordPress-Version wurde am Testtag gegen die offizielle WordPress.o
 | 11 | bestanden | Getrennter Einzelinstallations- und Multisite-Lebenszykluslauf. |
 | 12 | bestanden | PHP-, JS-, Contract-, Browser-, Build- und WordPress-Läufe lokal und in GitHub Actions grün; das gesonderte reale Netzwerktor bleibt unter Nr. 9 offen. |
 | 13 | bestanden | Offizieller `wordpress/plugin-check-action@v1`-Job im [GitHub-Actions-Lauf 37889113794](https://github.com/pixel33-eu/turnierplan_eu/actions/runs/37889113794) grün. |
-| 14 | Block 15 | Wird am tatsächlichen Release-ZIP geprüft. |
+| 14 | bestanden | Das reproduzierbare Paket enthält genau ein Plugin-Verzeichnis und besteht den frischen WordPress-Installationstest. |
 | 15 | bestanden | Shortcode-Generator und Unit-Test lassen Darstellungsdefaults weg. |
 | 16 | bestanden | Direkter Inline-Vorschaustatus ohne Preset ist getestet. |
 | 17 | bestanden | Editor-Viewportzustände und unveränderte Frontend-Konfiguration sind getestet. |
-| 18 | Block 15 | Versions- und ZIP-Gleichlauf wird im Releaseprozess fertiggestellt. |
+| 18 | bestanden | VERSION, Plugin-Header, Konstante, Stable Tag, Changelog, Paket- und Blockversion sowie ZIP-Dateiname werden automatisch abgeglichen. |
 
 ## Restore und Upgrade
 
@@ -117,4 +117,4 @@ npm run check
 npm run test:responsive-browser
 ```
 
-`npm run check` umfasst Übersetzungen, Verträge, Lebenszyklusvertrag, JavaScript-Tests, Build, Lizenzen, WordPress 6.5/PHP 8.3 mit Block-Theme, WordPress 7.0.7/PHP 8.5 mit klassischem Theme, Einzel-Lebenszyklus und Multisite. GitHub führt zusätzlich den offiziellen [Plugin Check Action](https://github.com/WordPress/plugin-check-action) gegen das über `export-ignore` erzeugte Distributionsverzeichnis aus. Der erfolgreiche Lauf ist unter [GitHub Actions 37889113794](https://github.com/pixel33-eu/turnierplan_eu/actions/runs/37889113794) dokumentiert.
+`npm run check` umfasst Übersetzungen, Verträge, Lebenszyklusvertrag, JavaScript-Tests, Build, Lizenzen, reproduzierbares Release-Paket, WordPress 6.5/PHP 8.3 mit Block-Theme, WordPress 7.1.3/PHP 8.5 mit klassischem Theme, Einzel-Lebenszyklus, Multisite und frische Installation aus der ZIP. GitHub führt zusätzlich den offiziellen [Plugin Check Action](https://github.com/WordPress/plugin-check-action) gegen das aus derselben Release-ZIP entpackte Verzeichnis aus.

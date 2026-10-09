@@ -388,7 +388,7 @@ Das [Entscheidungsprotokoll](docs/block-01/DECISIONS.md) enthält Begründungen 
 - **Dienst einbettbar:** Blöcke 3–7 abgeschlossen; Tabellen und Spiele funktionieren im einfachen Test-Iframe.
 - **WordPress nutzbar:** Blöcke 2 und 8–11 abgeschlossen; direkte Einbettung per Block und Shortcode funktioniert.
 - **Version 1.0 funktionsvollständig:** Blöcke 12/13 abgeschlossen; Presets und durchgängige Bedienqualität vorhanden.
-- **Release geprüft:** Blöcke 14/15 abgeschlossen; Abnahmeprotokoll und installierbares Paket vorhanden. Verzeichniszulassung separat verfolgen.
+- **Release geprüft:** Block 15 ist lokal abgeschlossen; Abnahmeprotokoll, Verzeichnisbilder und installierbares Paket sind vorhanden. In Block 14 bleibt nur das ausdrücklich dokumentierte manuelle Browser-Tor offen. Verzeichniszulassung separat verfolgen.
 
 Jeder Block erhält später ein Arbeitspaket mit den Zuständen „offen“, „in Arbeit“, „in Prüfung“ und „abgenommen“. Zur Abnahme gehören konkrete geänderte Dateien, ausgeführte Prüfungen und ein nachprüfbares Ergebnis. Ein Block kann intern in mehrere kleine Änderungen zerlegt werden, ohne die 15 fachlichen Blöcke aufzubrechen. Kalendertermine werden erst nach Backend-Vertrag und festgelegter Testumgebung geschätzt.
 

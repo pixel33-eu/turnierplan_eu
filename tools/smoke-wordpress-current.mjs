@@ -13,11 +13,11 @@ const environment = {
 	...process.env,
 	TPEU_SMOKE_BLUEPRINT: 'playground-current-blueprint.json',
 	TPEU_SMOKE_EXPECTED_PHP: '8.5',
-	TPEU_SMOKE_EXPECTED_WP_CLASS: 'version-7-0',
-	TPEU_SMOKE_LABEL: 'WordPress 7.0.7, PHP 8.5, classic theme',
+	TPEU_SMOKE_EXPECTED_WP_CLASS: 'version-7-1',
+	TPEU_SMOKE_LABEL: 'WordPress 7.1.3, PHP 8.5, classic theme',
 	TPEU_SMOKE_PHP: '8.5',
 	TPEU_SMOKE_PORT: '8891',
-	TPEU_SMOKE_WORDPRESS: 'https://wordpress.org/wordpress-7.0.7.zip',
+	TPEU_SMOKE_WORDPRESS: 'https://wordpress.org/wordpress-7.1.3.zip',
 };
 
 for (let attempt = 1; attempt <= 2; attempt += 1) {

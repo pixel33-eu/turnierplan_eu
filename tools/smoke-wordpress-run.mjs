@@ -2,6 +2,7 @@ import { spawn, spawnSync } from 'node:child_process';
 import path from 'node:path';
 import process from 'node:process';
 import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const require = createRequire(import.meta.url);
@@ -33,6 +34,20 @@ const requestedPort = Number.parseInt(
 	process.env.TPEU_SMOKE_PORT ?? '8890',
 	10
 );
+const pluginVersion = readFileSync(
+	path.join(repositoryRoot, 'VERSION'),
+	'utf8'
+).trim();
+const escapedPluginVersion = pluginVersion.replace(
+	/[.*+?^${}()|[\]\\]/gu,
+	'\\$&'
+);
+const pluginDirectory = path.resolve(
+	process.env.TPEU_SMOKE_PLUGIN_DIR ?? repositoryRoot
+);
+const fixtureDirectory = process.env.TPEU_SMOKE_FIXTURE_DIR
+	? path.resolve(process.env.TPEU_SMOKE_FIXTURE_DIR)
+	: null;
 
 if (!Number.isInteger(requestedPort) || requestedPort < 1024) {
 	throw new Error('TPEU_SMOKE_PORT must be an integer of at least 1024.');
@@ -42,28 +57,34 @@ const baseUrl = `http://127.0.0.1:${requestedPort}`;
 const output = [];
 let exitCode = null;
 
-const child = spawn(
-	process.execPath,
-	[
-		playgroundCli,
-		'server',
-		'--port',
-		String(requestedPort),
-		'--php',
-		requestedPhp,
-		'--wp',
-		requestedWordPress,
-		'--blueprint',
-		blueprint,
+const playgroundArguments = [
+	playgroundCli,
+	'server',
+	'--port',
+	String(requestedPort),
+	'--php',
+	requestedPhp,
+	'--wp',
+	requestedWordPress,
+	'--blueprint',
+	blueprint,
+	'--mount-dir',
+	pluginDirectory,
+	'/wordpress/wp-content/plugins/turnierplan-eu',
+];
+
+if (fixtureDirectory !== null) {
+	playgroundArguments.push(
 		'--mount-dir',
-		repositoryRoot,
-		'/wordpress/wp-content/plugins/turnierplan-eu',
-	],
-	{
-		cwd: repositoryRoot,
-		stdio: ['ignore', 'pipe', 'pipe'],
-	}
-);
+		fixtureDirectory,
+		'/tmp/tpeu-tests'
+	);
+}
+
+const child = spawn(process.execPath, playgroundArguments, {
+	cwd: repositoryRoot,
+	stdio: ['ignore', 'pipe', 'pipe'],
+});
 
 const collectOutput = (chunk) => {
 	output.push(chunk.toString());
@@ -191,8 +212,10 @@ try {
 		);
 	}
 
-	if (!/Version 0\.1\.0/.test(pluginPage.body)) {
-		throw new Error('The active plugin does not report version 0.1.0.');
+	if (!pluginPage.body.includes(`Version ${pluginVersion}`)) {
+		throw new Error(
+			`The active plugin does not report version ${pluginVersion}.`
+		);
 	}
 
 	if (/Fatal error/i.test(pluginPage.body)) {
@@ -207,10 +230,12 @@ try {
 
 	if (
 		!/name="tpeu_plugin_version"/.test(optionsPage) ||
-		!/name="tpeu_plugin_version"[^>]+value="0\.1\.0"/.test(optionsPage)
+		!new RegExp(
+			`name="tpeu_plugin_version"[^>]+value="${escapedPluginVersion}"`
+		).test(optionsPage)
 	) {
 		throw new Error(
-			'The activation hook did not store plugin version 0.1.0.'
+			`The activation hook did not store plugin version ${pluginVersion}.`
 		);
 	}
 

@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const languageDirectory = path.join(root, 'languages');
 const poPath = path.join(languageDirectory, 'turnierplan-eu-de_DE.po');
+const version = (await readFile(path.join(root, 'VERSION'), 'utf8')).trim();
 const gettextPattern = /(?:__|esc_html__|translate)\(\s*'((?:\\.|[^'])*)'/gu;
 
 const walk = async (directory, extensions) => {
@@ -83,7 +84,7 @@ const createPot = (strings) => {
 	const lines = [
 		'msgid ""',
 		'msgstr ""',
-		'"Project-Id-Version: Turnierplan.eu 0.1.0\\n"',
+		`"Project-Id-Version: Turnierplan.eu ${version}\\n"`,
 		'"Report-Msgid-Bugs-To: https://github.com/pixel33-eu/turnierplan_eu/issues\\n"',
 		'"POT-Creation-Date: 2026-10-08 00:00+0200\\n"',
 		'"MIME-Version: 1.0\\n"',

@@ -78,9 +78,9 @@ jobs:
         run: |
           npm ci
           npm run build
-          mkdir -p tmp-build/turnierplan-eu
-          git archive HEAD | tar -x -C tmp-build/turnierplan-eu
-          cp -R build tmp-build/turnierplan-eu/build
+          npm run release:verify
+          mkdir -p tmp-build
+          unzip -q "dist/turnierplan-eu-$(cat VERSION).zip" -d tmp-build
 
       - name: Run official WordPress Plugin Check
         uses: wordpress/plugin-check-action@v1

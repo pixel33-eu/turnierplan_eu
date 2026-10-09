@@ -3,7 +3,7 @@
 Turnierpläne, Tabellen und Ergebnisse von [Turnierplan.eu](https://www.turnierplan.eu/) direkt in WordPress einbetten – ohne Ergebnisse doppelt zu pflegen und ohne eigenes HTML schreiben zu müssen.
 
 > [!IMPORTANT]
-> Das WordPress-Plugin besitzt ein aktivierbares und geprüftes Entwicklungsgrundgerüst, ein gemeinsames Konfigurationsmodell, die Einstellungen und Dienstfreigabe, eine geschützte Metadatenverbindung für den Editor, den gemeinsamen Renderer und Shortcode, den dynamischen Gutenberg-Block mit direkter Vorschau sowie geschützte wiederverwendbare Presets. Die getrennte Website enthält außerdem die zusätzliche Embed-API, den öffentlichen Metadaten-Endpunkt sowie eigenständige Tabellen- und Spielplanansichten. Ein produktionsreifes Release gibt es noch nicht. Die technische Produktspezifikation liegt in [`WORDPRESS.md`](./WORDPRESS.md).
+> Version 1.0.0 ist als geprüftes Release-Paket vorbereitet. Das Plugin bietet den Gutenberg-Block, Shortcode, wiederverwendbare Presets, Dienstfreigabe, geschützte Editor-Metadaten und responsive Tabellen- und Spielplanansichten. Die technische Produktspezifikation liegt in [`WORDPRESS.md`](./WORDPRESS.md). Die WordPress.org-Einreichung und der letzte manuelle Cookie-Nachweis aus Block 14 stehen noch aus.
 
 ## Ziel des Projekts
 
@@ -15,7 +15,7 @@ Geplant sind drei gleichwertige Zugänge:
 - ein kurzer, lesbarer Shortcode für den Classic Editor und Page Builder;
 - optionale Presets für Einbettungen, die an mehreren Stellen verwendet werden.
 
-## Geplanter Funktionsumfang für Version 1.0
+## Funktionsumfang von Version 1.0
 
 - Gutenberg-Block mit den Varianten **Turniertabelle** und **Spielplan**
 - Eingabe einer öffentlichen Turnier-ID, eines Slugs oder einer Turnierplan.eu-URL
@@ -81,7 +81,7 @@ Die geplante Architektur umfasst:
 
 Die Produktspezifikation, Sicherheitsregeln, UI-Abläufe und Akzeptanzkriterien stehen in [`WORDPRESS.md`](./WORDPRESS.md). Die verbindlichen Datenverträge für Version 1 liegen unter [`docs/contracts/v1`](./docs/contracts/v1/README.md).
 
-## Geplante Systemanforderungen
+## Systemanforderungen
 
 - WordPress 6.5 oder neuer
 - PHP 8.3 oder neuer
@@ -89,13 +89,11 @@ Die Produktspezifikation, Sicherheitsregeln, UI-Abläufe und Akzeptanzkriterien 
 - Block-Theme oder klassisches Theme
 - Classic Editor und viele Page Builder über den Shortcode
 
-Diese Mindestwerte wurden in Block 1 als Arbeitsgrundlage festgelegt. Vor dem ersten Release werden sie gegen die tatsächlich getestete Kompatibilitätsmatrix und den dann aktuellen Sicherheitsstatus geprüft.
+Diese Mindestwerte sind in der lokalen und automatisierten Kompatibilitätsmatrix geprüft.
 
 ## Installation
 
-Der Quellstand lässt sich für die Entwicklung bereits als Plugin-Verzeichnis installieren und aktivieren. Einrichtung, lokale WordPress-Instanz und alle Prüfkommandos sind in [`DEVELOPMENT.md`](./DEVELOPMENT.md) beschrieben. Ein geprüftes Release-ZIP steht noch nicht zur Verfügung. Die spätere Veröffentlichung ist über **GitHub Releases** und nach Zulassung über **WordPress.org** vorgesehen.
-
-Bitte verwende bis dahin keine automatisch aus dem Entwicklungszweig erzeugten Archive auf produktiven WordPress-Websites.
+Das geprüfte Release-ZIP wird mit `npm run release:build` unter `dist/` erzeugt. Einrichtung, lokale WordPress-Instanz, Releaseablauf und alle Prüfkommandos sind in [`DEVELOPMENT.md`](./DEVELOPMENT.md) beschrieben. Die Veröffentlichung über GitHub Releases und WordPress.org erfolgt erst nach dem noch offenen externen Abnahmetor.
 
 ## Roadmap
 
@@ -115,9 +113,9 @@ Die [Entwicklungsroadmap in 15 Blöcken](./WORDPRESS-ROADMAP.md) enthält für j
 - [x] 12 – Wiederverwendbare Presets und Verwaltungsoberfläche
 - [x] 13 – Bedienqualität, Barrierefreiheit und Sprachen
 - [ ] 14 – Lebenszyklus, Multisite und Gesamtprüfung
-- [ ] 15 – Dokumentation, Release und WordPress.org
+- [x] 15 – Dokumentation, Release und WordPress.org
 
-Die lokale Implementierung und Testmatrix von Block 14 ist abgeschlossen; auch der offizielle Plugin Check ist in GitHub Actions grün. Der reale HTTPS-Lauf mit bestehender Turnierplan-Anmeldung, zwei Frames und widerrufener Dienstfreigabe ist dokumentiert. Der Haken bleibt offen, bis Chrome DevTools zusätzlich den fehlenden `Cookie`-Anfrageheader und den Lauf mit ausdrücklich blockierten Drittanbieter-Cookies bestätigt. Details und die 18 Einzelkriterien stehen in [`docs/block-14/IMPLEMENTATION.md`](./docs/block-14/IMPLEMENTATION.md).
+Die lokale Implementierung und Testmatrix von Block 14 ist abgeschlossen. Der reale HTTPS-Lauf mit bestehender Turnierplan-Anmeldung, zwei Frames und widerrufener Dienstfreigabe ist dokumentiert. Der Haken bleibt offen, bis Chrome DevTools zusätzlich den fehlenden `Cookie`-Anfrageheader und den Lauf mit ausdrücklich blockierten Drittanbieter-Cookies bestätigt. Block 15 liefert Version 1.0.0, die reproduzierbare ZIP und die Verzeichnisunterlagen; Details stehen in [`docs/block-15/IMPLEMENTATION.md`](./docs/block-15/IMPLEMENTATION.md).
 
 Die ursprüngliche [Produktspezifikation](./WORDPRESS.md) bleibt erhalten. Die Roadmap ergänzt die Bestandsanalyse, notwendige Vertragspräzisierungen, WordPress.org-Vorgaben und das gesonderte Backlog nach Version 1.0.
 
@@ -127,7 +125,7 @@ Das Plugin soll ausschließlich mit fest definierten HTTPS-Endpunkten von Turnie
 
 Beim Laden einer Vorschau im Editor sowie einer Einbettung im Frontend entsteht eine Verbindung zu Turnierplan.eu. Vor dem ersten Release werden die übertragenen Daten, die Cache-Dauer und ein geeigneter Textbaustein für die WordPress-Datenschutzerklärung vollständig dokumentiert. Es werden keine Datenschutz- oder Tracking-Aussagen veröffentlicht, die nicht durch das ausgelieferte Verhalten belegt sind.
 
-Sicherheitsprobleme bitte nicht als öffentliches Issue mit ausnutzbaren Details melden. Ein vertraulicher Meldeweg wird vor dem ersten öffentlichen Release ergänzt.
+Sicherheitsprobleme bitte nicht als öffentliches Issue mit ausnutzbaren Details melden. Der vertrauliche Meldeweg ist in [`SECURITY.md`](./SECURITY.md) beschrieben.
 
 ## Barrierefreiheit
 
@@ -162,6 +160,8 @@ Die konkreten Entwicklungsbefehle, Laufzeitgrenzen und Prüfungen stehen in [`DE
 - [Entscheidungsprotokoll für Block 1](./docs/block-01/DECISIONS.md)
 - [Öffentlicher Embed-Vertrag V1](./docs/contracts/v1/README.md)
 - [Entwicklungsanleitung](./DEVELOPMENT.md)
+- [Release und WordPress.org](./docs/block-15/IMPLEMENTATION.md)
+- [Einreichungs- und SVN-Ablauf](./docs/block-15/WORDPRESS-ORG.md)
 - [Umsetzung und Abnahme von Block 2](./docs/block-02/IMPLEMENTATION.md)
 - [Umsetzung und Abnahme von Block 5](./docs/block-05/IMPLEMENTATION.md)
 - [Umsetzung und Abnahme von Block 6](./docs/block-06/IMPLEMENTATION.md)
@@ -178,4 +178,4 @@ Die konkreten Entwicklungsbefehle, Laufzeitgrenzen und Prüfungen stehen in [`DE
 
 ## Lizenz
 
-Die vorhandene Datei [LICENSE](./LICENSE) enthält die GNU General Public License, Version 2. Vor dem ersten Plugin-Release werden die Lizenzangaben in Quelltexten, Plugin-Header, Readme und Abhängigkeiten aufeinander abgestimmt; die genaue Versionsklausel wird dabei ausdrücklich festgelegt.
+Die Datei [LICENSE](./LICENSE) enthält die GNU General Public License, Version 2. Plugin-Header, Readme, Composer- und npm-Metadaten legen GPL-2.0-or-later fest.

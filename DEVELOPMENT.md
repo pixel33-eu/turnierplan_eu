@@ -10,7 +10,7 @@ Dieses Repository enthält ausschließlich das eigenständig entwickelte WordPre
 - npm 10.8 oder neuer
 - für die Docker-Laufzeit von `wp-env`: Docker Desktop
 
-Die standardmäßige lokale Laufzeit verwendet WordPress Playground und benötigt kein Docker. Die automatisierte Matrix prüft die festgelegte Untergrenze WordPress 6.5 mit PHP 8.3 sowie WordPress 7.0.7 mit PHP 8.5. Die aktuelle Zielversion wird vor einem Release erneut gegen WordPress.org geprüft.
+Die standardmäßige lokale Laufzeit verwendet WordPress Playground und benötigt kein Docker. Die automatisierte Matrix prüft die festgelegte Untergrenze WordPress 6.5 mit PHP 8.3 sowie WordPress 7.1.3 mit PHP 8.5.
 
 ## Ersteinrichtung
 
@@ -59,11 +59,36 @@ Das umfasst WordPress Coding Standards, statische Analyse auf Stufe 8 und PHPUni
 npm run check
 ```
 
-Die Node-Prüfkette startet kurzzeitig isolierte WordPress-Playground-Instanzen. `npm run test:wordpress` kontrolliert WordPress 6.5, PHP 8.3 und ein Block-Theme. `npm run test:wordpress:current` wiederholt den Lauf mit WordPress 7.0.7, PHP 8.5 und einem klassischen Theme. `npm run test:wordpress:lifecycle` prüft Aktivierung, Upgrade, Deaktivierung und beide Deinstallationsentscheidungen. `npm run test:wordpress:multisite` prüft Netzaktivierung, später angelegte Sites, Cachetrennung und sitebezogene Löschung. Die Instanzen werden nach jeder Prüfung beendet.
+Die Node-Prüfkette startet kurzzeitig isolierte WordPress-Playground-Instanzen. `npm run test:wordpress` kontrolliert WordPress 6.5, PHP 8.3 und ein Block-Theme. `npm run test:wordpress:current` wiederholt den Lauf mit WordPress 7.1.3, PHP 8.5 und einem klassischen Theme. `npm run test:wordpress:lifecycle` prüft Aktivierung, Upgrade, Deaktivierung und beide Deinstallationsentscheidungen. `npm run test:wordpress:multisite` prüft Netzaktivierung, später angelegte Sites, Cachetrennung und sitebezogene Löschung. `npm run test:wordpress:release` installiert ausschließlich die aus der Release-ZIP entpackten Laufzeitdateien. Die Instanzen werden nach jeder Prüfung beendet.
 
 Der offizielle Plugin Check läuft in GitHub Actions über `wordpress/plugin-check-action@v1`. Der lokale WordPress-Playground-CLI-Prozess 3.1.53 konnte Plugin Check 2.1.0 unter Windows nicht zuverlässig beenden; deshalb wird ein lokaler WASM-Abbruch nicht als Plugin-Check-Ergebnis gewertet.
 
 Der Build landet in `build/` und wird nicht eingecheckt. `VERSION` ist die maßgebliche Versionsdatei; `npm run check:versions` prüft die notwendigen statischen Angaben im Plugin-Header, in `readme.txt`, in `package.json` und in der PHP-Konstante.
+
+## Release-Paket
+
+Nach einem erfolgreichen Build erzeugt dieser Befehl ZIP, Prüfsumme und Manifest:
+
+```powershell
+npm run release:build
+```
+
+`npm run release:verify` baut den ZIP-Datenstrom zweimal und prüft Bytegleichheit. Das Paket enthält genau ein Verzeichnis `turnierplan-eu/` und nur die festgelegten Laufzeitdateien. Der Installationstest läuft mit:
+
+```powershell
+npm run test:wordpress:release
+```
+
+Ein öffentliches Release wird von einem sauberen Git-Tag erzeugt:
+
+```powershell
+git tag -s v1.0.0 -m "Turnierplan.eu WordPress plugin 1.0.0"
+node tools/build-release.mjs --require-tag
+```
+
+Das Signieren und Pushen des Tags sowie das Veröffentlichen über GitHub oder WordPress.org sind eigene externe Schritte. Der Ablauf steht in [`docs/block-15/WORDPRESS-ORG.md`](./docs/block-15/WORDPRESS-ORG.md).
+
+Die eigenen WordPress.org-Banner, Icons und Funktionsabbildungen werden mit `npm run assets:directory` erzeugt. `npm run check:directory-assets` prüft die acht PNG-Dateien und ihre vorgeschriebenen Maße. Diese Dateien liegen unter `wordpress-org-assets/` und gehören nicht in das Plugin-ZIP.
 
 Die Vertragsprüfung kann einzeln und plattformunabhängig gestartet werden:
 
