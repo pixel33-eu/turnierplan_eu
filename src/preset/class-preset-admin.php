@@ -176,8 +176,8 @@ final class PresetAdmin {
 			return;
 		}
 
-		$raw  = isset( $_POST['tpeu_preset_config'] ) ? wp_unslash( $_POST['tpeu_preset_config'] ) : '';
-		$data = is_string( $raw ) ? json_decode( $raw, true ) : null;
+		$raw  = isset( $_POST['tpeu_preset_config'] ) ? sanitize_textarea_field( wp_unslash( $_POST['tpeu_preset_config'] ) ) : '';
+		$data = json_decode( $raw, true );
 
 		try {
 			if ( ! is_array( $data ) ) {

@@ -1,4 +1,4 @@
-=== Turnierplan.eu – Turniere einbetten ===
+=== Turnierplan.eu – Embed tournaments ===
 Contributors: pixel33
 Tags: tournament, sports, schedule, standings, iframe
 Requires at least: 6.5
