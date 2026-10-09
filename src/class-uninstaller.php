@@ -67,13 +67,12 @@ final class Uninstaller {
 	private static function delete_presets(): void {
 		$preset_ids = get_posts(
 			array(
-				'fields'           => 'ids',
-				'numberposts'      => -1,
-				'orderby'          => 'ID',
-				'order'            => 'ASC',
-				'post_status'      => array( 'publish', 'future', 'draft', 'pending', 'private', 'trash', 'auto-draft', 'inherit' ),
-				'post_type'        => PresetRepository::POST_TYPE,
-				'suppress_filters' => true,
+				'fields'      => 'ids',
+				'numberposts' => -1,
+				'orderby'     => 'ID',
+				'order'       => 'ASC',
+				'post_status' => array( 'publish', 'future', 'draft', 'pending', 'private', 'trash', 'auto-draft', 'inherit' ),
+				'post_type'   => PresetRepository::POST_TYPE,
 			)
 		);
 
