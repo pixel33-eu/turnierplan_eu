@@ -57,8 +57,36 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
-      - name: Run Node.js checks and build
-        run: npm run check
+      - name: Check engines and package
+        run: |
+          npm run check:engines
+          npm run lint
+
+      - name: Run Node.js analysis and unit tests
+        run: npm run analyse
+
+      - name: Build plugin assets
+        run: npm run build
+
+      - name: Check licenses and release package
+        run: |
+          npm run check:licenses
+          npm run release:verify
+
+      - name: Test minimum WordPress
+        run: npm run test:wordpress
+
+      - name: Test current WordPress
+        run: npm run test:wordpress:current
+
+      - name: Test lifecycle
+        run: npm run test:wordpress:lifecycle
+
+      - name: Test multisite
+        run: npm run test:wordpress:multisite
+
+      - name: Test release ZIP
+        run: npm run test:wordpress:release
 
   plugin-check:
     name: Plugin Check
