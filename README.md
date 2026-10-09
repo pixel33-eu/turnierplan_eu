@@ -117,7 +117,7 @@ Die [Entwicklungsroadmap in 15 Blöcken](./WORDPRESS-ROADMAP.md) enthält für j
 - [ ] 14 – Lebenszyklus, Multisite und Gesamtprüfung
 - [ ] 15 – Dokumentation, Release und WordPress.org
 
-Die lokale Implementierung und Testmatrix von Block 14 ist abgeschlossen. Der Haken bleibt offen, bis die reale Cookie-/Netzwerkmessung mit einer bestehenden Turnierplan-Anmeldung sowie der erste erfolgreiche offizielle Plugin-Check-Lauf auf GitHub vorliegen. Details und die 18 Einzelkriterien stehen in [`docs/block-14/IMPLEMENTATION.md`](./docs/block-14/IMPLEMENTATION.md).
+Die lokale Implementierung und Testmatrix von Block 14 ist abgeschlossen; auch der offizielle Plugin Check ist in GitHub Actions grün. Der Haken bleibt offen, bis die reale Cookie-/Netzwerkmessung mit einer bestehenden Turnierplan-Anmeldung vorliegt. Details und die 18 Einzelkriterien stehen in [`docs/block-14/IMPLEMENTATION.md`](./docs/block-14/IMPLEMENTATION.md).
 
 Die ursprüngliche [Produktspezifikation](./WORDPRESS.md) bleibt erhalten. Die Roadmap ergänzt die Bestandsanalyse, notwendige Vertragspräzisierungen, WordPress.org-Vorgaben und das gesonderte Backlog nach Version 1.0.
 

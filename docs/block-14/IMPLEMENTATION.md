@@ -4,12 +4,11 @@ Stand: 9. Oktober 2026
 
 ## Status
 
-Die lokale Implementierung und die reproduzierbaren Einzelinstallations-, Upgrade-, Deaktivierungs-, Deinstallations-, Kompatibilitäts- und Multisite-Prüfungen sind abgeschlossen. Zwei externe Abnahmetore bleiben offen:
+Die lokale Implementierung und die reproduzierbaren Einzelinstallations-, Upgrade-, Deaktivierungs-, Deinstallations-, Kompatibilitäts- und Multisite-Prüfungen sind abgeschlossen. Der offizielle Plugin Check sowie die PHP- und Node-Matrix sind im [GitHub-Actions-Lauf 37889113794](https://github.com/pixel33-eu/turnierplan_eu/actions/runs/37889113794) vollständig bestanden. Ein externes Abnahmetor bleibt offen:
 
 1. Die reale Browser-Netzwerkmessung mit einer bestehenden Turnierplan-Anmeldung ist noch nicht durchgeführt. In dieser Sitzung war keine Browser-Sitzung verfügbar. Kriterium 9 aus §19 ist deshalb ausdrücklich **nicht bestanden**.
-2. Der offizielle Plugin Check ist als eigener GitHub-Actions-Job eingerichtet. Sein Ergebnis gilt erst nach einem erfolgreichen Lauf auf GitHub als bestanden.
 
-Die Release-ZIP und der automatische Versionsgleichlauf aus den Kriterien 14 und 18 gehören entsprechend der Roadmap zu Block 15. Der Roadmap-Haken für Block 14 bleibt bis zu den beiden externen Toren offen.
+Die Release-ZIP und der automatische Versionsgleichlauf aus den Kriterien 14 und 18 gehören entsprechend der Roadmap zu Block 15. Der Roadmap-Haken für Block 14 bleibt bis zur realen Browsermessung offen.
 
 ## Lebenszyklus
 
@@ -86,8 +85,8 @@ Die aktuelle WordPress-Version wurde am Testtag gegen die offizielle WordPress.o
 | 9 | offen | Reale DevTools-Netzwerkmessung mit bestehender Anmeldung, blockierten Drittanbieter-Cookies, mehreren Frames und widerrufener Freigabe erforderlich. |
 | 10 | bestanden | 222 englische Originale, vollständige deutsche PHP-/JS-Kataloge und echter MO-Ladetest. |
 | 11 | bestanden | Getrennter Einzelinstallations- und Multisite-Lebenszykluslauf. |
-| 12 | lokal bestanden | PHP-, JS-, Contract-, Browser-, Build- und WordPress-Läufe grün; reales Netzwerktor bleibt unter Nr. 9 offen. |
-| 13 | ausstehender CI-Nachweis | Offizieller `wordpress/plugin-check-action@v1`-Job ist eingerichtet. |
+| 12 | bestanden | PHP-, JS-, Contract-, Browser-, Build- und WordPress-Läufe lokal und in GitHub Actions grün; das gesonderte reale Netzwerktor bleibt unter Nr. 9 offen. |
+| 13 | bestanden | Offizieller `wordpress/plugin-check-action@v1`-Job im [GitHub-Actions-Lauf 37889113794](https://github.com/pixel33-eu/turnierplan_eu/actions/runs/37889113794) grün. |
 | 14 | Block 15 | Wird am tatsächlichen Release-ZIP geprüft. |
 | 15 | bestanden | Shortcode-Generator und Unit-Test lassen Darstellungsdefaults weg. |
 | 16 | bestanden | Direkter Inline-Vorschaustatus ohne Preset ist getestet. |
@@ -108,4 +107,4 @@ npm run check
 npm run test:responsive-browser
 ```
 
-`npm run check` umfasst Übersetzungen, Verträge, Lebenszyklusvertrag, JavaScript-Tests, Build, Lizenzen, WordPress 6.5/PHP 8.3 mit Block-Theme, WordPress 7.0.7/PHP 8.5 mit klassischem Theme, Einzel-Lebenszyklus und Multisite. GitHub führt zusätzlich den offiziellen [Plugin Check Action](https://github.com/WordPress/plugin-check-action) aus.
+`npm run check` umfasst Übersetzungen, Verträge, Lebenszyklusvertrag, JavaScript-Tests, Build, Lizenzen, WordPress 6.5/PHP 8.3 mit Block-Theme, WordPress 7.0.7/PHP 8.5 mit klassischem Theme, Einzel-Lebenszyklus und Multisite. GitHub führt zusätzlich den offiziellen [Plugin Check Action](https://github.com/WordPress/plugin-check-action) gegen das über `export-ignore` erzeugte Distributionsverzeichnis aus. Der erfolgreiche Lauf ist unter [GitHub Actions 37889113794](https://github.com/pixel33-eu/turnierplan_eu/actions/runs/37889113794) dokumentiert.
