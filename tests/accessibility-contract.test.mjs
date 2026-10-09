@@ -26,6 +26,11 @@ assert.match(renderer, /role="status" aria-live="polite" aria-atomic="true"/);
 assert.match(renderer, /<iframe[^>]+title="%12\$s"/);
 assert.match(embedCss, /max-inline-size:\s*100%/);
 assert.match(embedCss, /min-inline-size:\s*0/);
+assert.match(
+	embedCss,
+	/max-block-size:\s*min\(var\(--tpeu-max-height, 4000px\), 80dvh\)/,
+);
+assert.match(renderer, /--tpeu-max-height:%4\$dpx/);
 assert.match(embedCss, /:focus-visible/);
 assert.match(embedCss, /prefers-reduced-motion:\s*reduce/);
 assert.match(blockCss, /overflow-x:\s*auto/);

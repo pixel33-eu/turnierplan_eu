@@ -129,9 +129,17 @@ final class EmbedUrlBuilder {
 	 * @throws ConfigException When the reference is invalid.
 	 */
 	public function public_url( mixed $reference ): string {
+		$normalized = TournamentReference::normalize( $reference );
+
+		if ( ctype_digit( $normalized ) ) {
+			return $this->service->get_origin()
+				. '/live.php?id='
+				. rawurlencode( $normalized );
+		}
+
 		return $this->service->get_origin()
 			. '/t/'
-			. rawurlencode( TournamentReference::normalize( $reference ) );
+			. rawurlencode( $normalized );
 	}
 
 	/**

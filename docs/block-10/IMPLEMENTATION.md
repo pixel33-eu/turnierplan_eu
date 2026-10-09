@@ -25,6 +25,8 @@ Stylesheet und gebündeltes Skript werden erst eingereiht, wenn der Renderer wir
 
 Das Frontend initialisiert beliebig viele Einbettungen unabhängig voneinander und verwendet den geprüften Nachrichten-Controller aus Block 7. Es beginnt die Bereitschaftsfrist erst, wenn ein lazy geladenes Frame in die Nähe des sichtbaren Bereichs kommt. Die Zustände Laden, bereit, leer, veraltet, Fehler und Zeitüberschreitung besitzen verständliche lokale Texte. Dynamisch eingefügte Einbettungen werden über einen einzigen dokumentweiten `MutationObserver` erkannt; entfernte Einbettungen geben Listener und Observer wieder frei. Zusätzlich steht eine explizite Initialisierung für integrierende Komponenten bereit.
 
+Die sichtbare Frame-Höhe ist auf den kleineren Wert aus konfigurierter Maximalhöhe und 80 Prozent der aktuellen Viewport-Höhe begrenzt. Lange Spielpläne bleiben dadurch innerhalb des Bildschirms scrollbar, statt einen mehrere Tausend Pixel hohen verschachtelten Scrollbereich zu erzeugen. Eine ausdrücklich konfigurierte Mindesthöhe bleibt erhalten.
+
 ## Shortcode und Allowlist
 
 Der Handler registriert `[turnierplan]` über die WordPress Shortcode API, entfernt WordPress-Slashes einmal an der Eingabegrenze, ignoriert unbekannte Attribute und gibt immer einen String zurück. Beliebige Remote-URLs werden nicht angenommen. Eine Preset-Auswahl bleibt bis Block 12 als verständlicher lokaler Zustand sichtbar.

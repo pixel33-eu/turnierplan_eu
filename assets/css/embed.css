@@ -17,6 +17,8 @@
 	max-inline-size: 100%;
 	min-inline-size: 0;
 	min-block-size: 160px;
+	max-block-size: min(var(--tpeu-max-height, 4000px), 80vh);
+	max-block-size: min(var(--tpeu-max-height, 4000px), 80dvh);
 	border: 0;
 	background: transparent;
 }

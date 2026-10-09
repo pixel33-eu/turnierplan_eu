@@ -14,6 +14,7 @@ use TurnierplanEU\WordPress\Cache\MetadataCache;
 use TurnierplanEU\WordPress\Cache\WordPressCacheStore;
 use TurnierplanEU\WordPress\Config\EmbedUrlBuilder;
 use TurnierplanEU\WordPress\Config\ServiceConfiguration;
+use TurnierplanEU\WordPress\Localization\FrontendTranslator;
 use TurnierplanEU\WordPress\Localization\SiteLanguageResolver;
 use TurnierplanEU\WordPress\Remote\MetadataClient;
 use TurnierplanEU\WordPress\Remote\MetadataGateway;
@@ -105,7 +106,8 @@ final class Plugin {
 			new WordPressParentOrigin(),
 			new WordPressInstanceIdGenerator(),
 			new WordPressFrontendAssets( TPEU_PLUGIN_FILE, $this->version ),
-			$languages
+			$languages,
+			new FrontendTranslator( TPEU_PLUGIN_FILE )
 		);
 
 		( new ShortcodeHandler( $renderer, $presets ) )->register();

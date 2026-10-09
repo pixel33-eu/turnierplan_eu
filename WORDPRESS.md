@@ -261,7 +261,7 @@ Die interne Konfiguration verwendet sprechende, englische Schlüssel, damit PHP,
 | `schemaVersion` | Integer | `1` | nur unterstützte Versionen |
 | `tournamentRef` | String | leer | 1–100 Zeichen; ID, Slug oder serverseitig normalisierte öffentliche Kennung |
 | `view` | Enum | `standings` | `standings`, `matches`; später erweiterbar |
-| `language` | String | `auto` | `auto` oder vom API-Endpunkt angekündigter Sprachcode |
+| `language` | String | `auto` | `auto` oder vom API-Endpunkt angekündigter Sprachcode; steuert Frame sowie lokale Status-, Titel- und Fallbacktexte |
 | `group` | String/null | `null` | ausschließlich Wert aus den Metadaten |
 | `participant` | String/null | `null` | ausschließlich öffentliche Teilnehmerkennung aus den Metadaten |
 | `matchFrom` | Integer/null | `null` | mindestens 1 |
@@ -274,7 +274,7 @@ Die interne Konfiguration verwendet sprechende, englische Schlüssel, damit PHP,
 | `showBranding` | Boolean | `true` | serverseitige Tarifregeln haben Vorrang |
 | `openLinksInNewTab` | Boolean | `true` | steuert Linkverhalten im Frame |
 | `minHeight` | Integer | `240` | 160–2000 Pixel; nur Fallback |
-| `maxHeight` | Integer | `4000` | 300–8000 Pixel |
+| `maxHeight` | Integer | `4000` | 300–8000 Pixel; die sichtbare Frame-Höhe bleibt zusätzlich auf 80 % der Viewport-Höhe begrenzt |
 
 ### 8.2 Tabellenoptionen
 

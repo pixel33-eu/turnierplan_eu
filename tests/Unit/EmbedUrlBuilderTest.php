@@ -109,6 +109,10 @@ final class EmbedUrlBuilderTest extends TestCase {
 			'https://www.turnierplan.eu/t/sommer-cup',
 			$builder->public_url( 'Sommer-Cup' )
 		);
+		$this->assertSame(
+			'https://www.turnierplan.eu/live.php?id=12345',
+			$builder->public_url( '12345' )
+		);
 	}
 
 	/**

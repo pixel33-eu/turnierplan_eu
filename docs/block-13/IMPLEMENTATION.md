@@ -12,7 +12,7 @@ Alle PHP-, Einstellungs-, Preset- und Gutenberg-Texte verwenden englische Origin
 
 Der Build bricht bei fehlenden, leeren oder veralteten deutschen Einträgen ab. Der WordPress-Playground-Test lädt den MO-Katalog tatsächlich und prüft zentrale deutsche Begriffe. Die JavaScript-Kataloge werden über `wp_set_script_translations()` mit dem lokalen Sprachverzeichnis verbunden.
 
-Die WordPress-Oberfläche folgt weiterhin der Sprache des angemeldeten WordPress-Benutzers. Die Sprache der eingebetteten Turnierausgabe ist davon getrennt: Ein gespeichertes `auto` wird unmittelbar vor Metadaten- oder Frame-Aufrufen aus der primären Sprache der Website-Locale aufgelöst. Der gespeicherte Wert bleibt `auto`. Eine ausdrücklich gewählte Ausgabesprache bleibt unverändert. Metadaten-Zeitpunkte formatiert der Editor mit `Intl.DateTimeFormat` in der Dokumentsprache, statt einen rohen ISO-Zeitstempel anzuzeigen.
+Die WordPress-Oberfläche folgt weiterhin der Sprache des angemeldeten WordPress-Benutzers. Die Sprache der eingebetteten Turnierausgabe ist davon getrennt: Ein gespeichertes `auto` wird unmittelbar vor Metadaten- oder Frame-Aufrufen aus der primären Sprache der Website-Locale aufgelöst. Der gespeicherte Wert bleibt `auto`. Eine ausdrücklich gewählte Ausgabesprache bleibt unverändert. Sie steuert neben dem Frame auch dessen lokale Status-, Titel-, Fehler- und Fallback-Linktexte. Der Renderer liest dafür den gebündelten Gettext-Katalog isoliert, ohne die globale WordPress-Locale oder weitere Einbettungen auf derselben Seite zu verändern. Metadaten-Zeitpunkte formatiert der Editor mit `Intl.DateTimeFormat` in der Dokumentsprache, statt einen rohen ISO-Zeitstempel anzuzeigen.
 
 Diese Umsetzung folgt den offiziellen WordPress-Vorgaben zu [Internationalisierung](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/), [Lokalisierung](https://developer.wordpress.org/plugins/internationalization/localization/) und [JavaScript-Übersetzungen](https://developer.wordpress.org/reference/functions/wp_set_script_translations/).
 
@@ -43,6 +43,6 @@ npm run check
 composer check --ignore-platform-req=php
 ```
 
-Der Browser-Test benötigt Chrome, Edge oder einen über `TPEU_BROWSER_BIN` angegebenen Chromium-Browser. Der WordPress-Playground-Lauf prüft WordPress 6.5 mit PHP 8.3, die englische Standardoberfläche, den deutschen MO-Katalog, die aufgelöste `auto`-Sprache sowie die geschützten REST-, Block-, Preset- und Shortcode-Abläufe.
+Der Browser-Test benötigt Chrome, Edge oder einen über `TPEU_BROWSER_BIN` angegebenen Chromium-Browser. Der WordPress-Playground-Lauf prüft WordPress 6.5 mit PHP 8.3, die englische Standardoberfläche, den deutschen MO-Katalog, die aufgelöste `auto`-Sprache, explizit deutsche Wrappertexte bei `lang="de"`, die unveränderte WordPress-Locale danach sowie die geschützten REST-, Block-, Preset- und Shortcode-Abläufe.
 
 Die vollständige manuelle Prüfung mit verschiedenen Betriebssystem-Zoomstufen und assistiven Technologien bleibt Teil der Gesamtprüfung in Block 14. Die in diesem Block behauptete Sprachabdeckung umfasst die ausgelieferten WordPress-Oberflächen auf Englisch und Deutsch sowie die bereits vorhandenen deutschen und englischen Frame-Texte.

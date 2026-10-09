@@ -289,6 +289,18 @@ if ( 0 !== $tpeu_http_requests ) {
 	throw new RuntimeException( 'Normal frontend rendering triggered a WordPress HTTP request.' );
 }
 
+$tpeu_german_html = do_shortcode( '[turnierplan tournament="123" view="matches" lang="de"]' );
+
+if (
+	! str_contains( $tpeu_german_html, 'lang=de' )
+	|| ! str_contains( $tpeu_german_html, 'title="Spielplan: Turnier 123"' )
+	|| ! str_contains( $tpeu_german_html, 'Turnieransicht wird geladen' )
+	|| ! str_contains( $tpeu_german_html, 'Turnier vollständig auf Turnierplan.eu öffnen' )
+	|| 'en_US' !== get_locale()
+) {
+	throw new RuntimeException( 'Explicit German output did not localize the public wrapper independently of WordPress.' );
+}
+
 if (
 	! str_contains( $tpeu_block_html, '<iframe ' )
 	|| ! str_contains( $tpeu_block_html, '/embed/v1/tournaments/123' )
@@ -328,12 +340,16 @@ update_option(
 	false
 );
 
-$tpeu_disabled_html = do_shortcode( '[turnierplan tournament="123" view="standings"]' );
+$tpeu_disabled_html        = do_shortcode( '[turnierplan tournament="123" view="standings"]' );
+$tpeu_disabled_german_html = do_shortcode( '[turnierplan tournament="123" view="standings" lang="de"]' );
 
 if (
 	str_contains( $tpeu_disabled_html, '<iframe ' )
 	|| in_array( 'tpeu-embed', wp_scripts()->queue, true )
 	|| in_array( 'tpeu-embed', wp_styles()->queue, true )
+	|| ! str_contains( $tpeu_disabled_html, 'The tournament view is currently disabled on this website.' )
+	|| ! str_contains( $tpeu_disabled_german_html, 'Die Turnieransicht ist auf dieser Website derzeit nicht aktiviert.' )
+	|| ! str_contains( $tpeu_disabled_german_html, 'Turnier auf Turnierplan.eu öffnen' )
 ) {
 	throw new RuntimeException( 'Revoked service approval still rendered or enqueued an embed.' );
 }

@@ -257,7 +257,7 @@ Beim Frontend-Rendern validiert WordPress Syntax und gespeicherte Cacheinformati
 | `showBranding` | Boolean / `true` | `branding` | `branding` | Dienstrichtlinie hat Vorrang |
 | `openLinksInNewTab` | Boolean / `true` | `links` | `links` | Frame setzt Linkziel und sichere `rel`-Werte |
 | `minHeight` | Integer 160–2000 / `240` | `min_height` | – | ausschließlich WordPress-Wrapper |
-| `maxHeight` | Integer 300–8000 / `4000` | `max_height` | – | ausschließlich WordPress-Wrapper; darüber interner Scrollbereich |
+| `maxHeight` | Integer 300–8000 / `4000` | `max_height` | – | ausschließlich WordPress-Wrapper; interner Scrollbereich oberhalb des kleineren Werts aus Konfigurationsgrenze und 80 % Viewport-Höhe |
 | `showTeamLogos` | Boolean / `true` | `show:team_logos` | `show:team_logos` | nur `standings`, falls gemeldet |
 | `showPlayed` | Boolean / `true` | `show:played` | `show:played` | nur `standings`, falls gemeldet |
 | `showWinsDrawsLosses` | Boolean / `true` | `show:wins_draws_losses` | `show:wins_draws_losses` | nur `standings`, falls gemeldet |

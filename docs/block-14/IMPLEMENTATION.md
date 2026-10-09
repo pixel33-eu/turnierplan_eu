@@ -4,11 +4,21 @@ Stand: 9. Oktober 2026
 
 ## Status
 
-Die lokale Implementierung und die reproduzierbaren Einzelinstallations-, Upgrade-, Deaktivierungs-, Deinstallations-, Kompatibilitäts- und Multisite-Prüfungen sind abgeschlossen. Der offizielle Plugin Check sowie die PHP- und Node-Matrix sind im [GitHub-Actions-Lauf 37889113794](https://github.com/pixel33-eu/turnierplan_eu/actions/runs/37889113794) vollständig bestanden. Ein externes Abnahmetor bleibt offen:
+Die lokale Implementierung und die reproduzierbaren Einzelinstallations-, Upgrade-, Deaktivierungs-, Deinstallations-, Kompatibilitäts- und Multisite-Prüfungen sind abgeschlossen. Der offizielle Plugin Check sowie die PHP- und Node-Matrix sind im [GitHub-Actions-Lauf 37889113794](https://github.com/pixel33-eu/turnierplan_eu/actions/runs/37889113794) vollständig bestanden. Ein Teil des externen Abnahmetors wurde am 9. Oktober 2026 in einem echten Chrome-Browser nachgeholt. Offen bleibt:
 
-1. Die reale Browser-Netzwerkmessung mit einer bestehenden Turnierplan-Anmeldung ist noch nicht durchgeführt. In dieser Sitzung war keine Browser-Sitzung verfügbar. Kriterium 9 aus §19 ist deshalb ausdrücklich **nicht bestanden**.
+1. Die Browsersteuerung kann die tatsächlichen HTTP-Anfrageheader eines Cross-Origin-Iframes nicht anzeigen. Der abschließende Nachweis, dass die beiden Frame-Anfragen keinen `Cookie`-Header enthalten, muss deshalb einmal direkt in Chrome DevTools erfolgen. Kriterium 9 aus §19 ist bis dahin ausdrücklich **nicht vollständig bestanden**.
 
 Die Release-ZIP und der automatische Versionsgleichlauf aus den Kriterien 14 und 18 gehören entsprechend der Roadmap zu Block 15. Der Roadmap-Haken für Block 14 bleibt bis zur realen Browsermessung offen.
+
+## Reale HTTPS-Browserprüfung
+
+Der Browserlauf verwendete WordPress 7.1.3 im offiziellen WordPress Playground unter HTTPS und eine parallel nachgewiesene, bestehende Anmeldung auf `www.turnierplan.eu`. Das Plugin wurde aus einem bereinigten Testarchiv installiert und aktiviert. Der Verbindungstest für Turnier `400` war erfolgreich.
+
+Eine Entwurfsvorschau lud gleichzeitig Tabelle und Spielplan. Beide Frames zeigten reale Daten und meldeten den geladenen Zustand. Sichtbar geladene Ressourcen beschränkten sich auf die beiden Frame-Dokumente, das versionierte lokale Embed-JavaScript, das lokale Embed-Stylesheet und Turnierlogos unter demselben Turnierplan.eu-Ursprung. Beide Frame-Dokumente meldeten eine leere `document.cookie`-Zeichenkette. Direkte GET-Prüfungen der beiden Frame-Dokumente sowie der ausgelieferten JavaScript- und CSS-Datei enthielten keinen `Set-Cookie`-Header. Dieser Befund ersetzt nicht die noch offene Kontrolle des ausgehenden `Cookie`-Anfrageheaders.
+
+Nach Widerruf der Dienstfreigabe und erneutem Laden enthielt die WordPress-Vorschau null Turnierplan-Iframes und null externe Turnierplan-Ressourcen. Stattdessen erschienen ausschließlich die lokalen Hinweise und Fallback-Links. Anschließend wurde die Freigabe wiederhergestellt.
+
+Der Lauf deckte außerdem drei Darstellungsfehler auf. Numerische Referenzen wurden als nicht unterstütztes `/t/{id}` ausgegeben. `EmbedUrlBuilder` verwendet dafür nun `/live.php?id={id}`; Slugs und kanonische Referenzen bleiben unter `/t/{reference}`. Sehr lange Spielpläne erreichten die bisherige Maximalhöhe von 4000 Pixeln und erzeugten dadurch einen Scrollbereich, der deutlich höher als der Bildschirm war. Die sichtbare Frame-Höhe ist nun zusätzlich auf 80 Prozent der Viewport-Höhe begrenzt. Außerdem folgte der lokale Fallback-Link der WordPress-Oberflächensprache, obwohl der Frame ausdrücklich mit `lang="de"` konfiguriert war. Jetzt folgen alle lokalen Titel-, Status-, Fehler- und Linktexte derselben aufgelösten Ausgabesprache wie der Frame; ein Playground-Test prüft dies auf einer englischen WordPress-Installation.
 
 ## Lebenszyklus
 
@@ -82,7 +92,7 @@ Die aktuelle WordPress-Version wurde am Testtag gegen die offizielle WordPress.o
 | 6 | bestanden | Gefälschte Origin, Quelle, Instanz und Höhe bleiben wirkungslos. |
 | 7 | bestanden | Kein WordPress-HTTP beim Rendern; sichere Fehler- und Fallbackzustände. |
 | 8 | bestanden | Eigene und Core-REST-Routen schützen Presets, Entwürfe und Benutzerdaten. |
-| 9 | offen | Reale DevTools-Netzwerkmessung mit bestehender Anmeldung, blockierten Drittanbieter-Cookies, mehreren Frames und widerrufener Freigabe erforderlich. |
+| 9 | teilweise | HTTPS-Lauf mit bestehender Anmeldung, zwei realen Frames, leerem `document.cookie`, Ressourcenprüfung, fehlenden `Set-Cookie`-Antwortheadern und widerrufener Freigabe bestanden. Der ausgehende `Cookie`-Anfrageheader und die ausdrücklich blockierte Drittanbieter-Cookie-Einstellung müssen noch direkt in Chrome DevTools bestätigt werden. |
 | 10 | bestanden | 222 englische Originale, vollständige deutsche PHP-/JS-Kataloge und echter MO-Ladetest. |
 | 11 | bestanden | Getrennter Einzelinstallations- und Multisite-Lebenszykluslauf. |
 | 12 | bestanden | PHP-, JS-, Contract-, Browser-, Build- und WordPress-Läufe lokal und in GitHub Actions grün; das gesonderte reale Netzwerktor bleibt unter Nr. 9 offen. |
