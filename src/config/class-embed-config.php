@@ -149,6 +149,7 @@ final class EmbedConfig {
 
 		foreach ( self::boolean_fields() as $field ) {
 			if ( ! is_bool( $values[ $field ] ) ) {
+				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Internal schema key retained for error mapping; never rendered directly.
 				throw ConfigException::for_field( $field, 'Configuration flag must be boolean.' );
 			}
 		}
@@ -184,6 +185,7 @@ final class EmbedConfig {
 		$unknown = array_diff( array_keys( $setup_defaults ), self::SETUP_DEFAULT_FIELDS );
 
 		if ( array() !== $unknown ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Internal schema key retained for error mapping; never rendered directly.
 			throw ConfigException::for_field( (string) reset( $unknown ), 'Unknown setup default.' );
 		}
 

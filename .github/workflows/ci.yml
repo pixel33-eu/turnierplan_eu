@@ -67,19 +67,23 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v7
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.19.0'
+          cache: npm
+
+      - name: Build distributable plugin directory
+        shell: bash
+        run: |
+          npm ci
+          npm run build
+          mkdir -p tmp-build/turnierplan-eu
+          git archive HEAD | tar -x -C tmp-build/turnierplan-eu
+          cp -R build tmp-build/turnierplan-eu/build
+
       - name: Run official WordPress Plugin Check
         uses: wordpress/plugin-check-action@v1
         with:
-          exclude-directories: |
-            .github
-            node_modules
-            vendor
-            tests
-            tools
-            docs
-          exclude-files: |
-            .gitignore
-            DEVELOPMENT.md
-            WORDPRESS.md
-            WORDPRESS-ROADMAP.md
+          build-dir: './tmp-build/turnierplan-eu'
           slug: turnierplan-eu
