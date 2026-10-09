@@ -42,15 +42,16 @@ try {
 	if (build.status !== 0) {
 		process.exitCode = build.status ?? 1;
 	} else {
-		const extract = spawnSync(
-			'tar',
-			['-xf', archive, '-C', temporaryDirectory],
-			{
-				cwd: repositoryRoot,
-				encoding: 'utf8',
-				timeout: 30_000,
-			}
-		);
+		const extractCommand = process.platform === 'win32' ? 'tar' : 'unzip';
+		const extractArguments =
+			process.platform === 'win32'
+				? ['-xf', archive, '-C', temporaryDirectory]
+				: ['-q', archive, '-d', temporaryDirectory];
+		const extract = spawnSync(extractCommand, extractArguments, {
+			cwd: repositoryRoot,
+			encoding: 'utf8',
+			timeout: 30_000,
+		});
 
 		if (extract.status !== 0) {
 			throw new Error(
