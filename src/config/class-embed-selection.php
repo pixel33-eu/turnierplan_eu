@@ -52,6 +52,7 @@ final class EmbedSelection {
 		$unknown = array_diff( array_keys( $input ), array( 'presetId', 'config' ) );
 
 		if ( array() !== $unknown ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Internal schema key retained for error mapping; never rendered directly.
 			throw ConfigException::for_field( (string) reset( $unknown ), 'Unknown selection field.' );
 		}
 

@@ -274,12 +274,14 @@ final class ShortcodeConfigMapper {
 	 */
 	private static function positive_integer_string( string $field, mixed $value, int $max = PHP_INT_MAX ): int {
 		if ( ! is_string( $value ) || 1 !== preg_match( '/^[1-9][0-9]*$/', $value ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Internal schema key retained for error mapping; never rendered directly.
 			throw ConfigException::for_field( $field, 'Shortcode integer is malformed.' );
 		}
 
 		$integer = filter_var( $value, FILTER_VALIDATE_INT );
 
 		if ( false === $integer || $integer > $max ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Internal schema key retained for error mapping; never rendered directly.
 			throw ConfigException::for_field( $field, 'Shortcode integer is outside its allowed range.' );
 		}
 
@@ -310,6 +312,7 @@ final class ShortcodeConfigMapper {
 			return false;
 		}
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Internal schema key retained for error mapping; never rendered directly.
 		throw ConfigException::for_field( $field, 'Shortcode choice is not allowed.' );
 	}
 

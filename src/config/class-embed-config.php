@@ -209,6 +209,7 @@ final class EmbedConfig {
 	 */
 	public function get( string $field ): bool|int|string|null {
 		if ( ! array_key_exists( $field, $this->values ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Internal schema key retained for error mapping; never rendered directly.
 			throw ConfigException::for_field( $field, 'Unknown configuration field.' );
 		}
 
@@ -255,6 +256,7 @@ final class EmbedConfig {
 		$unknown = array_diff( array_keys( $input ), $allowed );
 
 		if ( array() !== $unknown ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Internal schema key retained for error mapping; never rendered directly.
 			throw ConfigException::for_field( (string) reset( $unknown ), 'Unknown configuration field.' );
 		}
 	}
@@ -298,6 +300,7 @@ final class EmbedConfig {
 	 */
 	private static function enum( string $field, mixed $value, array $allowed ): string {
 		if ( ! is_string( $value ) || ! in_array( $value, $allowed, true ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Internal schema key retained for error mapping; never rendered directly.
 			throw ConfigException::for_field( $field, 'Configuration value is not allowed.' );
 		}
 
@@ -349,6 +352,7 @@ final class EmbedConfig {
 		}
 
 		if ( ! is_string( $value ) || 1 !== preg_match( $pattern, strtolower( $value ) ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Internal schema key retained for error mapping; never rendered directly.
 			throw ConfigException::for_field( $field, 'Filter reference is malformed.' );
 		}
 
@@ -381,6 +385,7 @@ final class EmbedConfig {
 	 */
 	private static function integer( string $field, mixed $value, int $min, int $max ): int {
 		if ( ! is_int( $value ) || $value < $min || $value > $max ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Internal schema key retained for error mapping; never rendered directly.
 			throw ConfigException::for_field( $field, 'Configuration integer is outside its allowed range.' );
 		}
 
@@ -401,12 +406,14 @@ final class EmbedConfig {
 		}
 
 		if ( ! is_string( $value ) || 1 !== preg_match( self::DATE_PATTERN, $value ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Internal schema key retained for error mapping; never rendered directly.
 			throw ConfigException::for_field( $field, 'Date must use YYYY-MM-DD.' );
 		}
 
 		$date = DateTimeImmutable::createFromFormat( '!Y-m-d', $value );
 
 		if ( false === $date || $date->format( 'Y-m-d' ) !== $value ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Internal schema key retained for error mapping; never rendered directly.
 			throw ConfigException::for_field( $field, 'Date is not a real calendar day.' );
 		}
 
@@ -463,6 +470,7 @@ final class EmbedConfig {
 		if ( 'standings' === $values['view'] ) {
 			foreach ( array( 'participant', 'matchFrom', 'matchTo', 'dateFrom', 'dateTo' ) as $field ) {
 				if ( null !== $values[ $field ] ) {
+					// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Internal schema key retained for error mapping; never rendered directly.
 					throw ConfigException::for_field( $field, 'This filter is only available for matches.' );
 				}
 			}
