@@ -3,7 +3,7 @@
 Turnierpläne, Tabellen und Ergebnisse von [Turnierplan.eu](https://www.turnierplan.eu/) direkt in WordPress einbetten – ohne Ergebnisse doppelt zu pflegen und ohne eigenes HTML schreiben zu müssen.
 
 > [!IMPORTANT]
-> Version 1.0.0 ist als geprüftes Release-Paket vorbereitet. Das Plugin bietet den Gutenberg-Block, Shortcode, wiederverwendbare Presets, Dienstfreigabe, geschützte Editor-Metadaten und responsive Tabellen- und Spielplanansichten. Die technische Produktspezifikation liegt in [`WORDPRESS.md`](./WORDPRESS.md). Alle 15 Roadmap-Blöcke sind abgenommen; die WordPress.org-Einreichung wird separat nach der GitHub-Veröffentlichung verfolgt.
+> Version 1.0.1 ist als geprüftes Release-Paket vorbereitet. Das Plugin bietet den Gutenberg-Block, Shortcode, wiederverwendbare Presets, Dienstfreigabe, geschützte Editor-Metadaten und responsive Tabellen- und Spielplanansichten. Die technische Produktspezifikation liegt in [`WORDPRESS.md`](./WORDPRESS.md). Alle 15 Roadmap-Blöcke sind abgenommen; die WordPress.org-Einreichung wird separat nach der GitHub-Veröffentlichung verfolgt.
 
 ## Ziel des Projekts
 
@@ -115,7 +115,7 @@ Die [Entwicklungsroadmap in 15 Blöcken](./WORDPRESS-ROADMAP.md) enthält für j
 - [x] 14 – Lebenszyklus, Multisite und Gesamtprüfung
 - [x] 15 – Dokumentation, Release und WordPress.org
 
-Die vollständige Testmatrix aus Block 14 einschließlich des realen HTTPS-Laufs ist abgeschlossen. Chrome DevTools bestätigte bei bestehender Turnierplan-Anmeldung für beide Frame-Dokumente einen fehlenden `Cookie`-Anfrageheader; Tabelle und Spielplan laden auch bei ausdrücklich blockierten Drittanbieter-Cookies. Block 15 liefert Version 1.0.0, die reproduzierbare ZIP, den automatischen GitHub-Release und die Verzeichnisunterlagen; Details stehen in [`docs/block-15/IMPLEMENTATION.md`](./docs/block-15/IMPLEMENTATION.md).
+Die vollständige Testmatrix aus Block 14 einschließlich des realen HTTPS-Laufs ist abgeschlossen. Chrome DevTools bestätigte bei bestehender Turnierplan-Anmeldung für beide Frame-Dokumente einen fehlenden `Cookie`-Anfrageheader; Tabelle und Spielplan laden auch bei ausdrücklich blockierten Drittanbieter-Cookies. Block 15 liefert Version 1.0.1, die reproduzierbare ZIP, den automatischen GitHub-Release und die Verzeichnisunterlagen; Details stehen in [`docs/block-15/IMPLEMENTATION.md`](./docs/block-15/IMPLEMENTATION.md).
 
 Die ursprüngliche [Produktspezifikation](./WORDPRESS.md) bleibt erhalten. Die Roadmap ergänzt die Bestandsanalyse, notwendige Vertragspräzisierungen, WordPress.org-Vorgaben und das gesonderte Backlog nach Version 1.0.
 

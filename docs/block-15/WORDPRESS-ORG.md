@@ -8,15 +8,15 @@ Diese Unterlage bereitet die Veröffentlichung vor. Sie ist kein Nachweis, dass 
 2. plugins@wordpress.org im Mailfilter zulassen.
 3. Block 14 vollständig abnehmen, einschließlich des dokumentierten DevTools-Nachweises.
 4. CI auf dem vorgesehenen Releasecommit vollständig grün prüfen.
-5. Sauberen Tag v1.0.0 erstellen und node tools/build-release.mjs --require-tag ausführen.
-6. SHA-256-Prüfsumme mit dist/turnierplan-eu-1.0.0.zip.sha256 vergleichen.
+5. Sauberen Tag v1.0.1 erstellen und node tools/build-release.mjs --require-tag ausführen.
+6. SHA-256-Prüfsumme mit dist/turnierplan-eu-1.0.1.zip.sha256 vergleichen.
 7. Das ZIP nochmals über Plugins > Installieren > Plugin hochladen in einer frischen WordPress-Installation testen.
 8. readme.txt mit dem offiziellen WordPress-Readme-Validator prüfen.
 9. Lizenzinventar und alle Links nochmals kontrollieren.
 
 ## Einreichung
 
-Unter [wordpress.org/plugins/developers/add/](https://wordpress.org/plugins/developers/add/) wird die vollständige Datei turnierplan-eu-1.0.0.zip eingereicht. Die Kurzbeschreibung soll das konkrete Verhalten nennen:
+Unter [wordpress.org/plugins/developers/add/](https://wordpress.org/plugins/developers/add/) wird die vollständige Datei turnierplan-eu-1.0.1.zip eingereicht. Die Kurzbeschreibung soll das konkrete Verhalten nennen:
 
 > Embeds public Turnierplan.eu standings, schedules, and results in WordPress through a Gutenberg block, shortcode, or reusable preset. Administrators explicitly enable the external service before any connection is made.
 
@@ -29,11 +29,11 @@ WordPress.org stellt ein SVN-Repository bereit. GitHub bleibt das Entwicklungsre
     /
       assets/
       tags/
-        1.0.0/
+        1.0.1/
       trunk/
 
 1. Inhalt des geprüften ZIP ohne dessen äußeren Ordner nach trunk/ kopieren.
-2. Denselben Inhalt nach tags/1.0.0/ kopieren.
+2. Denselben Inhalt nach tags/1.0.1/ kopieren.
 3. Verzeichnisbilder aus wordpress-org-assets/ nach /assets/ kopieren; sie gehören weder in trunk/assets noch in das Plugin-ZIP.
 4. Für PNG-Dateien svn:mime-type image/png setzen.
 5. Vor dem Commit svn status, Version, Stable Tag und Dateiliste prüfen.
@@ -45,7 +45,7 @@ Die echten SVN-Befehle werden erst verwendet, wenn WordPress.org den endgültige
 
 Nach der tatsächlichen Veröffentlichung werden erst dann als erledigt markiert:
 
-- öffentliche Pluginseite zeigt Name, Version 1.0.0, Beschreibung und Screenshots korrekt;
+- öffentliche Pluginseite zeigt Name, Version 1.0.1, Beschreibung und Screenshots korrekt;
 - Download liefert dieselbe Laufzeitdateiliste und die erwartete Version;
 - Installation und Aktivierung aus dem öffentlichen WordPress.org-Download funktionieren;
 - Block, Shortcode, Preset, Einstellungen und Übersetzungen sind vorhanden;

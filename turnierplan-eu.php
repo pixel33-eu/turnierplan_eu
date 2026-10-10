@@ -3,7 +3,7 @@
  * Plugin Name:       Turnierplan.eu – Embed tournaments
  * Plugin URI:        https://www.turnierplan.eu/
  * Description:       Embeds public tournament schedules, standings, and results from Turnierplan.eu in WordPress.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.5
  * Requires PHP:      8.3
  * Author:            Pixel33 Software
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'TPEU_VERSION', '1.0.0' );
+define( 'TPEU_VERSION', '1.0.1' );
 define( 'TPEU_PLUGIN_FILE', __FILE__ );
 define( 'TPEU_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 

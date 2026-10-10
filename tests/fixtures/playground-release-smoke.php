@@ -25,8 +25,8 @@ $tpeu_release_headers = get_file_data(
 	array( 'version' => 'Version' )
 );
 
-if ( '1.0.0' !== $tpeu_release_headers['version'] ) {
-	throw new RuntimeException( 'The release ZIP does not expose version 1.0.0.' );
+if ( '1.0.1' !== $tpeu_release_headers['version'] ) {
+	throw new RuntimeException( 'The release ZIP does not expose version 1.0.1.' );
 }
 
 if ( ! shortcode_exists( 'turnierplan' ) ) {

@@ -39,6 +39,38 @@ const runtimePaths = [
 	'turnierplan-eu.php',
 	'uninstall.php',
 ];
+const normalizedTextExtensions = new Set([
+	'.css',
+	'.js',
+	'.json',
+	'.php',
+	'.po',
+	'.pot',
+	'.txt',
+]);
+
+const isNormalizedTextFile = (relativeFile) => {
+	const extension = path.extname(relativeFile).toLowerCase();
+
+	return (
+		path.basename(relativeFile) === 'LICENSE' ||
+		normalizedTextExtensions.has(extension)
+	);
+};
+
+const normalizeReleaseContents = (relativeFile, contents) => {
+	if (!isNormalizedTextFile(relativeFile)) {
+		return contents;
+	}
+
+	return Buffer.from(
+		contents
+			.toString('utf8')
+			.replaceAll('\r\n', '\n')
+			.replaceAll('\r', '\n'),
+		'utf8'
+	);
+};
 
 const crcTable = Array.from({ length: 256 }, (_, index) => {
 	let value = index;
@@ -125,7 +157,11 @@ const collectFiles = async (relativePath) => {
 	return files;
 };
 
-const createArchive = async (relativeFiles, timestamp) => {
+const createArchive = async (
+	relativeFiles,
+	timestamp,
+	prepareContents = (_relativeFile, contents) => contents
+) => {
 	const localParts = [];
 	const centralParts = [];
 	let offset = 0;
@@ -134,8 +170,12 @@ const createArchive = async (relativeFiles, timestamp) => {
 	for (const relativeFile of relativeFiles) {
 		const archiveName = `${pluginSlug}/${relativeFile}`;
 		const name = Buffer.from(archiveName, 'utf8');
-		const contents = await readFile(
-			path.join(repositoryRoot, relativeFile)
+		const contents = normalizeReleaseContents(
+			relativeFile,
+			prepareContents(
+				relativeFile,
+				await readFile(path.join(repositoryRoot, relativeFile))
+			)
 		);
 		const compressed = deflateRawSync(contents, { level: 9 });
 		const checksum = crc32(contents);
@@ -239,11 +279,23 @@ const timestamp = releaseTimestamp();
 const archive = await createArchive(files, timestamp);
 
 if (process.argv.includes('--verify-reproducible')) {
-	const secondArchive = await createArchive(files, timestamp);
+	const secondArchive = await createArchive(
+		files,
+		timestamp,
+		(relativeFile, contents) =>
+			isNormalizedTextFile(relativeFile)
+				? Buffer.from(
+						contents
+							.toString('utf8')
+							.replaceAll(/\r\n|\r|\n/gu, '\r\n'),
+						'utf8'
+					)
+				: contents
+	);
 
 	if (!archive.equals(secondArchive)) {
 		throw new Error(
-			'Two release builds from the same source were not identical.'
+			'Release builds with LF and CRLF source text were not identical.'
 		);
 	}
 }

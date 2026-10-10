@@ -82,7 +82,7 @@ npm run test:wordpress:release
 Ein öffentliches Release wird von einem sauberen Git-Tag erzeugt:
 
 ```powershell
-git tag -a v1.0.0 -m "Turnierplan.eu WordPress plugin 1.0.0"
+git tag -a v1.0.1 -m "Turnierplan.eu WordPress plugin 1.0.1"
 node tools/build-release.mjs --require-tag
 ```
 

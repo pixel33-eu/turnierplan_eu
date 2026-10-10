@@ -4,7 +4,7 @@ Stand: 10. Oktober 2026
 
 ## Status
 
-Block 15 ist umgesetzt und abgenommen. Version 1.0.0 besitzt ein vollständiges WordPress.org-Readme, einen privaten Sicherheitskontakt, eine dokumentierte Buildkette, ein reproduzierbares Release-ZIP, einen frischen Installationstest aus genau diesem ZIP und einen automatisierten GitHub-Releaseweg. Die externe Einreichung und Freigabe bei WordPress.org wird separat verfolgt und erst nach ihrer tatsächlichen Durchführung als erfolgt bezeichnet.
+Block 15 ist umgesetzt und abgenommen. Version 1.0.1 besitzt ein vollständiges WordPress.org-Readme, einen privaten Sicherheitskontakt, eine dokumentierte Buildkette, ein reproduzierbares Release-ZIP, einen frischen Installationstest aus genau diesem ZIP und einen automatisierten GitHub-Releaseweg. Die externe Einreichung und Freigabe bei WordPress.org wird separat verfolgt und erst nach ihrer tatsächlichen Durchführung als erfolgt bezeichnet.
 
 Der in Block 14 dokumentierte manuelle Browsernachweis für fehlende ausgehende Cookie-Anfrageheader und ausdrücklich blockierte Drittanbieter-Cookies wurde am 10. Oktober 2026 abgeschlossen.
 
@@ -12,8 +12,8 @@ Der in Block 14 dokumentierte manuelle Browsernachweis für fehlende ausgehende 
 
 npm run release:build erzeugt:
 
-- dist/turnierplan-eu-1.0.0.zip;
-- die SHA-256-Datei dist/turnierplan-eu-1.0.0.zip.sha256;
+- dist/turnierplan-eu-1.0.1.zip;
+- die SHA-256-Datei dist/turnierplan-eu-1.0.1.zip.sha256;
 - ein Manifest mit Version, Git-Commit, Zeitquelle, Prüfsumme und vollständiger Dateiliste.
 
 Das ZIP enthält genau das Stammverzeichnis turnierplan-eu/. Die Paketliste ist positiv definiert und enthält nur die Laufzeitdateien aus assets/css, blocks, build, languages, src sowie LICENSE, readme.txt, turnierplan-eu.php und uninstall.php. Tests, Werkzeuge, Entwicklungsabhängigkeiten, Dokumentationsquellen, Umgebungsdateien und Referenzmaterial gelangen nicht in das Plugin-Paket.
@@ -24,9 +24,11 @@ Für ein öffentliches Release prüft der zusätzliche Aufruf
 
     node tools/build-release.mjs --require-tag
 
-einen sauberen Arbeitsbaum und den exakten Git-Tag v1.0.0. Das ordnet das Paket eindeutig dem lesbaren Quellstand und den eingecheckten Buildwerkzeugen zu.
+einen sauberen Arbeitsbaum und den exakten Git-Tag v1.0.1. Das ordnet das Paket eindeutig dem lesbaren Quellstand und den eingecheckten Buildwerkzeugen zu.
 
-Ein eigener Tag-Workflow führt vor jeder GitHub-Veröffentlichung `composer check`, `npm run check`, den strikten Tag-Build und die SHA-256-Prüfung aus. Erst danach erstellt er mit dem GitHub-eigenen Token das Release und hängt ZIP, Prüfsumme und Manifest an. Die öffentlichen Release-Notizen liegen versioniert unter `docs/block-15/RELEASE-NOTES-1.0.0.md`.
+Ein eigener Tag-Workflow führt vor jeder GitHub-Veröffentlichung `composer check`, `npm run check`, den strikten Tag-Build und die SHA-256-Prüfung aus. Erst danach erstellt er mit dem GitHub-eigenen Token das Release und hängt ZIP, Prüfsumme und Manifest an. Die öffentlichen Release-Notizen liegen versioniert unter `docs/block-15/RELEASE-NOTES-1.0.1.md`.
+
+Die nachgelagerte Kontrolle des ersten GitHub-Artefakts deckte unterschiedliche Zeilenenden in `LICENSE` und dem deutschen PO-Katalog zwischen Windows und Linux auf. Version 1.0.1 normalisiert alle textuellen Paketeingaben vor Kompression. Dadurch erzeugen beide Betriebssysteme aus demselben Commit dieselben Archivbytes; Binärdateien bleiben unverändert.
 
 ## Versionsvertrag
 
@@ -38,13 +40,13 @@ VERSION ist die maßgebliche Releaseversion. npm run check:versions gleicht dami
 - blocks/embed/block.json;
 - Stable tag und aktuellen Changelog-Abschnitt in readme.txt.
 
-Die Datenvertragsnummer schemaVersion und apiVersion des WordPress-Blocks bleiben davon unabhängig. Beide kennzeichnen eigene technische Verträge und werden nicht auf 1.0.0 gesetzt.
+Die Datenvertragsnummer schemaVersion und apiVersion des WordPress-Blocks bleiben davon unabhängig. Beide kennzeichnen eigene technische Verträge und werden nicht auf die Plugin-Version gesetzt.
 
 ## Installationstest
 
 npm run test:wordpress:release erstellt das Paket, entpackt es in ein leeres temporäres Verzeichnis und bindet ausschließlich dieses Verzeichnis in eine frische WordPress-6.5-/PHP-8.3-Playground-Instanz ein. Der Test prüft:
 
-- Aktivierung und gemeldete Version 1.0.0;
+- Aktivierung und gemeldete Version 1.0.1;
 - gespeicherte Installationsversion;
 - Registrierung von Gutenberg-Block und Shortcode;
 - vorhandene kompilierte Editor-Dateien;

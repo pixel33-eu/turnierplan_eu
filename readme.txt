@@ -3,7 +3,7 @@ Contributors: pixel33
 Tags: tournament, sports, schedule, standings, results
 Requires at least: 6.5
 Tested up to: 7.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 8.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -123,6 +123,10 @@ For reproducible bugs and feature requests, use the [GitHub issue tracker](https
 4. Reuse a validated preset or copy its canonical shortcode.
 
 == Changelog ==
+
+= 1.0.1 =
+
+* Normalize text files while building release archives so Windows and Linux produce identical ZIP files from the same source.
 
 = 1.0.0 =
 
