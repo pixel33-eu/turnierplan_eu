@@ -4,7 +4,7 @@ Stand: 10. Oktober 2026
 
 ## Status
 
-Block 15 ist umgesetzt und abgenommen. Version 1.0.1 besitzt ein vollständiges WordPress.org-Readme, einen privaten Sicherheitskontakt, eine dokumentierte Buildkette, ein reproduzierbares Release-ZIP, einen frischen Installationstest aus genau diesem ZIP und einen automatisierten GitHub-Releaseweg. Die externe Einreichung und Freigabe bei WordPress.org wird separat verfolgt und erst nach ihrer tatsächlichen Durchführung als erfolgt bezeichnet.
+Block 15 ist umgesetzt und abgenommen. Version 1.0.1 besitzt ein vollständiges WordPress.org-Readme, einen privaten Sicherheitskontakt, eine dokumentierte Buildkette, ein reproduzierbares Release-ZIP, einen frischen Installationstest aus genau diesem ZIP und einen automatisierten GitHub-Releaseweg. Das geprüfte ZIP wurde am 10. Oktober 2026 bei WordPress.org eingereicht. WordPress.org führt es unter dem Slug `turnierplan-eu` mit dem Status `Awaiting Review`. Die Zulassung, das SVN-Repository und die öffentliche Veröffentlichung stehen noch aus.
 
 Der in Block 14 dokumentierte manuelle Browsernachweis für fehlende ausgehende Cookie-Anfrageheader und ausdrücklich blockierte Drittanbieter-Cookies wurde am 10. Oktober 2026 abgeschlossen.
 
@@ -85,4 +85,4 @@ Die lokale Abnahme umfasst:
     npm run check
     npm run test:responsive-browser
 
-GitHub Actions prüft PHP 8.3/8.5, die Node-Kette und den offiziellen WordPress Plugin Check gegen das aus dem Release-ZIP entpackte Pluginverzeichnis. Eine WordPress.org-Zulassung, ein SVN-Upload und eine öffentliche Downloadprüfung werden erst nach ihrem tatsächlichen Abschluss als bestanden vermerkt.
+GitHub Actions prüft PHP 8.3/8.5, die Node-Kette und den offiziellen WordPress Plugin Check gegen das aus dem Release-ZIP entpackte Pluginverzeichnis. Die WordPress.org-Einreichung von `turnierplan-eu-1.0.1.zip` ist abgeschlossen. Eine WordPress.org-Zulassung, ein SVN-Upload und eine öffentliche Downloadprüfung werden erst nach ihrem tatsächlichen Abschluss als bestanden vermerkt.

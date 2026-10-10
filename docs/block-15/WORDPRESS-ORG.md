@@ -1,6 +1,10 @@
 # WordPress.org-Einreichung und Veröffentlichung
 
-Diese Unterlage bereitet die Veröffentlichung vor. Sie ist kein Nachweis, dass WordPress.org das Plugin bereits geprüft oder zugelassen hat.
+Diese Unterlage dokumentiert die Einreichung und bereitet die Veröffentlichung vor. Sie ist kein Nachweis, dass WordPress.org das Plugin bereits geprüft oder zugelassen hat.
+
+## Aktueller Stand
+
+Am 10. Oktober 2026 wurde `turnierplan-eu-1.0.1.zip` über das Konto mit der Kontaktadresse `info@pixel33.eu` eingereicht. WordPress.org zeigt den Slug `turnierplan-eu` und den Status `Awaiting Review — This plugin has not yet been reviewed.` an. Bis zur Rückmeldung des Reviewteams wird kein anderes Paket hochgeladen.
 
 ## Vor der Einreichung
 
@@ -16,7 +20,7 @@ Diese Unterlage bereitet die Veröffentlichung vor. Sie ist kein Nachweis, dass 
 
 ## Einreichung
 
-Unter [wordpress.org/plugins/developers/add/](https://wordpress.org/plugins/developers/add/) wird die vollständige Datei turnierplan-eu-1.0.1.zip eingereicht. Die Kurzbeschreibung soll das konkrete Verhalten nennen:
+Unter [wordpress.org/plugins/developers/add/](https://wordpress.org/plugins/developers/add/) wurde die vollständige Datei `turnierplan-eu-1.0.1.zip` eingereicht. Die mitgesendete Zusatzinformation beschreibt das konkrete Verhalten:
 
 > Embeds public Turnierplan.eu standings, schedules, and results in WordPress through a Gutenberg block, shortcode, or reusable preset. Administrators explicitly enable the external service before any connection is made.
 
