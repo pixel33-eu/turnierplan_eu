@@ -1,20 +1,20 @@
 # Block 14: Lebenszyklus, Multisite und Gesamtprüfung
 
-Stand: 9. Oktober 2026
+Stand: 10. Oktober 2026
 
 ## Status
 
-Die lokale Implementierung und die reproduzierbaren Einzelinstallations-, Upgrade-, Deaktivierungs-, Deinstallations-, Kompatibilitäts- und Multisite-Prüfungen sind abgeschlossen. Der offizielle Plugin Check sowie die PHP- und Node-Matrix sind im [GitHub-Actions-Lauf 37889113794](https://github.com/pixel33-eu/turnierplan_eu/actions/runs/37889113794) vollständig bestanden. Ein Teil des externen Abnahmetors wurde am 9. Oktober 2026 in einem echten Chrome-Browser nachgeholt. Offen bleibt:
+Die lokale Implementierung und die reproduzierbaren Einzelinstallations-, Upgrade-, Deaktivierungs-, Deinstallations-, Kompatibilitäts- und Multisite-Prüfungen sind abgeschlossen. Der offizielle Plugin Check sowie die PHP- und Node-Matrix sind im [GitHub-Actions-Lauf 38003128472](https://github.com/pixel33-eu/turnierplan_eu/actions/runs/38003128472) vollständig bestanden. Das externe Abnahmetor wurde am 10. Oktober 2026 in einem echten Chrome-Browser abgeschlossen. Alle 18 Kriterien aus §19 sind damit bestanden.
 
-1. Die Browsersteuerung kann die tatsächlichen HTTP-Anfrageheader eines Cross-Origin-Iframes nicht anzeigen. Der abschließende Nachweis, dass die beiden Frame-Anfragen keinen `Cookie`-Header enthalten, muss deshalb einmal direkt in Chrome DevTools erfolgen. Kriterium 9 aus §19 ist bis dahin ausdrücklich **nicht vollständig bestanden**.
-
-Die Release-ZIP und der automatische Versionsgleichlauf aus den Kriterien 14 und 18 sind in Block 15 umgesetzt. Der Roadmap-Haken für Block 14 bleibt bis zur realen Browsermessung offen.
+Die Release-ZIP und der automatische Versionsgleichlauf aus den Kriterien 14 und 18 sind in Block 15 umgesetzt. Block 14 ist vollständig abgenommen.
 
 ## Reale HTTPS-Browserprüfung
 
 Der Browserlauf verwendete WordPress 7.1.3 im offiziellen WordPress Playground unter HTTPS und eine parallel nachgewiesene, bestehende Anmeldung auf `www.turnierplan.eu`. Das Plugin wurde aus einem bereinigten Testarchiv installiert und aktiviert. Der Verbindungstest für Turnier `400` war erfolgreich.
 
-Eine Entwurfsvorschau lud gleichzeitig Tabelle und Spielplan. Beide Frames zeigten reale Daten und meldeten den geladenen Zustand. Sichtbar geladene Ressourcen beschränkten sich auf die beiden Frame-Dokumente, das versionierte lokale Embed-JavaScript, das lokale Embed-Stylesheet und Turnierlogos unter demselben Turnierplan.eu-Ursprung. Beide Frame-Dokumente meldeten eine leere `document.cookie`-Zeichenkette. Direkte GET-Prüfungen der beiden Frame-Dokumente sowie der ausgelieferten JavaScript- und CSS-Datei enthielten keinen `Set-Cookie`-Header. Dieser Befund ersetzt nicht die noch offene Kontrolle des ausgehenden `Cookie`-Anfrageheaders.
+Eine Entwurfsvorschau lud gleichzeitig Tabelle und Spielplan. Beide Frames zeigten reale Daten und meldeten den geladenen Zustand. Sichtbar geladene Ressourcen beschränkten sich auf die beiden Frame-Dokumente, das versionierte lokale Embed-JavaScript, das lokale Embed-Stylesheet und Turnierlogos unter demselben Turnierplan.eu-Ursprung. Beide Frame-Dokumente meldeten eine leere `document.cookie`-Zeichenkette. Direkte GET-Prüfungen der beiden Frame-Dokumente sowie der ausgelieferten JavaScript- und CSS-Datei enthielten keinen `Set-Cookie`-Header.
+
+Die abschließende manuelle Chrome-DevTools-Prüfung bestätigte für beide `embed/v1/tournaments/400`-Dokumentanfragen, dass kein `Cookie`-Anfrageheader übertragen wurde. Nach dem ausdrücklichen Blockieren von Drittanbieter-Cookies und erneutem Laden blieben sowohl Tabelle als auch Spielplan funktionsfähig. Damit ist das gesonderte Cookie- und Speicher-Abnahmetor erfüllt.
 
 Nach Widerruf der Dienstfreigabe und erneutem Laden enthielt die WordPress-Vorschau null Turnierplan-Iframes und null externe Turnierplan-Ressourcen. Stattdessen erschienen ausschließlich die lokalen Hinweise und Fallback-Links. Anschließend wurde die Freigabe wiederhergestellt.
 
@@ -92,11 +92,11 @@ Die aktuelle WordPress-Version wurde am Testtag gegen die offizielle WordPress.o
 | 6 | bestanden | Gefälschte Origin, Quelle, Instanz und Höhe bleiben wirkungslos. |
 | 7 | bestanden | Kein WordPress-HTTP beim Rendern; sichere Fehler- und Fallbackzustände. |
 | 8 | bestanden | Eigene und Core-REST-Routen schützen Presets, Entwürfe und Benutzerdaten. |
-| 9 | teilweise | HTTPS-Lauf mit bestehender Anmeldung, zwei realen Frames, leerem `document.cookie`, Ressourcenprüfung, fehlenden `Set-Cookie`-Antwortheadern und widerrufener Freigabe bestanden. Der ausgehende `Cookie`-Anfrageheader und die ausdrücklich blockierte Drittanbieter-Cookie-Einstellung müssen noch direkt in Chrome DevTools bestätigt werden. |
+| 9 | bestanden | HTTPS-Lauf mit bestehender Anmeldung, zwei realen Frames, leerem `document.cookie`, fehlenden `Set-Cookie`-Antwortheadern, fehlenden `Cookie`-Anfrageheadern, blockierten Drittanbieter-Cookies und widerrufener Dienstfreigabe. |
 | 10 | bestanden | 222 englische Originale, vollständige deutsche PHP-/JS-Kataloge und echter MO-Ladetest. |
 | 11 | bestanden | Getrennter Einzelinstallations- und Multisite-Lebenszykluslauf. |
-| 12 | bestanden | PHP-, JS-, Contract-, Browser-, Build- und WordPress-Läufe lokal und in GitHub Actions grün; das gesonderte reale Netzwerktor bleibt unter Nr. 9 offen. |
-| 13 | bestanden | Offizieller `wordpress/plugin-check-action@v1`-Job im [GitHub-Actions-Lauf 37889113794](https://github.com/pixel33-eu/turnierplan_eu/actions/runs/37889113794) grün. |
+| 12 | bestanden | PHP-, JS-, Contract-, Browser-, Build- und WordPress-Läufe lokal und in GitHub Actions grün; das reale Netzwerktor unter Nr. 9 ist ebenfalls abgeschlossen. |
+| 13 | bestanden | Offizieller `wordpress/plugin-check-action@v1`-Job im [GitHub-Actions-Lauf 38003128472](https://github.com/pixel33-eu/turnierplan_eu/actions/runs/38003128472) grün. |
 | 14 | bestanden | Das reproduzierbare Paket enthält genau ein Plugin-Verzeichnis und besteht den frischen WordPress-Installationstest. |
 | 15 | bestanden | Shortcode-Generator und Unit-Test lassen Darstellungsdefaults weg. |
 | 16 | bestanden | Direkter Inline-Vorschaustatus ohne Preset ist getestet. |

@@ -3,7 +3,7 @@
 Turnierpläne, Tabellen und Ergebnisse von [Turnierplan.eu](https://www.turnierplan.eu/) direkt in WordPress einbetten – ohne Ergebnisse doppelt zu pflegen und ohne eigenes HTML schreiben zu müssen.
 
 > [!IMPORTANT]
-> Version 1.0.0 ist als geprüftes Release-Paket vorbereitet. Das Plugin bietet den Gutenberg-Block, Shortcode, wiederverwendbare Presets, Dienstfreigabe, geschützte Editor-Metadaten und responsive Tabellen- und Spielplanansichten. Die technische Produktspezifikation liegt in [`WORDPRESS.md`](./WORDPRESS.md). Die WordPress.org-Einreichung und der letzte manuelle Cookie-Nachweis aus Block 14 stehen noch aus.
+> Version 1.0.0 ist als geprüftes Release-Paket vorbereitet. Das Plugin bietet den Gutenberg-Block, Shortcode, wiederverwendbare Presets, Dienstfreigabe, geschützte Editor-Metadaten und responsive Tabellen- und Spielplanansichten. Die technische Produktspezifikation liegt in [`WORDPRESS.md`](./WORDPRESS.md). Alle 15 Roadmap-Blöcke sind abgenommen; die WordPress.org-Einreichung wird separat nach der GitHub-Veröffentlichung verfolgt.
 
 ## Ziel des Projekts
 
@@ -93,7 +93,7 @@ Diese Mindestwerte sind in der lokalen und automatisierten Kompatibilitätsmatri
 
 ## Installation
 
-Das geprüfte Release-ZIP wird mit `npm run release:build` unter `dist/` erzeugt. Einrichtung, lokale WordPress-Instanz, Releaseablauf und alle Prüfkommandos sind in [`DEVELOPMENT.md`](./DEVELOPMENT.md) beschrieben. Die Veröffentlichung über GitHub Releases und WordPress.org erfolgt erst nach dem noch offenen externen Abnahmetor.
+Das geprüfte Release-ZIP wird mit `npm run release:build` unter `dist/` erzeugt. Einrichtung, lokale WordPress-Instanz, Releaseablauf und alle Prüfkommandos sind in [`DEVELOPMENT.md`](./DEVELOPMENT.md) beschrieben. Ein Versions-Tag veröffentlicht das geprüfte Paket automatisch als GitHub Release; die WordPress.org-Einreichung folgt als eigener externer Vorgang.
 
 ## Roadmap
 
@@ -112,10 +112,10 @@ Die [Entwicklungsroadmap in 15 Blöcken](./WORDPRESS-ROADMAP.md) enthält für j
 - [x] 11 – Gutenberg-Block und direkte Vorschau
 - [x] 12 – Wiederverwendbare Presets und Verwaltungsoberfläche
 - [x] 13 – Bedienqualität, Barrierefreiheit und Sprachen
-- [ ] 14 – Lebenszyklus, Multisite und Gesamtprüfung
+- [x] 14 – Lebenszyklus, Multisite und Gesamtprüfung
 - [x] 15 – Dokumentation, Release und WordPress.org
 
-Die lokale Implementierung und Testmatrix von Block 14 ist abgeschlossen. Der reale HTTPS-Lauf mit bestehender Turnierplan-Anmeldung, zwei Frames und widerrufener Dienstfreigabe ist dokumentiert. Der Haken bleibt offen, bis Chrome DevTools zusätzlich den fehlenden `Cookie`-Anfrageheader und den Lauf mit ausdrücklich blockierten Drittanbieter-Cookies bestätigt. Block 15 liefert Version 1.0.0, die reproduzierbare ZIP und die Verzeichnisunterlagen; Details stehen in [`docs/block-15/IMPLEMENTATION.md`](./docs/block-15/IMPLEMENTATION.md).
+Die vollständige Testmatrix aus Block 14 einschließlich des realen HTTPS-Laufs ist abgeschlossen. Chrome DevTools bestätigte bei bestehender Turnierplan-Anmeldung für beide Frame-Dokumente einen fehlenden `Cookie`-Anfrageheader; Tabelle und Spielplan laden auch bei ausdrücklich blockierten Drittanbieter-Cookies. Block 15 liefert Version 1.0.0, die reproduzierbare ZIP, den automatischen GitHub-Release und die Verzeichnisunterlagen; Details stehen in [`docs/block-15/IMPLEMENTATION.md`](./docs/block-15/IMPLEMENTATION.md).
 
 Die ursprüngliche [Produktspezifikation](./WORDPRESS.md) bleibt erhalten. Die Roadmap ergänzt die Bestandsanalyse, notwendige Vertragspräzisierungen, WordPress.org-Vorgaben und das gesonderte Backlog nach Version 1.0.
 

@@ -4,9 +4,9 @@ Stand: 10. Oktober 2026
 
 ## Status
 
-Block 15 ist lokal umgesetzt. Version 1.0.0 besitzt ein vollständiges WordPress.org-Readme, einen privaten Sicherheitskontakt, eine dokumentierte Buildkette, ein reproduzierbares Release-ZIP und einen frischen Installationstest aus genau diesem ZIP. Die externe Einreichung, Freigabe und Veröffentlichung bei WordPress.org wurde entsprechend der Roadmap nicht vorgenommen.
+Block 15 ist umgesetzt und abgenommen. Version 1.0.0 besitzt ein vollständiges WordPress.org-Readme, einen privaten Sicherheitskontakt, eine dokumentierte Buildkette, ein reproduzierbares Release-ZIP, einen frischen Installationstest aus genau diesem ZIP und einen automatisierten GitHub-Releaseweg. Die externe Einreichung und Freigabe bei WordPress.org wird separat verfolgt und erst nach ihrer tatsächlichen Durchführung als erfolgt bezeichnet.
 
-Das Gesamtprojekt bleibt außerdem an dem in Block 14 dokumentierten manuellen Browsernachweis für den ausgehenden Cookie-Anfrageheader und ausdrücklich blockierte Drittanbieter-Cookies offen. Dieser externe Nachweis wird nicht durch lokale Tests oder die Release-ZIP ersetzt.
+Der in Block 14 dokumentierte manuelle Browsernachweis für fehlende ausgehende Cookie-Anfrageheader und ausdrücklich blockierte Drittanbieter-Cookies wurde am 10. Oktober 2026 abgeschlossen.
 
 ## Release-Paket
 

@@ -82,11 +82,11 @@ npm run test:wordpress:release
 Ein öffentliches Release wird von einem sauberen Git-Tag erzeugt:
 
 ```powershell
-git tag -s v1.0.0 -m "Turnierplan.eu WordPress plugin 1.0.0"
+git tag -a v1.0.0 -m "Turnierplan.eu WordPress plugin 1.0.0"
 node tools/build-release.mjs --require-tag
 ```
 
-Nach dem Push eines Tags `vX.Y.Z` führt `.github/workflows/release.yml` die PHP- und Node-Prüfkette erneut aus, erzeugt die exakt getaggten Artefakte und veröffentlicht ZIP, SHA-256-Datei und Manifest als GitHub Release. Das lokale Signieren und Pushen des Tags sowie die WordPress.org-Einreichung bleiben bewusste externe Schritte. Der Ablauf steht in [`docs/block-15/WORDPRESS-ORG.md`](./docs/block-15/WORDPRESS-ORG.md).
+Nach dem Push eines annotierten Tags `vX.Y.Z` führt `.github/workflows/release.yml` die PHP- und Node-Prüfkette erneut aus, erzeugt die exakt getaggten Artefakte und veröffentlicht ZIP, SHA-256-Datei und Manifest als GitHub Release. Das lokale Erstellen und Pushen des Tags sowie die WordPress.org-Einreichung bleiben bewusste externe Schritte. Der Ablauf steht in [`docs/block-15/WORDPRESS-ORG.md`](./docs/block-15/WORDPRESS-ORG.md).
 
 Die eigenen WordPress.org-Banner, Icons und Funktionsabbildungen werden mit `npm run assets:directory` erzeugt. `npm run check:directory-assets` prüft die acht PNG-Dateien und ihre vorgeschriebenen Maße. Diese Dateien liegen unter `wordpress-org-assets/` und gehören nicht in das Plugin-ZIP.
 
