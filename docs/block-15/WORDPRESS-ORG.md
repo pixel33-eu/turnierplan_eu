@@ -1,10 +1,12 @@
 # WordPress.org-Einreichung und Veröffentlichung
 
-Diese Unterlage dokumentiert die Einreichung und bereitet die Veröffentlichung vor. Sie ist kein Nachweis, dass WordPress.org das Plugin bereits geprüft oder zugelassen hat.
+Diese Unterlage dokumentiert die Einreichung, Prüfung und erste Veröffentlichung auf WordPress.org.
 
 ## Aktueller Stand
 
-Am 10. Oktober 2026 wurde `turnierplan-eu-1.0.1.zip` über das Konto mit der Kontaktadresse `info@pixel33.eu` eingereicht. WordPress.org zeigt den Slug `turnierplan-eu` und den Status `Awaiting Review — This plugin has not yet been reviewed.` an. Bis zur Rückmeldung des Reviewteams wird kein anderes Paket hochgeladen.
+Am 10. Oktober 2026 wurde `turnierplan-eu-1.0.1.zip` über das Konto mit der Kontaktadresse `info@pixel33.eu` eingereicht. Das Reviewteam bestätigte die Zulassung am 19. Oktober 2026. Am 21. Oktober 2026 wurde Version `1.0.1` als SVN-Revision `3757664` unter dem endgültigen Slug `turnierplan-eu` veröffentlicht.
+
+Die öffentliche Seite ist unter [wordpress.org/plugins/turnierplan-eu/](https://wordpress.org/plugins/turnierplan-eu/) erreichbar. WordPress.org kündigt nach dem ersten Commit eine ungefähr sechsstündige Sicherheitsverzögerung an, bevor die Version an WordPress-Installationen ausgeliefert wird.
 
 ## Vor der Einreichung
 
@@ -26,9 +28,9 @@ Unter [wordpress.org/plugins/developers/add/](https://wordpress.org/plugins/deve
 
 Reviewfragen und Korrekturen werden im GitHub-Quellstand nachvollziehbar umgesetzt. Eine geänderte Releaseversion erhält einen neuen Tag und ein neu geprüftes Paket; das bereits eingereichte ZIP wird nicht stillschweigend durch einen anderen Quellstand ersetzt.
 
-## Nach der Zulassung
+## SVN-Veröffentlichung
 
-WordPress.org stellt ein SVN-Repository bereit. GitHub bleibt das Entwicklungsrepository. SVN enthält nur freigegebene Ausgaben:
+GitHub bleibt das Entwicklungsrepository. Das WordPress.org-SVN-Repository enthält nur freigegebene Ausgaben:
 
     /
       assets/
@@ -36,25 +38,25 @@ WordPress.org stellt ein SVN-Repository bereit. GitHub bleibt das Entwicklungsre
         1.0.1/
       trunk/
 
-1. Inhalt des geprüften ZIP ohne dessen äußeren Ordner nach trunk/ kopieren.
-2. Denselben Inhalt nach tags/1.0.1/ kopieren.
-3. Verzeichnisbilder aus wordpress-org-assets/ nach /assets/ kopieren; sie gehören weder in trunk/assets noch in das Plugin-ZIP.
-4. Für PNG-Dateien svn:mime-type image/png setzen.
-5. Vor dem Commit svn status, Version, Stable Tag und Dateiliste prüfen.
-6. Einen einzelnen beschreibenden Releasecommit ausführen.
+1. Der Inhalt des geprüften ZIP wurde ohne dessen äußeren Ordner nach `trunk/` kopiert.
+2. Derselbe Inhalt wurde nach `tags/1.0.1/` kopiert.
+3. Die acht Verzeichnisbilder aus `wordpress-org-assets/` wurden nach `/assets/` kopiert; sie liegen weder in `trunk/assets` noch im Plugin-ZIP.
+4. Für alle PNG-Dateien ist `svn:mime-type` auf `image/png` gesetzt.
+5. Version, Stable Tag, Dateiliste und identische Dateihashes von `trunk` und `tags/1.0.1` wurden vor dem Commit geprüft.
+6. Der Release wurde als Revision `3757664` mit dem Committext `Release Turnierplan.eu Embed tournaments 1.0.1` veröffentlicht.
 
-Die echten SVN-Befehle werden erst verwendet, wenn WordPress.org den endgültigen Slug und das Repository zugewiesen hat.
+SVN-Repository: [plugins.svn.wordpress.org/turnierplan-eu](https://plugins.svn.wordpress.org/turnierplan-eu/)
 
 ## Kontrolle nach Veröffentlichung
 
-Nach der tatsächlichen Veröffentlichung werden erst dann als erledigt markiert:
+Am 21. Oktober 2026 wurden folgende Punkte kontrolliert:
 
-- öffentliche Pluginseite zeigt Name, Version 1.0.1, Beschreibung und Screenshots korrekt;
-- Download liefert dieselbe Laufzeitdateiliste und die erwartete Version;
-- Installation und Aktivierung aus dem öffentlichen WordPress.org-Download funktionieren;
-- Block, Shortcode, Preset, Einstellungen und Übersetzungen sind vorhanden;
-- Updateanzeige und Stable Tag stimmen überein;
-- Supportforum und Sicherheitskontakt sind erreichbar;
-- Links zu Turnierplan.eu, Datenschutz, Bedingungen und Quellcode funktionieren.
+- Die öffentliche Pluginseite zeigt Name, Version `1.0.1`, Beschreibung, Banner, Icon und vier Screenshots.
+- Der öffentliche Download enthält dieselben 74 Laufzeitdateien mit identischen Dateihashes wie das freigegebene Release.
+- Installation und Aktivierung aus dem öffentlichen WordPress.org-Download bestehen den Smoke-Test mit WordPress 6.5 und PHP 8.3.
+- Einstellungen werden geladen und die REST-Berechtigungen bestehen den Test.
+- `Stable tag` und Plugin-Header stehen auf `1.0.1`.
+- Das SVN-Arbeitsverzeichnis ist nach Revision `3757664` sauber; `trunk` und `tags/1.0.1` enthalten jeweils 74 Dateien, `/assets` enthält acht PNG-Dateien.
+- WordPress.org zeigt den automatischen Sicherheits-Rollout von ungefähr sechs Stunden an.
 
-Erst diese Kontrolle belegt die externe Veröffentlichung.
+Damit ist die erste externe Veröffentlichung technisch nachgewiesen. Die tatsächliche Update-Auslieferung an WordPress-Installationen folgt nach Ablauf der von WordPress.org angezeigten Sicherheitsverzögerung.
